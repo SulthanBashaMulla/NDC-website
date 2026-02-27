@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS Department Faculty</title>
+    <style>
+
+        /* ===========================
+           BASE / RESET (Mobile First)
+        =========================== */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f3f8;
+            color: #333;
+            min-height: 100vh;
+            padding: 16px 12px;
+        }
+
+        /* ===========================
+           WRAPPER
+        =========================== */
+        .table-wrapper {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 3px 14px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            width: 100%;
+        }
+
+        /* ===========================
+           TITLE BAR
+        =========================== */
+        .table-title {
+            background: #1a2f5c;
+            color: #fff;
+            text-align: center;
+            padding: 16px 12px;
+            font-size: 1rem;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+            line-height: 1.4;
+        }
+
+        .table-title span {
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 400;
+            opacity: 0.75;
+            margin-top: 4px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* ===========================
+           CARD LAYOUT — MOBILE
+           Each tr becomes a card
+        =========================== */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        /* Hide thead on mobile */
+        thead {
+            display: none;
+        }
+
+        tbody tr {
+            display: block;
+            border-bottom: 6px solid #f0f3f8;
+            padding: 14px 16px;
+            background: #fff;
+            transition: background 0.2s;
+        }
+
+        tbody tr:last-child {
+            border-bottom: none;
+        }
+
+        tbody tr:nth-child(even) {
+            background: #fafbff;
+        }
+
+        tbody tr:hover {
+            background: #eef2ff;
+        }
+
+        tbody td {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 6px 0;
+            font-size: 0.88rem;
+            border: none;
+        }
+
+        /* Label shown on mobile using data-label */
+        tbody td::before {
+            content: attr(data-label);
+            font-weight: bold;
+            color: #1a2f5c;
+            min-width: 110px;
+            flex-shrink: 0;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            padding-top: 2px;
+        }
+
+        /* ===========================
+           DESIGNATION BADGE
+        =========================== */
+        .designation-badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .hod {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #b8dfc4;
+        }
+
+        .lecturer {
+            background-color: #f1f1f1;
+            color: #555;
+            border: 1px solid #ddd;
+        }
+
+        /* ===========================
+           TABLET — 480px+
+        =========================== */
+        @media (min-width: 480px) {
+            body {
+                padding: 24px 20px;
+            }
+
+            .table-title {
+                font-size: 1.1rem;
+                padding: 18px 16px;
+            }
+
+            .table-title span {
+                font-size: 0.8rem;
+            }
+
+            tbody td {
+                font-size: 0.92rem;
+            }
+
+            tbody td::before {
+                min-width: 130px;
+                font-size: 0.82rem;
+            }
+        }
+
+        /* ===========================
+           SMALL TABLET — 640px+
+           Switch to proper table view
+        =========================== */
+        @media (min-width: 640px) {
+            body {
+                padding: 32px 24px;
+                display: flex;
+                justify-content: center;
+                align-items: flex-start;
+            }
+
+            .table-wrapper {
+                max-width: 860px;
+            }
+
+            /* Reveal the real thead */
+            thead {
+                display: table-header-group;
+            }
+
+            thead tr {
+                background: #1a2f5c;
+            }
+
+            thead th {
+                color: #fff;
+                font-weight: bold;
+                padding: 13px 16px;
+                text-align: left;
+                font-size: 0.9rem;
+                letter-spacing: 0.4px;
+                border-right: 1px solid rgba(255,255,255,0.15);
+            }
+
+            thead th:last-child {
+                border-right: none;
+            }
+
+            /* Reset tbody rows back to normal table rows */
+            tbody tr {
+                display: table-row;
+                border-bottom: 1px solid #e5e9f0;
+                padding: 0;
+            }
+
+            tbody td {
+                display: table-cell;
+                padding: 12px 16px;
+                font-size: 0.9rem;
+                border-right: 1px solid #eef0f5;
+                vertical-align: middle;
+            }
+
+            tbody td:last-child {
+                border-right: none;
+            }
+
+            /* Hide mobile labels */
+            tbody td::before {
+                display: none;
+            }
+
+            .designation-badge {
+                font-size: 0.82rem;
+                padding: 4px 11px;
+            }
+        }
+
+        /* ===========================
+           DESKTOP — 768px+
+        =========================== */
+        @media (min-width: 768px) {
+            body {
+                padding: 40px 32px;
+            }
+
+            .table-title {
+                font-size: 1.25rem;
+                padding: 20px;
+                letter-spacing: 0.8px;
+            }
+
+            .table-title span {
+                font-size: 0.85rem;
+            }
+
+            thead th {
+                font-size: 0.95rem;
+                padding: 14px 20px;
+            }
+
+            tbody td {
+                font-size: 0.95rem;
+                padding: 14px 20px;
+            }
+
+            .designation-badge {
+                font-size: 0.85rem;
+                padding: 4px 13px;
+            }
+        }
+
+        /* ===========================
+           LARGE DESKTOP — 1024px+
+        =========================== */
+        @media (min-width: 1024px) {
+            .table-wrapper {
+                max-width: 1000px;
+            }
+
+            .table-title {
+                font-size: 1.4rem;
+            }
+
+            thead th {
+                font-size: 1rem;
+                padding: 16px 24px;
+            }
+
+            tbody td {
+                font-size: 1rem;
+                padding: 15px 24px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="table-wrapper">
+
+        <div class="table-title">
+            Computer Science Department — Faculty
+            <span>Meet Our Distinguished Educators</span>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Faculty Name</th>
+                    <th>Designation</th>
+                    <th>Department</th>
+                    <th>Teaching Experience</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td data-label="Faculty Name">Mr. Sai Kumar</td>
+                    <td data-label="Designation"><span class="designation-badge hod">Head of the Department</span></td>
+                    <td data-label="Department">Computer Science</td>
+                    <td data-label="Experience">—</td>
+                </tr>
+                <tr>
+                    <td data-label="Faculty Name">Rama Krishna</td>
+                    <td data-label="Designation"><span class="designation-badge lecturer">Lecturer</span></td>
+                    <td data-label="Department">Computer Science</td>
+                    <td data-label="Experience">—</td>
+                </tr>
+                <tr>
+                    <td data-label="Faculty Name">B. Md. Rafi</td>
+                    <td data-label="Designation"><span class="designation-badge lecturer">Lecturer</span></td>
+                    <td data-label="Department">Computer Science</td>
+                    <td data-label="Experience">—</td>
+                </tr>
+                <tr>
+                    <td data-label="Faculty Name">Naveen Kumar</td>
+                    <td data-label="Designation"><span class="designation-badge lecturer">Lecturer</span></td>
+                    <td data-label="Department">Computer Science</td>
+                    <td data-label="Experience">—</td>
+                </tr>
+                <tr>
+                    <td data-label="Faculty Name">Mohammed Ali</td>
+                    <td data-label="Designation"><span class="designation-badge lecturer">Lecturer</span></td>
+                    <td data-label="Department">Computer Science</td>
+                    <td data-label="Experience">—</td>
+                </tr>
+                <tr>
+                    <td data-label="Faculty Name">Badulla</td>
+                    <td data-label="Designation"><span class="designation-badge lecturer">Lecturer</span></td>
+                    <td data-label="Department">Computer Science</td>
+                    <td data-label="Experience">—</td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+</body>
+</html>

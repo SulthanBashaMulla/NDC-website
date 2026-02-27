@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallary</title>
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    overflow-x: hidden;
+}
+.container {
+    width: 100%;
+    padding: 0 12px;
+    margin: 0 auto;
+}
+
+/* ========================
+   HEADER STYLES
+======================== */
+.header {
+    background: #fff;
+    padding: 15px 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.header-content {
+    display: flex;
+    flex-direction: column;   
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo-section {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo {
+    width: 60px;
+    height: 60px;
+}
+
+.logo-img-header {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.college-info {
+    width: 100%;
+    padding: 10px 12px;
+    text-align: center;
+}
+
+.college-info h1 {
+    font-size: 1.65rem;
+    color: #ff6b35;
+    font-family: 'Roboto Slab', serif;
+    font-weight: bold;
+    line-height: 1.2;
+    margin-bottom: 8px;
+}
+
+.affiliated-text {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    color: #1a2f5c;
+    font-family: 'Roboto Slab', serif;
+    font-weight: bold;
+    font-size: 0.95rem;
+    margin-bottom: 6px;
+}
+
+.college-info p {
+    font-size: 0.9rem;
+    line-height: 1.4;
+    margin: 0 auto;
+    max-width: 600px;
+}
+
+@media (min-width: 768px) {
+    .header-content {
+        flex-direction: row;       
+        justify-content: space-between;
+        align-items: center;
+        gap: 20px;
+        width: 100%;
+        max-width: 1200px;        
+        margin: 0 auto;          
+    }
+    .logo {
+        width: 70px;
+        height: 70px;
+    }
+    .logo-section {
+        gap: 15px;
+    }
+    .college-info h1 {
+        font-size: 2.5rem;
+    }
+    .affiliated-text {
+        font-size: 1.1rem;
+    }
+    .college-info p {
+        font-size: 1rem;
+    }
+}
+
+/* ========================
+   NAVIGATION (Mobile First)
+======================== */
+nav {
+    width: 100%;
+    background: #1a2f5c;
+    font-family: 'Roboto', sans-serif;
+    position: relative;
+    z-index: 1000;
+}
+
+.nav-section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 10px 15px;
+}
+
+.nav-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+/* Mobile Toggle Button */
+.menu-toggle {
+    background: #ff6b35;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: 600;
+    display: block;
+    font-size: 1rem;
+}
+
+/* Navigation Links Container */
+.nav-links {
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+}
+
+.nav-links.active {
+    display: flex;
+}
+
+/* Direct navigation links */
+.nav-links > a {
+    text-decoration: none;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: background 0.3s;
+    display: block;
+}
+
+.nav-links > a:hover {
+    background: #ff6b35;
+}
+
+/* ========================
+   DROPDOWN STYLES
+======================== */
+.dropdown {
+    position: relative;
+}
+
+.drop-btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    background: none;
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background 0.3s;
+    text-align: left;
+    font-size: 1rem;
+}
+
+.drop-btn:hover {
+    background: #ff6b35;
+}
+
+.nav-arrow {
+    width: 16px;
+    height: 16px;
+    margin-left: 8px;
+    transition: transform 0.3s ease;
+    flex-shrink: 0;
+}
+
+/* Dropdown Content */
+.dropdown-content {
+    display: none;
+    flex-direction: column;
+    background: #2a3e66;
+    margin-top: 5px;
+    border-radius: 5px;
+}
+
+.dropdown-content a {
+    color: white;
+    padding: 10px 15px;
+    text-decoration: none;
+    font-weight: 500;
+    display: block;
+    transition: background 0.3s;
+}
+
+.dropdown-content a:hover {
+    background: #ff6b35;
+}
+.dropdown.active > .dropdown-content {
+    display: flex;
+}
+
+.dropdown.active > .drop-btn .nav-arrow {
+    transform: rotate(180deg);
+}
+
+/* ========================
+   TABLET/DESKTOP (768px+)
+======================== */
+@media (min-width: 768px) {
+    .menu-toggle {
+        display: none;
+    }
+
+    
+    .nav-content {
+        flex-wrap: nowrap; 
+        gap: 0; 
+    }
+    .nav-links {
+        display: flex !important;
+        flex-direction: row;
+        align-items: center;
+        gap: 0;  /* Start with no gap */
+        width: auto;
+        flex-wrap: nowrap;  /* Prevent items from wrapping */
+    }
+
+
+    .nav-links > a,
+    .drop-btn {
+        padding: 10px 12px;  /* Reduced horizontal padding */
+        white-space: nowrap;
+        font-size: 0.95rem;  /* Slightly smaller font */
+    }
+
+    .drop-btn {
+        width: auto;
+    }
+
+    /* Dropdown positioning */
+    .dropdown-content {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        min-width: 200px;
+        margin-top: 5px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        z-index: 9999;
+        border-radius: 5px;
+        max-height: 80vh;
+        overflow-y: auto;
+    }
+
+    /* Custom scrollbar */
+    .dropdown-content::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    .dropdown-content::-webkit-scrollbar-track {
+        background: #1a2f5c;
+        border-radius: 4px;
+    }
+
+    .dropdown-content::-webkit-scrollbar-thumb {
+        background: #ff6b35;
+        border-radius: 4px;
+    }
+
+    /* Show on hover (desktop only) */
+    .dropdown:hover > .dropdown-content {
+        display: flex !important;
+        flex-direction: column;
+    }
+
+    .dropdown:hover > .drop-btn {
+        background: #ff6b35;
+    }
+
+    .dropdown:hover > .drop-btn .nav-arrow {
+        transform: rotate(180deg);
+    }
+
+
+    .dropdown.active > .dropdown-content {
+        display: none;
+    }
+
+    .dropdown:hover > .dropdown-content {
+        display: flex !important;
+    }
+
+    /* Nested dropdowns */
+    .dropdown-content .dropdown {
+        position: relative;
+    }
+
+    .dropdown-content .drop-btn {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .dropdown-content .nav-arrow {
+        transform: rotate(-90deg);
+    }
+
+    .dropdown-content .dropdown:hover > .drop-btn .nav-arrow {
+        transform: rotate(-90deg);
+    }
+
+    .dropdown-content .dropdown-content {
+        position: absolute;
+        top: 0;
+        left: 100%;
+        margin-top: 0;
+        margin-left: 2px;
+    }
+}
+
+/* ========================
+   MEDIUM DESKTOP (992px+)
+======================== */
+@media (min-width: 992px) {
+    .nav-content {
+        gap: 20px;
+    }
+
+    .nav-links {
+        gap: 5px;
+    }
+
+    .nav-links > a,
+    .drop-btn {
+        padding: 10px 15px;
+        font-size: 1rem;
+    }
+}
+
+/* ========================
+   LARGE DESKTOP (1200px+)
+======================== */
+@media (min-width: 1200px) {
+    .nav-content {
+        gap: 30px;
+    }
+
+    .nav-links {
+        gap: 10px;
+    }
+
+    .dropdown-content {
+        min-width: 220px;
+    }
+}
+
+
+
+/* Hero Section */
+        .hero {
+            height: 400px;
+            background: linear-gradient(rgba(25, 55, 109, 0.4), rgba(25, 55, 109, 0.4)), 
+                        url('https://i.postimg.cc/nhcgRD9Q/20250901-171648.jpg</text></svg>');
+            
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            font-weight: 300;
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+        }
+
+        .breadcrumb {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .breadcrumb a {
+            color: #FF6B35;
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+            color: #FF8C5A;
+        }
+        
+        .welcome-section{
+          background: linear-gradient(135deg,#667eea 0%,#764ba2 100%);
+          color: #fff;
+          padding: 50px 0;
+          text-align: center;
+        }
+        header {
+      background: #2c3e50;
+      color: white;
+      text-align: center;
+      padding: 1.2rem;
+    }
+
+    header h1 {
+      font-size: 1.8rem;
+    }
+
+    header p {
+      font-size: 1rem;
+      margin-top: 0.4rem;
+    }
+
+    /* Gallery full width */
+    .gallery {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.8rem;
+      padding: 0.8rem;
+      width: 100%;
+    }
+
+    .gallery img {
+      width: 100%;
+      height: auto;
+      border-radius: 6px;
+      display: block;
+      object-fit: cover;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+      transition: transform 0.3s ease;
+    }
+
+    .gallery img:hover {
+      transform: scale(1.02);
+    }
+
+    footer {
+      background: #2c3e50;
+      color: white;
+      text-align: center;
+      padding: 1rem;
+      margin-top: 1rem;
+    }
+
+    /* Tablet */
+    @media (min-width: 600px) {
+      .gallery {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    /* Desktop */
+    @media (min-width: 900px) {
+      .gallery {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    /* Large Desktop */
+    @media (min-width: 1200px) {
+      .gallery {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+/* Footer */
+.footer {
+  background: #1a2f5c; 
+  color: white;
+  padding: 40px 20px;
+  border-radius: 15px 15px 0 0;
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+}
+
+.footer a {
+  color: #ff6b35;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+
+.footer .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column; 
+  gap: 30px;
+}
+
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+
+.footer-logo-section {
+  text-align: center;
+}
+
+.footer-logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.footer-logo img {
+  max-height: 80px;
+  object-fit: contain;
+}
+
+.footer-logo h3 {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #ff6b35;
+}
+
+
+.footer-logo-section p {
+  margin: 5px 0;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.quick-links {
+  text-align: center;
+}
+
+.quick-links h3 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  color: #ff6b35;
+}
+
+.quick-links ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.quick-links ul li {
+  margin-bottom: 8px;
+}
+
+
+.map-section {
+  text-align: center;
+}
+
+.map-section h3 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  color: #ff6b35;
+}
+
+.map-widget iframe {
+  width: 100%;
+  height: 220px;
+  border: 0;
+  border-radius: 12px;
+}
+
+
+.footer-bottom {
+  text-align: center;
+  padding: 15px 0;
+  background: #1a2f5c;
+  border-radius: 0 0 15px 15px;
+  font-size: 0.9rem;
+}
+
+
+
+/* all responsive media queries*/
+
+
+/* Tablet and up */
+@media (min-width: 768px) {
+    .container {
+        max-width: 750px;
+        padding: 0 20px;
+    }
+}
+
+/* Desktop and up */
+@media (min-width: 1200px) {
+    .container {
+        max-width: 1140px;
+        padding: 0 30px;
+    }
+}
+
+/* Tablet Screens (768px) */
+@media (min-width: 768px) {
+  .footer-content {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  
+  .footer-logo-section, .quick-links, .map-section {
+    flex: 1;
+    text-align: left;
+  }
+
+  .footer-logo {
+    align-items: flex-start;
+  }
+
+  .map-widget iframe {
+    height: 250px;
+  }
+}
+
+/* Desktop Screens (1200px) */
+@media (min-width: 1200px) {
+  .footer-logo h3 {
+    font-size: 1.6rem;
+  }
+  .quick-links h3, .map-section h3 {
+    font-size: 1.4rem;
+  }
+  .footer-bottom {
+    font-size: 1rem;
+  }
+}
+
+.bottombar {
+    margin: 0;
+    color: white;
+    background-color: #1a2f5c;
+    text-align: center;
+    font-size: 10px;
+    font-family: serif;
+}
+
+</style>
+
+<body>
+      <!-- Header -->  
+    <header class="header">  
+        <div class="container">  
+            <div class="header-content">  
+                <div class="logo-section">  
+                    <div class="logo"><img class="logo-img-header" src="https://i.postimg.cc/VknRXB1B/1000340942-removebg-preview.png" loading="lazy" alt="college logo"> </div>  
+                    <div class="college-info">  
+                        <h1>NATIONAL DEGREE COLLEGE</h1>
+                        <p><span class="affiliated-text">(Affiliated with Rayalaseema University,Kurnool)</span></p>   
+  </div>  
+                </div>  
+                                       <!--
+                    <a href="/loginform2.html" class="student-login">Student Login</a> -->
+            </div>  
+        </div>  
+    </header>  
+    <!-- Navigation -->  
+    <nav>
+   <div class="nav-section">
+    <div class="container nav-content">
+   <!-- Mobile Toggle Button -->
+   <button class="menu-toggle">☰ </button>
+
+  <!-- Navigation Links -->
+   <div class="nav-links">
+   <a href="/index.html">Home</a>
+   <a href="/pages/about.html">About</a>
+   <a href="/pages/contact-us.html">Contact</a>
+
+  <!-- Academics Dropdown -->
+   <div class="dropdown">
+  <button class="drop-btn"> Academics
+                               <svg class="nav-arrow" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                 viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                      d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+  <div class="dropdown-content">
+ <a href="/pages/ndc-broucher.html">College Brochure</a>   <a href="/pages/admissions.html">Admissions</a>
+  <a href="/pages/eresources.html">E-Resources</a>
+ <a href="/pages/gallery.html">Gallery</a>
+     </div>
+       </div>
+
+    <!-- Departments Dropdown -->
+    <div class="dropdown">
+   <button class="drop-btn">
+                            Departments
+                            <svg class="nav-arrow" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                 viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                      d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+     <div class="dropdown-content">
+      <a href="/pages/departments/laguages-department.html">Languages</a>
+     <a href="/pages/departments/cs-department.html">Computer Science</a>
+     <a href="/pages/departments/lifescience-department.html">Life Sciences</a>
+    <a href="/pages/departments/maths-department.html">Mathematics</a>
+        </div>
+       </div>
+
+   <!-- Facilities Dropdown -->
+   <div class="dropdown">
+   <button class="drop-btn">
+                            Facilities
+                            <svg class="nav-arrow" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                 viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                      d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+  <div class="dropdown-content">
+  <a href="/pages/facilities/clab.html">Computer Lab</a>
+    <a href="/pages/facilities/mph.html">Multi Purpose Hall</a>
+      <a href="/pages/facilities/library.html">Library</a>
+     <a href="/pages/facilities/parking.html">Parking</a>
+                        </div>
+                    </div>
+                          <!-- Placements Dropdown -->    <div class="dropdown">    <button class="drop-btn">                             Placements                              <svg class="nav-arrow" xmlns="http://www.w3.org/2000/svg" fill="none"                                  viewBox="0 0 24 24" stroke="currentColor">                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"                                       d="M19 9l-7 7-7-7" />                             </svg>                         </button>   <div class="dropdown-content">   <a href="/pages/placements/placementinformation.html">Information & Training</a>     <a href="/pages/placements/placementgallary.html">Placement Gallary</a>                            </div>                     </div>
+  <a href="/pages/circular.html">Circulars</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+<!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>NDC GALLARY</h1>
+            <div class="breadcrumb">
+
+            </div>
+        </div>
+    </section>
+    
+    <!-- Welcome Section -->  
+<section class="welcome-section">  
+    <div class="container">  
+        
+        <div class="welcome-text">  
+            <p>SPACIOUS VIEWS OF OUR COLLEGE.</p>  
+        </div>  
+    </div>  
+</section>  
+  </header>
+
+  <main>
+    <div class="gallery">
+      <img src="https://picsum.photos/1200/800?random=1" alt="Library Image 1">
+      <img src="https://picsum.photos/1200/800?random=2" alt="Library Image 2">
+      <img src="https://picsum.photos/1200/800?random=3" alt="Library Image 3">
+      <img src="https://picsum.photos/1200/800?random=4" alt="Library Image 4">
+      <img src="https://picsum.photos/1200/800?random=5" alt="Library Image 5">
+      <img src="https://picsum.photos/1200/800?random=6" alt="Library Image 6">
+      <img src="https://picsum.photos/1200/800?random=7" alt="Library Image 7">
+      <img src="https://picsum.photos/1200/800?random=8" alt="Library Image 8">
+    </div>
+  </main>
+
+ <!--new footer -->
+
+   <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-logo-section">
+          <div class="footer-logo">
+            <div class="logo">
+              <img class="footer-logo-last" src="https://i.postimg.cc/VknRXB1B/1000340942-removebg-preview.png" alt="colegeLogo">
+</div>
+<div><h3>NATIONAL DEGREE COLLEGE</h3></div></div>
+<p>📍 Srinivasa Nagar, Nandyal - 518501</p>
+<p>Andra Pradesh - India</p>
+<p>📧 nationaldegreecollege@gmail.com</p>
+<p> 📞+918777466636</p>
+</div>
+<div class="quick-links">
+    <h3>Quick Links</h3>
+    <ul>
+        <li><a href="/pages/circular.html">📅 Circular<a></li>
+        <li><a href="/pages/college-broucher.html">📤 Brochure</a></li>
+        <li><a href="/pages/gallery.html">👨‍🏫 College Gallary</a></li>
+        <li><a href="/pages/contact-us.html">ℹ️ Contact</a></li>
+    </ul>
+</div>
+                    <div class="map-section">
+                      <h3>Find Us</h3>
+                      <div class="map-widget">
+                        <iframe  
+            src="https://www.google.com/maps?q=National+Junior+Degree+College+Nandyala&z=16&output=embed"  
+            width="100%"  
+            height="220"  
+            style="border:0; border-radius: 12px;"  
+            allowfullscreen=""  
+            loading="lazy"  
+            referrerpolicy="no-referrer-when-downgrade">  
+        </iframe>  
+    </div>
+    </div>
+        
+    </footer>  
+    <footer class="bottombar">
+        copyright © 2025 | All rights reserved ® | - 🔗 NDC'ian ASSH
+    </footer>
+  <script>
+        // Mobile Menu Toggle
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+
+        menuToggle.addEventListener('click', function() {
+            navLinks.classList.toggle('active');
+        });
+
+        // Dropdown Toggle for Mobile Only
+        const dropdownButtons = document.querySelectorAll('.drop-btn');
+
+        dropdownButtons.forEach(button => {
+            button.addEventListener('click', function(e) {
+                // Only toggle on mobile (screen width < 768px)
+                if (window.innerWidth < 768) {
+                    e.stopPropagation();
+                    const dropdown = this.closest('.dropdown');
+                    
+                    // Close other dropdowns
+                    document.querySelectorAll('.dropdown').forEach(dd => {
+                        if (dd !== dropdown) {
+                            dd.classList.remove('active');
+                        }
+                    });
+                    
+                    // Toggle current dropdown
+                    dropdown.classList.toggle('active');
+                }
+            });
+        });
+
+        // Close dropdowns when clicking outside (mobile only)
+        document.addEventListener('click', function(event) {
+            if (window.innerWidth < 768) {
+                const isClickInsideNav = event.target.closest('nav');
+                if (!isClickInsideNav) {
+                    document.querySelectorAll('.dropdown').forEach(dropdown => {
+                        dropdown.classList.remove('active');
+                    });
+                    // Close mobile menu if clicking outside
+                    if (navLinks.classList.contains('active')) {
+                        navLinks.classList.remove('active');
+                    }
+                }
+            }
+        });
+
+        // Clean up on window resize
+        window.addEventListener('resize', function() {
+            if (window.innerWidth >= 768) {
+                // Remove active class from dropdowns on desktop
+                document.querySelectorAll('.dropdown').forEach(dropdown => {
+                    dropdown.classList.remove('active');
+                });
+            }
+        });
+
+
+ // Add loading animation for images
+        document.addEventListener('DOMContentLoaded', function() {
+            const images = document.querySelectorAll('.library-image');
+            
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            images.forEach(img => {
+                img.style.opacity = '0';
+                img.style.transform = 'translateY(20px)';
+                img.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(img);
+            });
+        });
+  </script>
+</body>
+
+</html>

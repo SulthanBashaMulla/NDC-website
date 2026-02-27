@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College E-Resources</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+        }
+
+        /* Login Page Styles */
+        .login-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 400px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .login-header h1 {
+            color: #ff6b35;
+            font-size: 1.75rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .login-header p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            color: #333;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.875rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .login-btn:active {
+            transform: translateY(0);
+        }
+
+        .error-message {
+            background: #fee;
+            color: #c33;
+            padding: 0.75rem;
+            border-radius: 6px;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            display: none;
+            animation: shake 0.4s ease;
+        }
+
+        /* Materials Page Styles */
+        .materials-container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 1200px;
+            padding: 1.5rem;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .materials-header {
+            margin-bottom: 2rem;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .materials-header h1 {
+            color: #667eea;
+            font-size: 1.5rem;
+        }
+
+        .search-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 1rem 3rem 1rem 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.25rem;
+            color: #667eea;
+            pointer-events: none;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 3rem 1rem;
+            color: #666;
+        }
+
+        .no-results-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .no-results h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .logout-btn {
+            padding: 0.625rem 1.25rem;
+            background: #ff4757;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background: #e63946;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 71, 87, 0.3);
+        }
+
+        .materials-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.25rem;
+        }
+
+        .material-card {
+            background: #f8f9fa;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .material-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .material-preview {
+            display: flex;
+            align-items: center;
+            padding: 1.25rem;
+            gap: 1rem;
+        }
+
+        .material-image {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 8px;
+            flex-shrink: 0;
+        }
+
+        .material-info {
+            flex: 1;
+        }
+
+        .material-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 0.25rem;
+        }
+
+        .material-category {
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        .expand-icon {
+            font-size: 1.5rem;
+            color: #667eea;
+            transition: transform 0.3s ease;
+        }
+
+        .material-card.expanded .expand-icon {
+            transform: rotate(180deg);
+        }
+
+        .material-links {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+            background: white;
+        }
+
+        .material-card.expanded .material-links {
+            max-height: 500px;
+            padding: 1.25rem;
+            border-top: 2px solid #e0e0e0;
+        }
+
+        .download-link {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem;
+            background: #f0f4ff;
+            border-radius: 8px;
+            text-decoration: none;
+            color: #667eea;
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+            transition: all 0.3s ease;
+        }
+
+        .download-link:last-child {
+            margin-bottom: 0;
+        }
+
+        .download-link:hover {
+            background: #667eea;
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .download-icon {
+            font-size: 1.25rem;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        /* Tablet Styles */
+        @media (min-width: 576px) {
+            .materials-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .material-preview {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .material-image {
+                width: 100%;
+                height: 150px;
+            }
+        }
+
+        /* Desktop Styles */
+        @media (min-width: 992px) {
+            .login-container {
+                padding: 2.5rem;
+            }
+
+            .login-header h1 {
+                font-size: 2rem;
+            }
+
+            .materials-container {
+                padding: 2.5rem;
+            }
+
+            .materials-header h1 {
+                font-size: 2rem;
+            }
+
+            .search-input {
+                padding: 1.125rem 3.5rem 1.125rem 1.25rem;
+                font-size: 1.05rem;
+            }
+
+            .materials-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1.5rem;
+            }
+
+            .material-image {
+                height: 180px;
+            }
+
+            .material-name {
+                font-size: 1.2rem;
+            }
+        }
+
+        /* Large Desktop */
+        @media (min-width: 1200px) {
+            .materials-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Page -->
+    <div id="loginPage" class="login-container">
+        <div class="login-header">
+            <h1>NDC Portal</h1>
+            <p>E-Resources for students</p>
+        </div>
+        
+        <div id="errorMessage" class="error-message">
+            Invalid credentials. Please try again.
+        </div>
+
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="studentId">Student ID</label>
+                <input type="text" id="studentId" placeholder="Enter your student ID" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="Enter your password" required>
+            </div>
+            
+            <button type="submit" class="login-btn">Login</button>
+        </form>
+    </div>
+
+    <!-- Materials Page -->
+    <div id="materialsPage" class="materials-container hidden">
+        <div class="materials-header">
+            <div class="header-top">
+                <h1>NDC Materials</h1>
+                <button id="logoutBtn" class="logout-btn">Logout</button>
+            </div>
+            
+            <div class="search-container">
+                <input 
+                    type="text" 
+                    id="searchInput" 
+                    class="search-input" 
+                    placeholder="Search for materials, subjects"
+                    autocomplete="off"
+                >
+                <span class="search-icon">🔍</span>
+            </div>
+        </div>
+
+        <div class="materials-grid" id="materialsGrid">
+            <!-- Materials will be populated here -->
+        </div>
+        
+        <div id="noResults" class="no-results hidden">
+            <div class="no-results-icon">📚</div>
+            <h3>No materials found</h3>
+            <p>Try adjusting your search terms</p>
+        </div>
+    </div>
+
+
+    <script>
+        // Hardcoded student credentials
+        const students = {
+            'assh':'bfly@ndc',
+            '24D01019009': 'ashwak@ndc',
+            '24D01019008': 'asif@ndc',
+            'saikumar': 'hod@ndc',
+            'lecturer': 'lecturer@ndc',
+            'ba':'ba@ndc',
+            'bca': 'bca@ndc',
+            'bsc': 'bsc@ndc',
+            'bcom':'bcom@ndc'
+        };
+
+        // Study materials data
+        const materials = [
+                        {
+                id: 1,
+                name: 'Community Service Project',
+                category: 'CSP',
+                image: 'https://i.postimg.cc/447KX3SQ/57d6d8325f68a4c3cc3cf6be806d69b1.jpg',
+                links: [
+                    { name: 'Guidelines by APSCHE', url: 'https://drive.google.com/uc?export=view&id=1luIy3WZFcZfwPzYcJEpE38FGgpRJg0RK' },
+                    { name: 'Formate Book', url: 'https://drive.google.com/uc?export=view&id=1tp0XIHQd0br0BqThmuUhUAgHGfaxt54U' },
+                    { name: 'topic - child labour', url: 'https://drive.google.com/uc?export=view&id=1WL_SZNuuVEWSDBSP2M-1-yai4385nQ2v' },
+                                        { name: 'topic - Agriculture products and Marketing', url: 'https://drive.google.com/uc?export=view&id=15OooGjOmtnfbYT9uJl99mih2qNx7-1dR' },
+                                                            { name: 'topic - usage of Mobile', url: 'https://drive.google.com/uc?export=view&id=17ocp8nG4JktEU0IZJxc6dIwtHrmIoJYN' },
+                                                                           { name: 'topic - online purchase', url: 'https://drive.google.com/uc?export=view&id=1MOZvYvJ2Zru7ryM3ALeDSHgEIaUcI-n8' },
+                                                                            { name: 'topic - plantation', url: 'https://drive.google.com/uc?export=view&id=1Qu3huejlf_4T5S2ufaaG9K3J-OoMJFaf' }
+                          ,              { name: 'topic - Diabetes', url: 'https://drive.google.com/uc?export=view&id=1jXJHww0-cmPeBJgt3S0NRg3g4_IGoTUC' },
+                                    { name: 'topic - Water pollution', url: 'https://drive.google.com/uc?export=view&id=1ruZIoXaSNSC1GXYc_PVYNFOU6md1K-kj' }
+                                 ,          { name: 'topic - use of chemicals on fruits', url: 'https://drive.google.com/uc?export=view&id=1OizDpP2TKcck7reZPtlGi8NTP_5rsl2F' }
+                                                  ,                 { name: 'topic - Food Habits', url: 'https://drive.google.com/uc?export=view&id=14as0vCcwKNKEPwlN2tvCe7-kLJiZi9cI' }
+                            ,                          { name: 'topic - Floriculture', url: 'https://drive.google.com/uc?export=view&id=1ExeNkvoUedmaZnXK7L6jygHIy9uiN_TS' }                           ,                       { name: 'topic - Organic Farming', url: 'https://drive.google.com/uc?export=view&id=1T3xeVccE0VUhN0Tt6MYwybW9hcc-Ft2s' },
+                                          { name: 'topic - Water Facility & Drinking Water', url: 'https://drive.google.com/uc?export=view&id=1ipttEBdkCtEPD8srD04YkP1kReCq_o3u' },
+                                                               { name: 'topic - public Distribution', url: 'https://drive.google.com/uc?export=view&id=15XVD3ahbYmBsVODbKVVqlMm4k8HWbKgN' }
+                            ,                                      { name: 'topic - Women Education', url: 'https://drive.google.com/uc?export=view&id=1JWhDCfH_xY-dHm0zMoBFpFHc6J6gag9e' },
+                                                         { name: 'topic - Village Industries', url: 'https://drive.google.com/uc?export=view&id=17bRnq3UU_DGhTAIJ_s0SD_rEi6MPl4WL' },
+                                                  { name: 'topic - Commercial Crops', url: 'https://drive.google.com/uc?export=view&id=1QUIZEnvmhAyMr0w_2wYXsZexfcecLqZr' },
+                ]
+            },
+            {
+                id: 2,
+                name: 'Data Structures',
+                category: 'Computer Science',
+                image: 'https://i.postimg.cc/J7DyRh2Y/c7fc020567f7bd15c1ac7dda928dda52.jpg',
+                links: [
+                    { name: 'Data structures through Gilberg and forouzan', url: 'https://drive.google.com/uc?export=view&id=1cK3CcSh4rBUJxKSk1oSiohb40NiDDjWg' },
+                    { name: 'Data structure using C', url: 'https://drive.google.com/uc?export=view&id=10uE5XlwaTbktekYsOz5Ks77Bt2FDZ_QT' }
+                ]
+            },
+
+            {
+                id: 3,
+                name: 'DOA',
+                category: 'Computer science, design,dooa',
+                image: 'https://i.postimg.cc/LhFFpDbf/DOA.jpg',
+                links: [
+                    { name: 'Design of object oriented Applications', url: 'https://drive.google.com/uc?export=view&id=1QGRUPdwneDXhRPgVF4dQhEZixKZl9wul' },
+                  
+                ]
+            },
+            {
+                id: 4,
+                name: 'Computer Networks',
+                category: 'Computer Science',
+                image: 'https://i.postimg.cc/kDPPmspS/ec59acab20e1dbc51255b85edf44f063.jpg',
+                links: [
+                    { name: 'CN-UNIT 1', url: 'https://drive.google.com/uc?export=view&id=1mGTVcMOmC-bW3CPjyH2lv4zgLGkBcFx_' },
+                    { name: 'CN-UNIT 2', url: 'https://drive.google.com/uc?export=view&id=1daHGj9EMhvouHGVwoRjCQrChbXE4vpyi' },
+                    { name: 'CN-UNIT 3', url: 'https://drive.google.com/uc?export=view&id=1A-saYNVf_1EjpOafkKk4qHMbi_RP4ABK' },
+                    { name: 'CN-UNIT 4', url: 'https://drive.google.com/uc?export=view&id=17OPzFL0GYcy3tF9Vbc5ylRD9IdspY508' },
+                    { name: 'CN-UNIT 5', url: 'https://drive.google.com/uc?export=view&id=1NP4LDoruay3nBqWdth31HJd-LfbPVmpV' }
+                ]
+            },
+            {
+                id: 5,
+                name: 'JAVA',
+                category: 'Computer Science, programming languages',
+                image: 'https://i.postimg.cc/xCF9WKQ1/8d0c72f49aaa0a6a35d34c7b98035baa.jpg',
+                links: [
+                    { name: 'Java', url: 'https://drive.google.com/uc?export=view&id=1VVpVDNVCEv7-PXypy5p5e2Qs_NH28Zvi' },
+                    { name: 'Core Java', url: 'https://drive.google.com/uc?export=view&id=1g0wiMxjTj6GVe7lseKMKb8qREGt0sYUJ' }
+                ]
+            },
+            {
+                id: 6,
+                name: 'Accounting',
+                category: 'Commerce',
+                image: 'https://i.postimg.cc/3WQQT1ck/814a859313c59c1522cb6eb09c972b08.jpg',
+                links: [
+                    { name: 'Accounting', url: 'https://drive.google.com/uc?export=view&id=1KEbUiJqK5lk4P7XIcb8Mb3zUt3zCgJMY' }
+                ]
+            },
+            {
+                id: 7,
+                name: 'Python',
+                category: 'computer science, programming languages',
+                image: 'https://i.postimg.cc/fbNyKjzG/a808353507aa0bd01a6812a412240758.jpg',
+                links: [
+                    { name: 'Python part - 1', url: 'https://drive.google.com/uc?export=view&id=1qMnpSQ--g20jDu7EBEa4JemNvZJzXYwU' },
+                    { name: 'Python part - 2', url: 'https://drive.google.com/uc?export=view&id=1CBnTz2q04UDdTU0tciNBC-lZu5cEIB6v' },
+                    { name: 'Python with Data science', url: 'https://drive.google.com/uc?export=view&id=1oR6clpAw15HVZGzHXW8I9pqIaH8wEazH' },
+                    { name: 'Python for Bcom CA', url: 'https://drive.google.com/uc?export=view&id=1l8rvUmv0UfurCAfgUMNojl8NfzrutwNm' }
+                ]
+            },
+            {
+                id: 8,
+                name: 'Operating Systems',
+                category: 'computer science, bca,bsc',
+                image: 'https://i.postimg.cc/bJMj6p0v/41e584a2ee8df1a83ae0b8a4ddcfbc1c.jpg',
+                links: [
+                    { name: 'OS - BCA', url: 'https://drive.google.com/uc?export=view&id=1i7jY7xYeXi4r2DBzunWYETPyqecfUPvr' },
+                    { name: 'OS - Bsc', url: 'https://drive.google.com/uc?export=view&id=1o3ldXMIfnCh2MOmXNFmZ8xwyl6ouRBWU' },
+
+                ]
+            },
+            {
+                id: 9,
+                name: 'Object oriented Software Engineering [OOSE]',
+                category: 'computer science, ,oose,bca',
+                image: 'https://i.postimg.cc/Hny1RRBC/avatars-000265906150-xeujpm-t1080x1080.jpg',
+                links: [
+                    { name: 'OOSE - BCA', url: 'https://drive.google.com/uc?export=view&id=1XKCZKsKokwXtYgNTUSY_iB0oVRb8_cZG' }
+
+                ]
+            },
+            {
+                id: 10,
+                name: 'Digital Imaging',
+                category: 'computer science, ,bca',
+                image: 'https://i.postimg.cc/QCTZwwSg/5f745c3d43b3dca4e59856c942039b48.jpg',
+                links: [
+                    { name: 'Digital Imaging  - BCA', url: 'https://drive.google.com/uc?export=view&id=1HzB1UKALO9kc_-3AH8HMzabyrgdmOVHM' }
+
+                ]
+            },
+            {
+                id: 11,
+                name: 'Elementary Statistics',
+                category: 'computer science, ,bsc',
+                image: 'https://i.postimg.cc/FzLX88Gx/ef65447d2fd6b64f7cc137c8a96ce096.jpg',
+                links: [
+                    { name: 'Elementary statistics - Bsc', url: 'https://drive.google.com/uc?export=view&id=1abp9tRfgLI6kTkLroSPgwEcWlGTKAskt' }
+
+                ]
+            },
+              {
+                id: 12,
+                name: 'DESIGN OF OBJECT ORIENTED APPLICATION ',
+                category: 'computer science,',
+                image: 'https://i.postimg.cc/c4vv4Lkb/2a4904015e4ea0801a26ec3682c7f0ab.jpg',
+                links: [
+                    { name: '- > DOOA', url: 'https://drive.google.com/uc?export=view&id=1so6qYsoxo1uq7F1ISwyiU7XKD' }
+
+                ]
+            },
+          
+              {
+                id: 13,
+                name: 'PC Hardware & Networking ',
+                category: 'computer science,',
+                image: 'https://i.postimg.cc/HxKCSd09/2a4190da3f23e4e213bc751856a70caa.jpg',
+                links: [
+                    { name: 'PC HW & NW', url: 'https://drive.google.com/uc?export=view&id=12z1FOLt-cOV1VqvYJiJzbtkMU3WjDkvK' }
+
+                ]
+            },  
+                {
+                id: 14,
+                name: 'WEB TECHNOLOGIES ',
+                category: 'computer science,',
+                image: 'https://i.postimg.cc/3R6HLYjj/778dca34843c1e7be89e2214dc418e7a.jpg',
+                links: [
+                    { name: 'web technology', url: 'https://drive.google.com/uc?export=view&id=18lig77F70VU6l2ewunDg0hbwuEZQUcx9' }
+
+                ]
+            },
+            {
+                id: 15,
+                name: 'Computer Fundamentals ',
+                category: 'computer science,',
+                image: 'https://i.postimg.cc/RF8zP41g/a937a2fa768c63e9ec361db4a2cc133d.jpg',
+                links: [
+                    { name: 'Computer fundamentals', url: 'https://drive.google.com/uc?export=view&id=1ARyWI_VlP9LWTSrkOuLqIv-t-CvDOGk_' }
+
+                ]
+            },
+            {
+                id: 16,
+                name: 'MS - OFFICE ',
+                category: 'computer science,',
+                image: 'https://i.postimg.cc/RF8zP41q/d078c91c4eb2d2471a0939028febb052.jpg',
+                links: [
+                    { name: 'ms office', url: 'https://drive.google.com/uc?export=view&id=1KxUjnfB-t4JNSX4qt9U6GRcCTBrOLDs0' }
+
+                ]
+            },
+           
+           {
+                id: 17,
+                name: 'AUTOCAD ',
+                category: 'computer science,',
+                image: 'https://i.postimg.cc/vBjdPb78/ed4c9aa19810545b9d480e11b943cec5.jpg',
+                links: [
+                    { name: 'command & lab', url: 'https://drive.google.com/uc?export=view&id=1hpNZAJPwkx31XdG7J8Vsz3TThP2xTdCF' }
+
+                ]
+            }, 
+            
+            {
+                id: 18,
+                name: 'C++ PROGRAMMING',
+                category: 'computer science,programming',
+                image: 'https://i.postimg.cc/263DFVW5/8ad6f9f4d0821ea0c67f25aebf57b085.jpg',
+                links: [
+                    { name: 'c++ programming notes', url: 'https://drive.google.com/uc?export=view&id=1Y9UeMojreR8PK0Zr2HM05sj786GkOezj' }
+
+                ]
+            },
+            {
+                id: 19,
+                name: 'Digital Image Processing',
+                category: 'computer science,',
+                image: 'https://i.postimg.cc/mZ5s7t99/digital.jpg',
+                links: [
+                    { name: 'digital image processing notes', url: 'https://drive.google.com/uc?export=view&id=1_qc9i9IgYyjYk8-w4FooxgYnEZNlo1Qb' }
+
+                ]
+            },
+            {
+                id: 20,
+                name: 'Mobile Application Development ',
+                category: 'computer science,',
+                image: 'https://i.postimg.cc/fyrSNDJJ/mad.jpg',
+                links: [
+                    { name: 'mobile application development', url: 'https://drive.google.com/uc?export=view&id=1qctZWr_KeMbhrzUXA7O718WelS3NNKjc' }
+
+                ]
+            },
+            {
+                id: 21,
+                name: 'Management Information Sysytem ',
+                category: 'computer science,',
+                image: 'https://i.postimg.cc/KY0ZVQ1p/mis.jpg',
+                links: [
+                    { name: 'MIS material', url: 'https://drive.google.com/uc?export=view&id=1JKqMxG8JNZqRkBteMk9XqqLdmTv1K3lq' }
+
+                ]
+            },
+            
+            {
+                id: 22,
+                name: 'UNIX',
+                category: 'computer science,',
+                image: 'https://i.postimg.cc/153b7PGf/unix.jpg',
+                links: [
+                    { name: 'unix material', url: 'https://drive.google.com/uc?export=view&id=1OXjYB8pS363XTiwXo_ub9tY-QIUm85Jz' }
+
+                ]
+            },
+            {
+                id: 23,
+                name: 'Data Mining & Warehousing ',
+                category: 'computer science,',
+                image: 'https://i.postimg.cc/cH6SMr3Z/data-mining.jpg',
+                links: [
+                    { name: 'DM & DE materials', url: 'https://drive.google.com/uc?export=view&id=1-aIrATbctqhYgzr5fB1U1j0KlO4g-yf9' }
+
+                ]
+            },
+            {
+                id: 24,
+                name: 'Data science ',
+                category: 'computer science,',
+                image: 'https://i.postimg.cc/Ssjh7J9p/50af20df4ef98523d3c81401e05cb796.jpg',
+                links: [
+                    { name: 'Data science materials', url: 'https://drive.google.com/uc?export=view&id=1jMl_9mDaAnYDgwu_kxwY_KawtVSk0v0y' }
+
+                ]
+            },
+            {
+                id: 25,
+                name: 'Software Testing ',
+                category: 'computer science,',
+                image: 'https://i.postimg.cc/QtV3kH7j/1c08163a019d88a6115d320a84589668.jpg',
+                links: [
+                    { name: 'software testing', url: 'https://drive.google.com/uc?export=view&id=1o3Rw-I7O8daDzQ1uHDE2F-RA293BNiDC' }
+
+                ]
+            },
+            
+            {
+                id: 26,
+                name: 'Internet Of Things [IOT] ',
+                category: 'computer science,',
+                image: 'https://i.postimg.cc/rFDDFwYp/bc9fb6d7689c4c4062e1c5672b887cf1.jpg',
+                links: [
+                    { name: 'IOT - Bsc', url: 'https://drive.google.com/uc?export=view&id=1_Pvicj5orjm68PfehUfz_WR7efX1HzMu' },
+                    { name: 'IOT - Bca', url: 'https://drive.google.com/uc?export=view&id=1Vu6Qpa_5yqQuUA4-i5_7GWxFTS29j5J0' }
+
+                ]
+            },
+            {
+                id: 27,
+                name: 'R-Language ',
+                category: 'computer science,',
+                image: 'https://i.postimg.cc/TPtxDrpk/7805ce75dbb9d94a6da9a6f0d19a29c8.jpg',
+                links: [
+                    { name: 'R - lang & lab prg', url: 'https://drive.google.com/uc?export=view&id=1Gm88lG6IxeFjGCKWNtIGq_0C0VxI9BW_' }
+
+                ]
+            },
+            {
+                id: 28,
+                name: 'DBMS ',
+                category: 'computer science,',
+                image: 'https://i.postimg.cc/yNLKZFkL/ea35a3c42ec1e56b7f85e41a8ff22c00.jpg',
+                links: [
+                    { name: 'Dbms', url: 'https://drive.google.com/uc?export=view&id=1kFQC5D4bMtuffYLAdrNjB5bj-XD-e1KK' }
+
+                ]
+            },
+            
+         {
+                id: 29,
+                name: 'Big Data ',
+                category: 'computer science,bcom',
+                image: 'https://i.postimg.cc/QdrjG82Y/e635c1e8d80999c3ad87576d4bfc0032.jpg',
+                links: [
+                    { name: 'Big data - Bcom', url: 'https://drive.google.com/uc?export=view&id=1-Y7zov0TUh7rgrtRJdY3MBSfo4I8FaWF' }
+
+                ]
+            },  
+            {
+                id: 29,
+                name: 'Cyber Law ',
+                category: 'computer science,',
+                image: 'https://i.postimg.cc/d05Fy8Ln/c7a2370ec75294fa92b7a8071d6e65ff.jpg',
+                links: [
+                    { name: 'cyberlaw', url: 'https://drive.google.com/uc?export=view&id=1kVCwUShOgidnYZmPX89jBMmpUozCuLN8' }
+
+                ]
+            },
+           {
+                id: 30,
+                name: 'Machine Learning',
+                category: 'computer science,',
+                image: 'https://i.postimg.cc/Gt8brHhw/f327bc505f6d7e19a2b8ca4cdeb24650.jpg',
+                links: [
+                    { name: 'Machine Learning', url: 'https://drive.google.com/uc?export=view&id=1WhE8_geFtOpoFQVWSkAosW9s70VHKZjB' }
+
+                ]
+            }, 
+             {
+                id: 31,
+                name: 'SQL & PL',
+                category: 'computer science,',
+                image: 'https://i.postimg.cc/6QXq0L68/7281f4ba7567c6e3366c3d86c1948349.jpg',
+                links: [
+                    { name: 'sql & pl notes', url: 'https://drive.google.com/uc?export=view&id=1Su-ewzMmoV2v9cQ3CY8l8eKZ_1AbZZ0I' }
+
+                ]
+            }, 
+            
+             {
+                id: 32,
+                name: 'OOAD',
+                category: 'computer science,',
+                image: 'https://i.postimg.cc/x1y4Yywz/ood.png',
+                links: [
+                    { name: 'OBJECT ORIENTATED ANALYSIS AND DESIGN', url: 'https://drive.google.com/uc?export=view&id=1bMdq0jHEMUfwaeh-5FGFIRhzt1JXQpwC' }
+
+                ]
+            }, 
+            {
+                id: 33,
+                name: 'CyberSecurity',
+                category: 'computer science,',
+                image: 'https://i.postimg.cc/RVWWVZbZ/cybersecurity.jpg',
+                links: [
+                    { name: 'cyberSecurity', url: 'https://docs.google.com/presentation/d/1PINDnx1epeiVi9H2FnDUDzv6aySj8M_0/edit?usp=share_link&ouid=103123368792169996293&rtpof=true&sd=true' }
+
+                ]
+            }, 
+        ];
+
+        // DOM Elements
+        const loginPage = document.getElementById('loginPage');
+        const materialsPage = document.getElementById('materialsPage');
+        const loginForm = document.getElementById('loginForm');
+        const errorMessage = document.getElementById('errorMessage');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const materialsGrid = document.getElementById('materialsGrid');
+        const searchInput = document.getElementById('searchInput');
+        const noResults = document.getElementById('noResults');
+
+        // Track filtered materials
+        let filteredMaterials = materials;
+
+        // Check if already logged in
+        if (sessionStorage.getItem('loggedIn') === 'true') {
+            showMaterialsPage();
+        }
+
+        // Login Form Submit
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const studentId = document.getElementById('studentId').value.trim();
+            const password = document.getElementById('password').value;
+            
+            if (students[studentId] && students[studentId] === password) {
+                sessionStorage.setItem('loggedIn', 'true');
+                sessionStorage.setItem('studentId', studentId);
+                errorMessage.style.display = 'none';
+                showMaterialsPage();
+            } else {
+                errorMessage.style.display = 'block';
+                document.getElementById('password').value = '';
+            }
+        });
+
+        // Logout Button
+        logoutBtn.addEventListener('click', () => {
+            sessionStorage.removeItem('loggedIn');
+            sessionStorage.removeItem('studentId');
+            showLoginPage();
+        });
+
+        // Search functionality
+        searchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase().trim();
+            
+            if (searchTerm === '') {
+                filteredMaterials = materials;
+            } else {
+                filteredMaterials = materials.filter(material => {
+                    // Search in material name
+                    const nameMatch = material.name.toLowerCase().includes(searchTerm);
+                    
+                    // Search in category
+                    const categoryMatch = material.category.toLowerCase().includes(searchTerm);
+                    
+                    // Search in link names
+                    const linkMatch = material.links.some(link => 
+                        link.name.toLowerCase().includes(searchTerm)
+                    );
+                    
+                    return nameMatch || categoryMatch || linkMatch;
+                });
+            }
+            
+            renderMaterials();
+        });
+
+        // Show Materials Page
+        function showMaterialsPage() {
+            loginPage.classList.add('hidden');
+            materialsPage.classList.remove('hidden');
+            searchInput.value = '';
+            filteredMaterials = materials;
+            renderMaterials();
+        }
+
+        // Show Login Page
+        function showLoginPage() {
+            materialsPage.classList.add('hidden');
+            loginPage.classList.remove('hidden');
+            loginForm.reset();
+            errorMessage.style.display = 'none';
+        }
+
+        // Render Materials
+        function renderMaterials() {
+            materialsGrid.innerHTML = '';
+            
+            if (filteredMaterials.length === 0) {
+                materialsGrid.classList.add('hidden');
+                noResults.classList.remove('hidden');
+                return;
+            }
+            
+            materialsGrid.classList.remove('hidden');
+            noResults.classList.add('hidden');
+            
+            filteredMaterials.forEach(material => {
+                const card = document.createElement('div');
+                card.className = 'material-card';
+                card.innerHTML = `
+                    <div class="material-preview">
+                        <img src="${material.image}" alt="${material.name}" class="material-image">
+                        <div class="material-info">
+                            <div class="material-name">${material.name}</div>
+                            <div class="material-category">${material.category}</div>
+                        </div>
+                        <span class="expand-icon">▼</span>
+                    </div>
+                    <div class="material-links">
+${material.links.map(link => `
+    <a href="${link.url}" class="download-link" download>
+     <span class="download-icon">📥</span>
+        <span>${link.name}</span>
+    </a>
+`).join('')}
+                    </div>
+                `;
+                
+                // Toggle expand on click
+                const preview = card.querySelector('.material-preview');
+                preview.addEventListener('click', () => {
+                    card.classList.toggle('expanded');
+                });
+                
+                materialsGrid.appendChild(card);
+            });
+        }
+</script>
+</body>
+</html>
