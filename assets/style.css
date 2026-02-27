@@ -254,7 +254,7 @@ nav {
         display: none;
     }
 
-    /* CRITICAL FIX: Remove flex-wrap and make nav-content fit properly */
+    
     .nav-content {
         flex-wrap: nowrap;  
         gap: 0;  
@@ -441,6 +441,7 @@ nav {
     margin-bottom: 15px;  
     text-align: center;  
     font-size: 1.5rem;  
+    font-family: 'Faculty Glyphic',sans-serif;
 }
 
 .notice-scroll {  
@@ -518,6 +519,7 @@ nav {
     margin-bottom: 15px;
     text-align: center;
     font-size: 1.4rem;
+    font-family: 'Faculty Glyphic',sans-serif;
 }
 
 .courses-grid {
@@ -573,6 +575,7 @@ nav {
 }
 
 .welcome-section h2 {
+  font-family: 'Faculty Glyphic',sans-serif;
     font-size: 1.8rem; 
     margin-bottom: 15px;
 }
@@ -603,6 +606,7 @@ nav {
 }
 
 .staff-heading {
+  font-family: 'Faculty Glyphic',sans-serif;
   padding-bottom: 20px;
   color: #1a2f5c;
   font-size: 1.4rem;
@@ -644,6 +648,7 @@ nav {
   margin: 10px 0 5px;
   font-size: 1rem;
   color: #ff6600;
+  font-family: 'Faculty Glyphic',sans-serif;
 }
 
 .staff-info p {
@@ -664,6 +669,7 @@ nav {
 
 /* Section Heading */
 .placements-section h2 {
+  font-family: 'Faculty Glyphic',sans-serif;
     text-align: center;
     color: #1e3c72;
     font-size: clamp(20px, 5vw, 2.5rem);
@@ -724,7 +730,7 @@ nav {
 
 .company-section h2 {
   font-size: 1.6rem;
-  font-family: 'Roboto Slab', serif;
+  font-family: 'Faculty Glyphic', serif;
   color: #1a2f5c;
   margin-bottom: 20px;
 }
@@ -759,11 +765,12 @@ nav {
   padding: 40px 20px;
   border-radius: 15px 15px 0 0;
   box-sizing: border-box;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Faculty Glyphic',sans-serif;
 }
 
 .footer a {
   color: #ff6b35;
+  font-family: 'Faculty Glyphic',sans-serif;
   text-decoration: none;
 }
 
@@ -952,6 +959,7 @@ nav {
   margin-bottom: 20px;
   font-weight: 600;
   line-height: 1.4;
+  font-family: 'Faculty Glyphic',sans-serif;
 }
 
 /* Tablet */
@@ -1292,8 +1300,8 @@ Tablet screens (768px) */
     }
 
     .section-header h1 {
-      font-family: ar;
-      font-size: 1.8em;
+      font-family: 'Faculty Glyphic',sans-serif;
+      font-size: 1.5em;
       color: #ff6b35;
       margin-bottom: 8px;
       text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
