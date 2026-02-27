@@ -167,6 +167,12 @@ carousel.addEventListener('touchmove', e => {
 
 // js for review
 
+function scrollReview(direction) {
+  const track = document.getElementById('reviewsTrack');
+  const cardWidth = track.querySelector('.review-card').offsetWidth;
+  track.scrollBy({ left: direction * cardWidth, behavior: 'smooth' });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   const track = document.querySelector(".reviews-track");
   const cards = document.querySelectorAll(".review-card");
@@ -238,9 +244,9 @@ document.addEventListener("DOMContentLoaded", () => {
         transition: opacity 0.5s ease-out;
     `;
     
-    // Create image element
+    // image element
     const img = document.createElement('img');
-    img.src = '/assets/images/loader.gif';  // Your GIF file path
+    img.src = '/assets/images/loader.gif';  // GIF file path
     img.alt = 'Loading...';
     img.style.cssText = `
         width: 100px;
@@ -251,7 +257,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Add image to loader
     loader.appendChild(img);
     
-    // Add loader to page immediately
+    //  loader to page immediately
     document.documentElement.appendChild(loader);
     
     // Hide loader when page is fully loaded AND minimum time has passed

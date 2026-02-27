@@ -1614,4 +1614,25 @@ Tablet screens (768px) */
 }
 
 
-
+.rev-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  background: #1a2f5c;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 42px;
+  height: 42px;
+  font-size: 28px;
+  cursor: pointer;
+  line-height: 1;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  transition: background 0.2s;
+}
+.rev-arrow:hover {
+  background: #ff6b35;
+}
+.rev-left  { left: 8px; }
+.rev-right { right: 8px; }
