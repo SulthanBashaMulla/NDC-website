@@ -265,7 +265,6 @@
       transform: translateY(-2px);
       box-shadow: 0 8px 24px rgba(255,107,53,0.45);
     }
-
     .download-btn svg {
       width: 18px;
       height: 18px;
@@ -329,7 +328,49 @@
       .hero-strip { padding: 52px 56px; border-radius: 18px; }
       .hero-strip h2 { font-size: 2.8rem; }
     }
+/* ========================
+   TOAST NOTIFICATION
+======================== */
+.toast {
+  position: fixed;
+  bottom: -80px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1a2f5c;
+  color: #fff;
+  padding: 14px 22px;
+  border-radius: 30px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.18);
+  z-index: 9999;
+  white-space: nowrap;
+  transition: bottom 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
 
+.toast.show {
+  bottom: 30px;
+}
+
+.toast .toast-icon {
+  width: 22px;
+  height: 22px;
+  background: #ff6b35;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.toast .toast-icon svg {
+  width: 13px;
+  height: 13px;
+  color: #fff;
+}
   </style>
 </head>
 <body>
@@ -387,6 +428,29 @@
     </div>
 
   </div>
+<!-- TOAST NOTIFICATION -->
+<div class="toast" id="toast">
+  <div class="toast-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+    </svg>
+  </div>
+  ✅ Download started — check your Downloads folder!
+</div>
+<script>
+  const downloadBtn = document.querySelector('.download-btn');
+  const toast = document.getElementById('toast');
 
+  downloadBtn.addEventListener('click', function () {
+    // Show toast
+    toast.classList.add('show');
+
+    // Auto hide after 4 seconds
+    setTimeout(() => {
+      toast.classList.remove('show');
+    }, 4000);
+  });
+</script>
 </body>
+
 </html>
