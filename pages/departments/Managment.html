@@ -21,6 +21,10 @@
             color: #333;
             min-height: 100vh;
             padding: 16px 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
         }
 
         /* ===========================
@@ -125,18 +129,22 @@
             font-weight: 600;
         }
 
-        .hod {
-            background-color: #d4edda;
-            color: #155724;
-            border: 1px solid #b8dfc4;
+        .chairman {
+            background-color: lightgoldenrodyellow;
+            color: goldenrod;
+            border: 1px solid gold;
         }
 
-        .lecturer {
-            background-color: #f1f1f1;
-            color: #555;
-            border: 1px solid #ddd;
-        }
-
+        .principal {
+            background-color: lightsalmon;
+            color: #557;
+            border: 1px solid salmon;}
+            
+.po{
+    background-color: cyan;
+color: #558;
+    border: 1px solid cyan;
+}
         /* ===========================
            TABLET — 480px+
         =========================== */
@@ -289,10 +297,52 @@
                 padding: 15px 24px;
             }
         }
+/* ===========================
+   BACK BUTTON
+=========================== */
+.back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin: 16px 0 0 12px;
+    margin-bottom: 12px;
+    background: #1a2f5c;
+    color: #fff;
+    border: none;
+    padding: 9px 16px;
+    border-radius: 25px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(26,47,92,0.18);
+    transition: background 0.2s, transform 0.15s;
+    letter-spacing: 0.3px;
+}
 
+.back-btn:hover {
+    background: #ff6b35;
+    transform: translateX(-3px);
+}
+
+.back-btn svg {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    transition: transform 0.2s;
+}
+
+.back-btn:hover svg {
+    transform: translateX(-3px);
+}
     </style>
 </head>
 <body>
+       <button class="back-btn" onclick="history.back()" title="Go back">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+        </svg>
+        Back
+    </button>
     <div class="table-wrapper">
 
         <div class="table-title">
@@ -311,10 +361,23 @@
             </thead>
             <tbody>
                 <tr>
+                    <td data-label="Faculty Name">Sri. Dr.C.Imthiyaz Ahamed</td></td>
+                    <td data-label="Designation"><span class="designation-badge chairman">Chairman</span></td>
+                    <td data-label="Department">Management of NDC</td>
+                    <td data-label="Experience">40 Years+</td>
+                    </tr>
+                                    <tr>
                     <td data-label="Faculty Name">Sri. D.Venu Gopal</td>
-                    <td data-label="Designation"><span class="designation-badge hod">PrincipaL</span></td>
+                    <td data-label="Designation"><span class="designation-badge principal">PrincipaL</span></td>
                     <td data-label="Department">Managment of NDC</td>
                     <td data-label="Experience">30 Years+</td>
+                    </tr>
+                                    <tr>
+                    <td data-label="Faculty Name">Sri. M.S.Sai Kumar</td>
+                    <td data-label="Designation"><span class="designation-badge po">Placement Officer</span></td>
+                    <td data-label="Department">Management Of NDC</td>
+                    <td data-label="Experience">30 Years+</td>
+                    </tr>
             </tbody>
         </table>
 

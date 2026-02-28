@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CS Department Faculty</title>
+    <title>Life Sciences Department Faculty</title>
     <style>
 
         /* ===========================
@@ -21,7 +21,11 @@
             color: #333;
             min-height: 100vh;
             padding: 16px 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
         }
+        
 
         /* ===========================
            WRAPPER
@@ -125,16 +129,17 @@
             font-weight: 600;
         }
 
-        .hod {
-            background-color: #d4edda;
-            color: #155724;
-            border: 1px solid #b8dfc4;
+        .mlecturer {
+            background-color: lightskyblue;
+            color: navy
+            border: 1px solid deepskyblue;
+            
         }
-
-        .lecturer {
-            background-color: #f1f1f1;
-            color: #555;
-            border: 1px solid #ddd;
+                .flecturer {
+            background-color: lightpink;
+            color: deeppink
+            border: 1px solid hotpink;
+            
         }
 
         /* ===========================
@@ -289,14 +294,56 @@
                 padding: 15px 24px;
             }
         }
+        /* ===========================
+   BACK BUTTON
+=========================== */
+.back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin: 16px 0 0 12px;
+    margin-bottom: 12px;
+    background: #1a2f5c;
+    color: #fff;
+    border: none;
+    padding: 9px 16px;
+    border-radius: 25px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(26,47,92,0.18);
+    transition: background 0.2s, transform 0.15s;
+    letter-spacing: 0.3px;
+}
 
+.back-btn:hover {
+    background: #ff6b35;
+    transform: translateX(-3px);
+}
+
+.back-btn svg {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    transition: transform 0.2s;
+}
+
+.back-btn:hover svg {
+    transform: translateX(-3px);
+}
     </style>
 </head>
 <body>
+       <button class="back-btn" onclick="history.back()" title="Go back">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+        </svg>
+        Back
+    </button>
     <div class="table-wrapper">
 
         <div class="table-title">
-            Computer Science Department — Faculty
+            Life Sciences Department — Faculty
             <span>Meet Our Distinguished Educators</span>
         </div>
 
@@ -311,40 +358,57 @@
             </thead>
             <tbody>
                 <tr>
-                    <td data-label="Faculty Name">Mr. Sai Kumar</td>
-                    <td data-label="Designation"><span class="designation-badge hod">Head of the Department</span></td>
-                    <td data-label="Department">Computer Science</td>
-                    <td data-label="Experience">—</td>
+ <td data-label="Faculty Name">
+     Smt. M.Nagakhandeswaramma</td>
+ <td data-label="Designation"><span class="designation-badge hod">
+     Head of the Department</span></td>
+<td data-label="Department">
+    Botany</td>
+<td data-label="Experience">
+    20 Years+</td>
                 </tr>
                 <tr>
-                    <td data-label="Faculty Name">Rama Krishna</td>
-                    <td data-label="Designation"><span class="designation-badge lecturer">Lecturer</span></td>
-                    <td data-label="Department">Computer Science</td>
-                    <td data-label="Experience">—</td>
-                </tr>
+ <td data-label="Faculty Name">
+     Sri. Dr.N.Raja Naik</td>
+ <td data-label="Designation"><span class="designation-badge hod">
+     Head of the Department</span></td>
+<td data-label="Department">
+    Zoology</td>
+<td data-label="Experience">
+    14 Years+</td>
+                </tr>  
                 <tr>
-                    <td data-label="Faculty Name">B. Md. Rafi</td>
-                    <td data-label="Designation"><span class="designation-badge lecturer">Lecturer</span></td>
-                    <td data-label="Department">Computer Science</td>
-                    <td data-label="Experience">—</td>
-                </tr>
+ <td data-label="Faculty Name">
+     Sri. B.Chinna Pullaiah</td>
+ <td data-label="Designation">
+     <span class="designation-badge mlecturer">
+     Lecturer</span></td>
+<td data-label="Department">
+    Zoology</td>
+<td data-label="Experience">
+    13 Years+</td>
+                </tr>  
+                 <tr>
+ <td data-label="Faculty Name">
+     Sri. K.Harigovindu</td>
+ <td data-label="Designation">
+     <span class="designation-badge mlecturer">
+     Lecturer</span></td>
+<td data-label="Department">
+    Botany</td>
+<td data-label="Experience">
+    5 Years+</td>
+                </tr>  
                 <tr>
-                    <td data-label="Faculty Name">Naveen Kumar</td>
-                    <td data-label="Designation"><span class="designation-badge lecturer">Lecturer</span></td>
-                    <td data-label="Department">Computer Science</td>
-                    <td data-label="Experience">—</td>
-                </tr>
-                <tr>
-                    <td data-label="Faculty Name">Mohammed Ali</td>
-                    <td data-label="Designation"><span class="designation-badge lecturer">Lecturer</span></td>
-                    <td data-label="Department">Computer Science</td>
-                    <td data-label="Experience">—</td>
-                </tr>
-                <tr>
-                    <td data-label="Faculty Name">Badulla</td>
-                    <td data-label="Designation"><span class="designation-badge lecturer">Lecturer</span></td>
-                    <td data-label="Department">Computer Science</td>
-                    <td data-label="Experience">—</td>
+ <td data-label="Faculty Name">
+     Smt. G.Mani</td>
+ <td data-label="Designation">
+     <span class="designation-badge flecturer">
+     Lecturer</span></td>
+<td data-label="Department">
+    Botany</td>
+<td data-label="Experience">
+    3 Years+</td>
                 </tr>
             </tbody>
         </table>
