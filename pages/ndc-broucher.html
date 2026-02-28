@@ -3,135 +3,390 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>College Brochure</title>
+  <title>NDC Brochure — National Degree College</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
-    body {
+
+    /* ========================
+       VARIABLES & RESET
+    ======================== */
+    :root {
+      --navy:       #1a2f5c;
+      --navy-deep:  #0f1d3a;
+      --orange:     #ff6b35;
+      --orange-dark:#e05520;
+      --white:      #ffffff;
+      --grey:       #f0f3f8;
+      --text:       #2c2c2c;
+      --muted:      #7a8499;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: #fff;
+      padding: 0;
     }
 
-    
-    header {
-      height: 80px; 
-      background: #f5f5f5;
-      text-align: center;
-      line-height: 80px;
-      font-weight: bold;
-      color: #1a2f5c;
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--grey);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      padding: 16px 12px;
     }
 
-    /* Brochure Section */
-    .brochure-container {
-      text-align: center;
-      padding: 40px 20px;
-    }
-    .brochure-container img {
-      max-width: 100%;
-      height: auto;
+    /* ========================
+       BACK BUTTON
+    ======================== */
+    .back-btn {
+      display: inline-flex;
       align-items: center;
-      border: 2px solid darkorange;
-      border-radius: 8px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-      margin-bottom: 20px;
+      gap: 7px;
+      background: var(--navy);
+      color: var(--white);
+      border: none;
+      padding: 9px 18px;
+      border-radius: 25px;
+      font-size: 0.83rem;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      box-shadow: 0 2px 10px rgba(26,47,92,0.2);
+      transition: background 0.2s, transform 0.15s;
+      align-self: flex-start;
+      margin-bottom: 18px;
     }
 
-    /* Download Button */
-    .download-btn {
-      display: inline-block;
-      padding: 12px 20px;
-      background: #ff6600; /* Orange */
-      color: white;
-      text-decoration: none;
-      font-weight: bold;
-      border-radius: 6px;
-      transition: background 0.3s;
-    }
-    .download-btn:hover {
-      background: #cc5200; 
+    .back-btn:hover {
+      background: var(--orange);
+      transform: translateX(-3px);
     }
 
-    /* Placeholder for Footer */
-    footer {
-      height: 60px;
-      background: #f5f5f5;
+    .back-btn svg {
+      width: 15px;
+      height: 15px;
+      transition: transform 0.2s;
+    }
+
+    .back-btn:hover svg {
+      transform: translateX(-3px);
+    }
+
+    /* ========================
+       HERO STRIP
+    ======================== */
+    .hero-strip {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-deep) 100%);
+      padding: 28px 16px;
       text-align: center;
-      line-height: 60px;
-      color: #0077cc;
+      border-radius: 14px;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 18px;
     }
 
-    .back-button-container {
-  position: relative;
-  top: 60px; 
-  background-color:transparent; 
-  margin: 10px;
-  padding: 10px 0;
-  text-align: center;
-  z-index: 1000;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
+    .hero-strip::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 20px,
+        rgba(255,107,53,0.04) 20px,
+        rgba(255,107,53,0.04) 40px
+      );
+    }
 
-.back-button {
-  background-color: #1a2f5c;
-  color: white;
-  border: none;
-  padding: 0.7em 1.5em; 
-  font-size: 1rem;
-  border-radius: 0.5em;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-  width: auto;
-  max-width: 90%;
-  white-space: nowrap;
-}
+    .hero-strip .tag {
+      display: inline-block;
+      background: var(--orange);
+      color: var(--white);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 4px 14px;
+      border-radius: 20px;
+      margin-bottom: 12px;
+      position: relative;
+      z-index: 1;
+    }
 
-.back-button:hover {
-  background-color: #ff6b35;
-  transform: scale(1.05);
-}
+    .hero-strip h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      color: var(--white);
+      line-height: 1.25;
+      position: relative;
+      z-index: 1;
+    }
 
-/* Tablet */
-@media (min-width: 768px) {
-  .back-button {
-    font-size: 1.1rem;
-    padding: 0.8em 2em;
-  }
-}
+    .hero-strip h2 em {
+      font-style: normal;
+      color: var(--orange);
+    }
 
-/* Desktop */
-@media (min-width: 992px) {
-  .back-button {
-    font-size: 1.2rem;
-    padding: 1em 2.5em;
-  }
-}
+    .hero-strip p {
+      color: rgba(255,255,255,0.65);
+      font-size: 0.82rem;
+      margin-top: 8px;
+      line-height: 1.6;
+      position: relative;
+      z-index: 1;
+    }
 
+    /* ========================
+       VIEWER + DOWNLOAD
+    ======================== */
+    .viewer-section {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    /* Brochure Card */
+    .brochure-card {
+      background: var(--white);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 6px 30px rgba(26,47,92,0.1);
+      border: 1px solid rgba(26,47,92,0.07);
+    }
+
+    .brochure-card-header {
+      background: var(--navy);
+      padding: 12px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brochure-card-header span {
+      color: rgba(255,255,255,0.7);
+      font-size: 0.75rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+
+    .dot-row {
+      display: flex;
+      gap: 5px;
+    }
+
+    .dot-row span {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      display: block;
+    }
+
+    .dot-row span:nth-child(1) { background: #ff5f57; }
+    .dot-row span:nth-child(2) { background: #febc2e; }
+    .dot-row span:nth-child(3) { background: #28c840; }
+
+    .brochure-img-wrap {
+      padding: 16px;
+      background: #f7f7f9;
+    }
+
+    .brochure-img-wrap img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+      display: block;
+      border: 1px solid rgba(0,0,0,0.06);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    }
+
+    /* Download Panel */
+    .download-panel {
+      background: var(--white);
+      border-radius: 14px;
+      padding: 22px 18px;
+      box-shadow: 0 6px 30px rgba(26,47,92,0.08);
+      border: 1px solid rgba(26,47,92,0.07);
+      text-align: center;
+    }
+
+    .download-panel .icon-wrap {
+      width: 56px;
+      height: 56px;
+      background: linear-gradient(135deg, var(--orange), var(--orange-dark));
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 14px;
+      box-shadow: 0 4px 14px rgba(255,107,53,0.35);
+    }
+
+    .download-panel .icon-wrap svg {
+      width: 26px;
+      height: 26px;
+      color: var(--white);
+    }
+
+    .download-panel h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      color: var(--navy);
+      margin-bottom: 6px;
+    }
+
+    .download-panel p {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-bottom: 18px;
+      line-height: 1.5;
+    }
+
+    .download-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, var(--orange), var(--orange-dark));
+      color: var(--white);
+      text-decoration: none;
+      padding: 13px 28px;
+      border-radius: 30px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      font-family: 'DM Sans', sans-serif;
+      box-shadow: 0 4px 16px rgba(255,107,53,0.4);
+      transition: transform 0.2s, box-shadow 0.2s;
+      letter-spacing: 0.3px;
+    }
+
+    .download-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(255,107,53,0.45);
+    }
+
+    .download-btn svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    /* ========================
+       TABLET — 480px+
+    ======================== */
+    @media (min-width: 480px) {
+      body { padding: 24px 20px; }
+      .hero-strip h2 { font-size: 1.9rem; }
+    }
+
+    /* ========================
+       SMALL TABLET — 640px+
+    ======================== */
+    @media (min-width: 640px) {
+      body { padding: 32px 24px; }
+
+      .hero-strip {
+        padding: 36px 32px;
+        margin-bottom: 22px;
+      }
+      .hero-strip h2 { font-size: 2.1rem; }
+
+      .viewer-section {
+        flex-direction: row;
+        align-items: flex-start;
+      }
+
+      .brochure-card  { flex: 1.6; }
+      .download-panel { flex: 1; }
+    }
+
+    /* ========================
+       DESKTOP — 768px+
+    ======================== */
+    @media (min-width: 768px) {
+      body { padding: 40px 32px; }
+
+      .back-btn { font-size: 0.9rem; padding: 10px 20px; }
+
+      .hero-strip { padding: 44px 40px; border-radius: 16px; }
+      .hero-strip h2 { font-size: 2.4rem; }
+      .hero-strip p  { font-size: 0.9rem; }
+
+      .download-panel { padding: 30px 24px; }
+      .download-panel h3 { font-size: 1.2rem; }
+    }
+
+    /* ========================
+       LARGE DESKTOP — 1024px+
+    ======================== */
+    @media (min-width: 1024px) {
+      body {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 48px 40px;
+      }
+
+      .hero-strip { padding: 52px 56px; border-radius: 18px; }
+      .hero-strip h2 { font-size: 2.8rem; }
+    }
 
   </style>
 </head>
 <body>
 
-  
-  <header>
+  <!-- BACK BUTTON -->
+  <button class="back-btn" onclick="history.back()">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>
+    </svg>
+    Back
+  </button>
 
-    <h1 style="color:#1a2f5c;">N D C Brochure</h1>
-     
-  </header>
-<div class="back-button-container">
-                   <a href="/index.html" class="back-button" >&#8592; Back </a>
-</div>
-  <!-- Main Brochure Section -->
-  <div class="brochure-container">
-    <!-- Brochure Image Preview -->
-    <img src="https://i.postimg.cc/sgTrVsvD/broucher-1.png" alt="College Brochure">
-    <br>
-    <!-- Download Button -->
-<a href="/assets/broucher/collegebroucher.pdf" class="download-btn" download="collegebrochure.pdf">
-  📥 Download Brochure
-</a>
+  <!-- HERO STRIP -->
+  <div class="hero-strip">
+    <div class="tag">Official Publication</div>
+    <h2>College <em>Brochure</em><br></h2>
+    <p>Everything you need to know about NDC —<br>courses, faculty, facilities &amp; more.</p>
+  </div>
 
-  <footer>
-  </footer>
+  <!-- BROCHURE VIEWER + DOWNLOAD -->
+  <div class="viewer-section">
+
+    <!-- Brochure Preview Card -->
+    <div class="brochure-card">
+      <div class="brochure-card-header">
+        <div class="dot-row">
+          <span></span><span></span><span></span>
+        </div>
+        <span>Brochure Preview</span>
+        <span style="opacity:0; pointer-events:none;">···</span>
+      </div>
+      <div class="brochure-img-wrap">
+        <img
+          src="https://i.postimg.cc/sgTrVsvD/broucher-1.png"
+          alt="NDC College Brochure Preview"
+        >
+      </div>
+    </div>
+
+    <!-- Download Panel -->
+    <div class="download-panel">
+      <div class="icon-wrap">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v12m0 0l-4-4m4 4l4-4M4 20h16"/>
+        </svg>
+      </div>
+      <h3>Download the Brochure</h3>
+      <p>Get the full PDF version of the NDC brochure with complete details on admissions, courses, and campus life.</p>
+      <a href="/assets/broucher/collegebroucher.pdf" class="download-btn" download="NDC-Brochure-2024-25.pdf">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v12m0 0l-4-4m4 4l4-4M4 20h16"/>
+        </svg>
+        Download PDF
+      </a>
+    </div>
+
+  </div>
 
 </body>
 </html>
