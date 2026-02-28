@@ -429,6 +429,7 @@ nav {
   margin-bottom: 20px;  
 }
 .notice-board {  
+  font-family: 'Faculty Glyphic',sans-serif;
     background: white;  
     border-radius: 15px;  
     padding: 20px;  
@@ -454,14 +455,18 @@ nav {
 }
 
 .notice-content {  
-    animation: scrollUp 8s linear infinite;  
+    animation: scrollUp 25s linear infinite;  
     line-height: 1.8;  
 }
 
 
-@keyframes scrollUp {  
-    0% { transform: translateY(100%); }  
-    100% { transform: translateY(-100%); }  
+@keyframes scrollUp {
+  0% {
+    transform: translateY(0%);
+  }
+  100% {
+    transform: translateY(-100%);
+  }
 }
 
 .updates-section {  
@@ -473,6 +478,7 @@ nav {
 }
 
 .updates-section h2 {  
+  font-family: 'Faculty Glyphic',sans-serif;
     color: #1e3c72;  
     margin-bottom: 15px;  
     text-align: center;  
@@ -554,6 +560,7 @@ nav {
 }
 
 .course-expand h3 {
+  font-family: 'Faculty Glyphic',sans-serif;
     color: #1e3c72;
     margin-bottom: 10px;
 }
@@ -636,8 +643,8 @@ nav {
 
 .staff-image {
   width: 100%;
-  height: 200px;
-  object-fit: cover;
+  height: 300px;
+  object-fit:cover;
 }
 
 .staff-info {
@@ -679,6 +686,7 @@ nav {
 
 .placements-section h2::after {
     content: '';
+    font-family: 'Faculty Glyphic',sans-serif;
     position: absolute;
     bottom: -10px;
     left: 50%;
@@ -690,6 +698,7 @@ nav {
 
 /* Placements content */
 .placements-content {
+  font-family: 'Faculty Glyphic',sans-serif;
     display: flex;
     flex-direction: column; 
     align-items: center;
@@ -708,7 +717,7 @@ nav {
 }
 
 .placement-stats .stat-item h3 {
-    font-size: clamp(24px, 6vw, 2.5rem);
+    font-size: clamp(18px, 4vw, 2.25rem);
     color: #ff6b35;
     margin-bottom: 5px;
 }
@@ -909,6 +918,8 @@ nav {
   font-size: clamp(20px, 5vw, 28px);
   margin-bottom: 15px;
   color: #1a2f5c;
+  font-family:
+  'Faculty Glyphic',sans-serif;
 }
 
 .letter-text p {
@@ -917,38 +928,15 @@ nav {
   color: black;
 }
 
-/* videeo section with wrapper*/
-.video-section .instagram-video-wrapper {
-  display: flex;
-  justify-content: center; 
-  width: 100%;
-  overflow: hidden;
-  margin: 0 auto;
-}
-
-/* Instagram video container */
-.video-section .instagram-video {
-  width: 100%;
-  max-width: 800px; 
-  display: flex;
-  justify-content: center; 
-}
-
-/* Instagram blockquote */
-.video-section .instagram-video blockquote.instagram-media {
-  width: 100% !important;
-  max-width: 100% !important;
-  margin: 0 auto !important;
-  display: block !important;
-}
-
-/* Section styling */
+/* ========================
+   VIDEO SECTION
+======================== */
 .video-section {
   padding: 30px 15px;
   text-align: center;
   background: white;
   border-radius: 15px;
-  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
   margin-bottom: 30px;
 }
 
@@ -959,8 +947,30 @@ nav {
   margin-bottom: 20px;
   font-weight: 600;
   line-height: 1.4;
-  font-family: 'Faculty Glyphic',sans-serif;
+  font-family: 'Faculty Glyphic', sans-serif;
 }
+
+/* Wrapper centers the video */
+.video-section .instagram-video-wrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* Video container — max width + 16:9 ratio */
+.video-section .instagram-video {
+  width: 100%;
+  max-width: 800px;
+}
+
+/* Vimeo responsive iframe container */
+.video-section .instagram-video>div {
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+}
+
 
 /* Tablet */
 @media (min-width: 768px) {
@@ -1308,6 +1318,7 @@ Tablet screens (768px) */
     }
 
     .section-header p {
+      font-family: 'Faculty Glyphic',sans-serif;
       font-family: sans-serif;
       font-size: 0.95em;
       opacity: 1;
@@ -1328,6 +1339,7 @@ Tablet screens (768px) */
     }
 
     .review-card {
+      font-family: 'Faculty Glyphic',sans-serif;
       flex: 0 0 100%;
       max-width: 100%;
       background: white;
@@ -1366,13 +1378,14 @@ Tablet screens (768px) */
       height: 125px;
       border-radius: 10px 0px;
       object-fit: cover;
-      border: 3px solid #667eea;
+      border: 3px solid #1a2f5c;
       margin-right: 12px;
       box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     }
 
     .student-details h3 {
-      font-size: 1.1em;
+      font-family: 'Faculty Glyphic',sans-serif;
+      font-size: 1em;
       color: #333;
       margin-bottom: 4px;
     }
@@ -1516,6 +1529,7 @@ Tablet screens (768px) */
 }
 
 .innerText {
+  font-family: 'Faculty Glyphic',sans-serif;
   color: transparent;
   -webkit-background-clip: text;
   background-image:linear-gradient(90deg, rgb(0, 0, 0), rgb(116, 111, 111));
@@ -1590,10 +1604,11 @@ Tablet screens (768px) */
   }
 }
 .tech-heading {
+  font-family: 'Faculty Glyphic',sans-serif;
   text-align: center;
   color: #ff6b35;
   font-size: 28px;
-  font-weight: 700;
+  font-weight: 555;
   margin-bottom: 20px;
   background-image:#ff6b35;
   -webkit-background-clip: text;
