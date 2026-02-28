@@ -1295,6 +1295,8 @@ Tablet screens (768px) */
 
 
     .reviews-section {
+  font-family:
+  'Faculty Glyphic',sans-serif;
       width: 100%;
       padding: 20px 0;
       border-radius: 15px;
@@ -1319,7 +1321,6 @@ Tablet screens (768px) */
 
     .section-header p {
       font-family: 'Faculty Glyphic',sans-serif;
-      font-family: sans-serif;
       font-size: 0.95em;
       opacity: 1;
       color: #1a2f5c;
