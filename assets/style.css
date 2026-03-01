@@ -545,6 +545,9 @@ nav {
     transition: transform 0.3s ease;
     font-weight: 600;
     font-size: 1rem;
+    font-family:
+  'Faculty Glyphic',sans-serif;
+
 }
 
 .course-item:hover {
@@ -604,6 +607,9 @@ nav {
 
 /* Staff Section */
 .staff-section {
+  font-family:
+  'Faculty Glyphic',sans-serif;
+
   background: white;  
   border-radius: 15px;  
   padding: 20px;  
@@ -649,6 +655,9 @@ nav {
 
 .staff-info {
   padding: 15px;
+  font-family:
+  'Faculty Glyphic',sans-serif;
+
 }
 
 .staff-info h3 {
@@ -912,6 +921,9 @@ nav {
 .letter-text {
   padding: 0 10px;
   text-align: center;
+  font-family:
+  'Faculty Glyphic',sans-serif;
+
 }
 
 .letter-text h2 {
@@ -926,6 +938,8 @@ nav {
   font-size: clamp(14px, 4vw, 18px);
   line-height: 1.6;
   color: black;
+  font-family:
+  'Faculty Glyphic',sans-serif;
 }
 
 /* ========================
@@ -1377,9 +1391,9 @@ Tablet screens (768px) */
     .student-photo {
       width: 125px;
       height: 125px;
-      border-radius: 10px 0px;
+      border-radius: 20px 0px;
       object-fit: cover;
-      border: 3px solid #1a2f5c;
+      border: 1px solid #1a2f5c;
       margin-right: 12px;
       box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     }
