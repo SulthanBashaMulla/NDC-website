@@ -125,7 +125,11 @@ function toggleCourse(courseType) {
     'ba-urdu': {
         title: 'Bachelor of Arts (Special Urdu)',
         details: 'Duration: 3 years | Eligibility: 10+2 any stream | Career: Urdu Lecturer, Translator, Journalist, Civil Services Preparation, Content Writer'
-    }
+    },
+    'bsc-botany': {
+    title: 'Bachelor of Science (Botany)',
+    details: 'Duration: 3 years | Eligibility: 10+2 with Biology | Career: Botanist, Plant Researcher, Agricultural Officer, Environmental Consultant, Lab Technician, Higher Studies in Life Sciences'
+}
 };
 
     // If the same course is clicked → close
