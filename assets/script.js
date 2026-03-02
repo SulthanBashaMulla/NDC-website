@@ -87,27 +87,46 @@ document.addEventListener('DOMContentLoaded', () => {
 function toggleCourse(courseType) {
     const courseInfo = document.getElementById('course-info');
     const courseDetails = {
-        'bca': {
-            title: 'Bachelor of Computer Application',
-            details: 'Duration: 3 years | Eligibility: 10+2 any stream| Career: software development, web development, cybersecurity, data analysis, network administration, mobile app development, and digital marketing'
-        },
-        'bsc': {
-            title: 'Bachelor of Science (computer science)',
-            details: 'Duration: 3 years | Eligibility: 10+2 with PCM | Career: Software Developer, Data Analyst, Web Developer, Cybersecurity Analyst, IT Consultant, and Systems Analyst'
-        },
-        'bscl': {
-            title: 'Bachelor of Science (life sciences)',
-            details: 'Duration: 3 years | Eligibility: 10+2 | Career: research (Biotechnologist, Microbiologist, Research Assistant), healthcare (Clinical Research Associate, Lab Technician), industry (Pharmaceutical Sales, Food Scientist), environmental conservation (Natural Resource Specialist)'
-        },
-        'bcom': {
-            title: 'Bachelor of Commerce',
-            details: 'Duration: 3 years | Eligibility: 10+2 any stream | Career: Accountant,Financial Analyst,Tax consultant'
-        },
-        'ba': {
-            title: 'Bachelor of Arts',
-            details: 'Duration: 3 years | Eligibility: 10+2 any stream | Career: Digital Marketing (content writer, social media manager), Journalism & Mass Communication, Teaching (with a B.Ed.)'
-        }
-    };
+    'bca': {
+        title: 'Bachelor of Computer Applications',
+        details: 'Duration: 3 years | Eligibility: 10+2 any stream | Career: Software Developer, Web Developer, Cybersecurity Analyst, Data Analyst, Mobile App Developer, IT Support'
+    },
+    
+    'bsc-cs': {
+        title: 'Bachelor of Science (Computer Science)',
+        details: 'Duration: 3 years | Eligibility: 10+2 with Mathematics | Career: Software Developer, Data Analyst, Web Developer, Systems Analyst, Cybersecurity Analyst'
+    },
+    
+    'bsc-qt': {
+        title: 'Bachelor of Science (Quantum Technology)',
+        details: 'Duration: 3 years | Eligibility: 10+2 with PCM | Career: Quantum Computing Researcher, Research Assistant, Lab Technologist, Data Scientist, Higher Studies in Physics/Quantum Science'
+    },
+    
+    'bsc-iot': {
+        title: 'Bachelor of Science (Internet of Things)',
+        details: 'Duration: 3 years | Eligibility: 10+2 with Mathematics | Career: IoT Developer, Embedded Systems Engineer, Automation Engineer, Smart Systems Developer'
+    },
+    
+    'bsc-it': {
+        title: 'Bachelor of Science (Information Technology)',
+        details: 'Duration: 3 years | Eligibility: 10+2 any stream (Maths preferred) | Career: IT Support Specialist, Network Administrator, System Administrator, Web Developer'
+    },
+    
+    'bcom-ca': {
+        title: 'Bachelor of Commerce (Computer Applications)',
+        details: 'Duration: 3 years | Eligibility: 10+2 any stream | Career: Accountant, Financial Analyst, Tax Consultant, Banking Professional, ERP Executive'
+    },
+    
+    'bba': {
+        title: 'Bachelor of Business Administration',
+        details: 'Duration: 3 years | Eligibility: 10+2 any stream | Career: Business Executive, Marketing Manager, HR Executive, Entrepreneur, MBA Aspirant'
+    },
+    
+    'ba-urdu': {
+        title: 'Bachelor of Arts (Special Urdu)',
+        details: 'Duration: 3 years | Eligibility: 10+2 any stream | Career: Urdu Lecturer, Translator, Journalist, Civil Services Preparation, Content Writer'
+    }
+};
 
     // If the same course is clicked → close
     if (activeCourse === courseType) {
