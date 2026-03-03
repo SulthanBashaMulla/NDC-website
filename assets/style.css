@@ -55,7 +55,7 @@ body {
 }
 
 .college-info h1 {
-    font-size: 1.45rem;
+    font-size: 1.2rem;
     color: #ff6b35;
     font-family: 'Roboto Slab', serif;
     font-weight: bold;
@@ -75,7 +75,7 @@ body {
 }
 
 .college-info p {
-    font-size: 0.9rem;
+    font-size: 0.4rem;
     line-height: 1.4;
     margin: 0 auto;
     max-width: 600px;
@@ -1674,3 +1674,4 @@ Tablet screens (768px) */
 }
 .rev-left  { left: 8px; }
 .rev-right { right: 8px; }
+
