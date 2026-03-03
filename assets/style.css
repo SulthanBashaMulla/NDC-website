@@ -84,7 +84,7 @@ body {
 @media (min-width: 768px) {
     .header-content {
         flex-direction: row;       
-        justify-content: space-between;
+        justify-content: center;
         align-items: center;
         gap: 50px;
         width: 100%;
@@ -1674,6 +1674,7 @@ Tablet screens (768px) */
 }
 .rev-left  { left: 8px; }
 .rev-right { right: 8px; }
+
 
 
 
