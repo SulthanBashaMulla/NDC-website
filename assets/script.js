@@ -300,7 +300,7 @@ document.addEventListener("DOMContentLoaded", () => {
 })();
 
 (function () {
-  const SHEET_CSV_URL = 'YOUR_SHEET_CSV_URL'; // Replace with same CSV URL used in notices.html
+  const SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSyvjNgUcUesqV83Af3HDaVJ7bXj49TYE5CuQ4xohXgptO3sBeR7ok0kodKYncdCZNk68L8PbHnSWy1/pub?output=csv'; // Replace with same CSV URL used in notices.html
 
   const deptClass = dept => {
     const d = (dept || '').toLowerCase();
