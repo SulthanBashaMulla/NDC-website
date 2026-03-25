@@ -299,4 +299,81 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 })();
 
+(function () {
+  const SHEET_CSV_URL = 'YOUR_SHEET_CSV_URL'; // Replace with same CSV URL used in notices.html
 
+  const deptClass = dept => {
+    const d = (dept || '').toLowerCase();
+    if (d.includes('exam'))      return 'exam';
+    if (d.includes('placement')) return 'placement';
+    if (d.includes('sport'))     return 'sports';
+    if (d.includes('holiday'))   return 'holiday';
+    if (d.includes('general'))   return 'general';
+    return 'default';
+  };
+
+  const DEMO_NOTICES = [
+    { Title: 'Semester Exam Schedule Released',        Date: '25 Mar 2026', Description: 'The timetable for upcoming semester exams has been published. Students must carry their hall tickets to the exam hall.', Department: 'Exam',      IsNew: 'yes' },
+    { Title: 'Wipro Campus Drive — Registrations Open',Date: '22 Mar 2026', Description: 'Final year students eligible for Wipro campus recruitment. Register before 30th March. 60% aggregate required.',          Department: 'Placement', IsNew: 'yes' },
+    { Title: 'Annual Sports Day — 5th April',          Date: '20 Mar 2026', Description: 'Students interested in sports events should register with Physical Education dept before 28th March.',                     Department: 'Sports',    IsNew: 'yes' },
+  ];
+
+  function parseCSV(text) {
+    const lines   = text.trim().split('\n');
+    const headers = lines[0].split(',').map(h => h.trim().replace(/"/g, ''));
+    return lines.slice(1).map(line => {
+      const cols = []; let cur = '', inQ = false;
+      for (let ch of line) {
+        if (ch === '"') { inQ = !inQ; }
+        else if (ch === ',' && !inQ) { cols.push(cur.trim()); cur = ''; }
+        else { cur += ch; }
+      }
+      cols.push(cur.trim());
+      const obj = {};
+      headers.forEach((h, i) => obj[h] = (cols[i] || '').replace(/"/g, '').trim());
+      return obj;
+    }).filter(r => r.Title);
+  }
+
+  function renderLatestNotices(notices) {
+    const list = document.getElementById('latestNoticesList');
+    list.innerHTML = '';
+    notices.slice(0, 3).forEach((n, i) => {
+      const isNew = (n.IsNew || '').toLowerCase() === 'yes';
+      const dc    = deptClass(n.Department);
+      const item  = document.createElement('a');
+      item.href   = '/pages/notices.html';
+      item.className = 'ln-item';
+      item.style.animationDelay = ${i * 0.1}s;
+      item.innerHTML = `
+        <div class="ln-indicator ${isNew ? 'new' : 'normal'}"></div>
+        <div class="ln-text">
+          <div class="ln-meta">
+            ${isNew ? <span class="ln-badge-new">New</span> : ''}
+            <span class="ln-dept ${dc}">${n.Department || 'General'}</span>
+            <span class="ln-date">📅 ${n.Date || ''}</span>
+          </div>
+          <div class="ln-title">${n.Title}</div>
+          ${n.Description ? <div class="ln-desc">${n.Description}</div> : ''}
+        </div>
+        <span class="ln-arrow">›</span>`;
+      list.appendChild(item);
+    });
+  }
+
+  async function loadLatestNotices() {
+    if (SHEET_CSV_URL === 'YOUR_SHEET_CSV_URL') {
+      renderLatestNotices(DEMO_NOTICES);
+      return;
+    }
+    try {
+      const res  = await fetch(SHEET_CSV_URL);
+      if (!res.ok) throw new Error();
+      renderLatestNotices(parseCSV(await res.text()));
+    } catch {
+      renderLatestNotices(DEMO_NOTICES);
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', loadLatestNotices);
+})();
