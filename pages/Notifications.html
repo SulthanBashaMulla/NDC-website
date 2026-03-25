@@ -654,20 +654,6 @@
   <!-- MAIN -->
   <div class="main">
 
-    <!-- Setup instructions (remove after setup) -->
-    <div class="setup-box" id="setupBox">
-      <h3>⚙️ One-time Setup — Read this first!</h3>
-      <ol>
-        <li>Create a <strong>Google Sheet</strong> with these exact column headers in Row 1:<br>
-          <code>Title</code> &nbsp;<code>Date</code> &nbsp;<code>Description</code> &nbsp;<code>Department</code> &nbsp;<code>AttachmentLink</code> &nbsp;<code>IsNew</code>
-        </li>
-        <li>Fill in your notices (newest at top). In <code>IsNew</code> column type <code>yes</code> for new notices.</li>
-        <li>Go to <strong>File → Share → Publish to web</strong> → choose <strong>Sheet1</strong> → publish as <strong>CSV</strong> → copy the URL.</li>
-        <li>Replace <code>YOUR_SHEET_CSV_URL</code> in this file's JavaScript with your copied URL.</li>
-        <li>Delete this setup box from the HTML once done.</li>
-      </ol>
-    </div>
-
     <!-- Stats -->
     <div class="stats-row" id="statsRow" style="display:none;">
       <div class="stat-pill">
@@ -732,7 +718,7 @@
   </div>
 
   <script>
-    const SHEET_CSV_URL = 'YOUR_SHEET_CSV_URL';
+    const SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSyvjNgUcUesqV83Af3HDaVJ7bXj49TYE5CuQ4xohXgptO3sBeR7ok0kodKYncdCZNk68L8PbHnSWy1/pub?output=csv';
 
     let allNotices = [];
 
