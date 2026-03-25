@@ -331,7 +331,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const isNew = (n.IsNew || '').toLowerCase() === 'yes';
             const dc    = deptClass(n.Department);
             const item  = document.createElement('a');
-            item.href      = '/pages/notices.html';
+            item.href      = '/pages/Notifications.html';
             item.className = 'ln-item';
             // ✅ Was: ${i * 0.1}s without backticks — now fixed
             item.style.animationDelay = `${i * 0.1}s`;
