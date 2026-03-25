@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notices — National Degree College</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy:        #1a2f5c;
+      --navy-deep:   #0f1d3a;
+      --orange:      #ff6b35;
+      --red:         #e53e3e;
+      --red-light:   #fff5f5;
+      --red-border:  #feb2b2;
+      --green:       #276749;
+      --green-light: #f0fff4;
+      --green-border:#9ae6b4;
+      --blue:        #2b6cb0;
+      --blue-light:  #ebf8ff;
+      --blue-border: #90cdf4;
+      --grey:        #f7f8fc;
+      --white:       #ffffff;
+      --text:        #2d3748;
+      --muted:       #718096;
+      --border:      #e2e8f0;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--grey);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ========================
+       TOP BAR
+    ======================== */
+    .top-bar {
+      background: var(--navy-deep);
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: transparent;
+      color: rgba(255,255,255,0.75);
+      border: 1px solid rgba(255,255,255,0.2);
+      padding: 7px 14px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      transition: all 0.2s;
+      text-decoration: none;
+    }
+
+    .back-btn:hover {
+      background: var(--orange);
+      border-color: var(--orange);
+      color: white;
+      transform: translateX(-2px);
+    }
+
+    .back-btn svg { width: 14px; height: 14px; }
+
+    .top-bar-title {
+      color: white;
+      font-size: 0.85rem;
+      font-weight: 500;
+      opacity: 0.7;
+    }
+
+    /* ========================
+       HERO
+    ======================== */
+    .hero {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-deep) 100%);
+      padding: 32px 16px 28px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        45deg, transparent, transparent 24px,
+        rgba(255,107,53,0.03) 24px, rgba(255,107,53,0.03) 48px
+      );
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(229,62,62,0.15);
+      border: 1px solid rgba(229,62,62,0.4);
+      color: #fc8181;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 20px;
+      margin-bottom: 14px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-badge .pulse-dot {
+      width: 7px; height: 7px;
+      background: #fc8181;
+      border-radius: 50%;
+      animation: pulse 1.4s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.5); opacity: 0.5; }
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      color: white;
+      line-height: 1.2;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero h1 em {
+      font-style: normal;
+      color: var(--orange);
+    }
+
+    .hero p {
+      color: rgba(255,255,255,0.55);
+      font-size: 0.82rem;
+      margin-top: 8px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ========================
+       FILTERS
+    ======================== */
+    .filters-bar {
+      padding: 16px;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      background: white;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+
+    .filter-btn {
+      padding: 6px 14px;
+      border-radius: 20px;
+      border: 1.5px solid var(--border);
+      background: white;
+      color: var(--muted);
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      transition: all 0.2s;
+    }
+
+    .filter-btn:hover,
+    .filter-btn.active {
+      background: var(--navy);
+      border-color: var(--navy);
+      color: white;
+    }
+
+    .filter-btn.new-filter.active {
+      background: var(--red);
+      border-color: var(--red);
+    }
+
+    /* ========================
+       MAIN CONTENT
+    ======================== */
+    .main {
+      padding: 16px;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    /* Stats row */
+    .stats-row {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .stat-pill {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 16px;
+      flex: 1;
+      text-align: center;
+    }
+
+    .stat-pill .num {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--navy);
+      font-family: 'Playfair Display', serif;
+      display: block;
+    }
+
+    .stat-pill .label {
+      font-size: 0.7rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* Loading */
+    .loading-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--muted);
+    }
+
+    .spinner {
+      width: 36px; height: 36px;
+      border: 3px solid var(--border);
+      border-top-color: var(--navy);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 14px;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Error */
+    .error-state {
+      background: var(--red-light);
+      border: 1px solid var(--red-border);
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      color: var(--red);
+      font-size: 0.88rem;
+    }
+
+    /* ========================
+       NOTICE CARDS
+    ======================== */
+    .notices-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .notice-card {
+      background: white;
+      border-radius: 12px;
+      border: 1.5px solid var(--border);
+      overflow: hidden;
+      transition: transform 0.2s, box-shadow 0.2s;
+      animation: slideIn 0.4s ease both;
+    }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .notice-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(26,47,92,0.1);
+    }
+
+    /* NEW notice — red accent */
+    .notice-card.is-new {
+      border-color: var(--red-border);
+      box-shadow: 0 0 0 3px rgba(229,62,62,0.08);
+    }
+
+    .notice-card.is-new .notice-stripe {
+      background: var(--red);
+    }
+
+    .notice-card .notice-stripe {
+      height: 4px;
+      background: var(--navy);
+    }
+
+    .notice-body {
+      padding: 14px 16px;
+    }
+
+    /* Top row — NEW badge + dept tag + date */
+    .notice-meta {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 8px;
+    }
+
+    .badge-new {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: var(--red);
+      color: white;
+      font-size: 0.65rem;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 3px 9px;
+      border-radius: 20px;
+      animation: flash 2s infinite;
+    }
+
+    @keyframes flash {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+
+    .badge-new .dot {
+      width: 5px; height: 5px;
+      background: white;
+      border-radius: 50%;
+      animation: pulse 1s infinite;
+    }
+
+    .dept-tag {
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .dept-general   { background: var(--blue-light);  color: var(--blue);  border: 1px solid var(--blue-border); }
+    .dept-exam      { background: #fffbeb; color: #b7791f; border: 1px solid #fbd38d; }
+    .dept-placement { background: var(--green-light); color: var(--green); border: 1px solid var(--green-border); }
+    .dept-sports    { background: #faf5ff; color: #6b46c1; border: 1px solid #d6bcfa; }
+    .dept-holiday   { background: #fff5f5; color: #c53030; border: 1px solid #feb2b2; }
+    .dept-default   { background: var(--grey); color: var(--muted); border: 1px solid var(--border); }
+
+    .notice-date {
+      margin-left: auto;
+      font-size: 0.72rem;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    /* Title */
+    .notice-title {
+      font-size: 0.97rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 6px;
+      line-height: 1.4;
+    }
+
+    .notice-card.is-new .notice-title {
+      color: var(--red);
+    }
+
+    /* Description */
+    .notice-desc {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 10px;
+    }
+
+    /* Download link */
+    .notice-download {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--navy);
+      color: white;
+      text-decoration: none;
+      padding: 7px 14px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+
+    .notice-download:hover { background: var(--orange); }
+    .notice-download svg { width: 13px; height: 13px; }
+
+    /* Empty state */
+    .empty-state {
+      text-align: center;
+      padding: 50px 20px;
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    .empty-state svg {
+      width: 48px; height: 48px;
+      color: var(--border);
+      margin-bottom: 12px;
+    }
+
+    /* ========================
+       HOW TO SETUP BOX
+    ======================== */
+    .setup-box {
+      background: var(--navy-deep);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 18px;
+      color: white;
+    }
+
+    .setup-box h3 {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--orange);
+      margin-bottom: 10px;
+    }
+
+    .setup-box ol {
+      padding-left: 18px;
+      font-size: 0.8rem;
+      line-height: 2;
+      color: rgba(255,255,255,0.75);
+    }
+
+    .setup-box code {
+      background: rgba(255,255,255,0.1);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      color: #90cdf4;
+    }
+
+    /* ========================
+       RESPONSIVE
+    ======================== */
+    @media (min-width: 480px) {
+      .hero h1 { font-size: 2.1rem; }
+    }
+
+    @media (min-width: 640px) {
+      .hero { padding: 44px 32px 36px; }
+      .main { padding: 24px 32px; }
+      .filters-bar { padding: 14px 32px; }
+    }
+
+    @media (min-width: 768px) {
+      .hero h1 { font-size: 2.5rem; }
+      .notice-body { padding: 18px 22px; }
+      .notice-title { font-size: 1.05rem; }
+    }
+
+    /* ========================
+       NOTICE CARD — CLICKABLE
+    ======================== */
+    .notice-card { cursor: pointer; }
+
+    /* ========================
+       POPUP OVERLAY
+    ======================== */
+    /* Overlay — always centered */
+    .popup-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 18, 40, 0.65);
+      backdrop-filter: blur(4px);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+
+    .popup-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    /* Sheet — expands from center */
+    .popup-sheet {
+      background: white;
+      width: 100%;
+      max-width: 580px;
+      border-radius: 18px;
+      max-height: 88vh;
+      overflow-y: auto;
+      transform: scale(0.85);
+      opacity: 0;
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+                  opacity 0.25s ease;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.25);
+    }
+
+    .popup-overlay.open .popup-sheet {
+      transform: scale(1);
+      opacity: 1;
+    }
+
+    /* No handle needed — centered modal */
+    .popup-handle { display: none; }
+
+    .popup-stripe {
+      height: 5px;
+      background: var(--navy);
+      border-radius: 18px 18px 0 0;
+    }
+
+    .popup-sheet.is-new .popup-stripe { background: var(--red); }
+
+    .popup-content { padding: 22px 24px 32px; }
+
+    .popup-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .popup-close {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 1.5px solid var(--border);
+      background: white;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .popup-close:hover { background: #fee2e2; transform: rotate(90deg); }
+    .popup-close svg { width: 16px; height: 16px; color: var(--muted); }
+
+    .popup-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .popup-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      color: var(--navy);
+      line-height: 1.35;
+      margin-bottom: 8px;
+    }
+
+    .popup-sheet.is-new .popup-title { color: var(--red); }
+
+    .popup-date {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+
+    .popup-divider {
+      height: 1px;
+      background: var(--border);
+      margin: 14px 0;
+    }
+
+    .popup-desc {
+      font-size: 0.9rem;
+      line-height: 1.8;
+      color: var(--text);
+    }
+
+    .popup-download {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: var(--navy);
+      color: white;
+      text-decoration: none;
+      padding: 13px 24px;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-top: 20px;
+      width: 100%;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .popup-download:hover { background: var(--orange); transform: translateY(-1px); }
+    .popup-download svg { width: 16px; height: 16px; }
+
+  </style>
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <div class="top-bar">
+    <button class="back-btn" onclick="history.back()">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>
+      </svg>
+      Back
+    </button>
+    <span class="top-bar-title">National Degree College</span>
+  </div>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-badge">
+      <span class="pulse-dot"></span>
+      Live Updates
+    </div>
+    <h1>Notice <em>Board</em></h1>
+    <p>Official announcements &amp; circulars from NDC</p>
+  </div>
+
+  <!-- FILTERS -->
+  <div class="filters-bar">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn new-filter" data-filter="new">🔴 New</button>
+    <button class="filter-btn" data-filter="General">General</button>
+    <button class="filter-btn" data-filter="Exam">Exam</button>
+    <button class="filter-btn" data-filter="Placement">Placement</button>
+    <button class="filter-btn" data-filter="Holiday">Holiday</button>
+    <button class="filter-btn" data-filter="Sports">Sports</button>
+  </div>
+
+  <!-- MAIN -->
+  <div class="main">
+
+    <!-- Setup instructions (remove after setup) -->
+    <div class="setup-box" id="setupBox">
+      <h3>⚙️ One-time Setup — Read this first!</h3>
+      <ol>
+        <li>Create a <strong>Google Sheet</strong> with these exact column headers in Row 1:<br>
+          <code>Title</code> &nbsp;<code>Date</code> &nbsp;<code>Description</code> &nbsp;<code>Department</code> &nbsp;<code>AttachmentLink</code> &nbsp;<code>IsNew</code>
+        </li>
+        <li>Fill in your notices (newest at top). In <code>IsNew</code> column type <code>yes</code> for new notices.</li>
+        <li>Go to <strong>File → Share → Publish to web</strong> → choose <strong>Sheet1</strong> → publish as <strong>CSV</strong> → copy the URL.</li>
+        <li>Replace <code>YOUR_SHEET_CSV_URL</code> in this file's JavaScript with your copied URL.</li>
+        <li>Delete this setup box from the HTML once done.</li>
+      </ol>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats-row" id="statsRow" style="display:none;">
+      <div class="stat-pill">
+        <span class="num" id="totalCount">0</span>
+        <span class="label">Total</span>
+      </div>
+      <div class="stat-pill">
+        <span class="num" id="newCount" style="color:var(--red)">0</span>
+        <span class="label">New</span>
+      </div>
+      <div class="stat-pill">
+        <span class="num" id="deptCount">0</span>
+        <span class="label">Departments</span>
+      </div>
+    </div>
+
+    <!-- Loading -->
+    <div class="loading-state" id="loadingState">
+      <div class="spinner"></div>
+      <p>Loading notices...</p>
+    </div>
+
+    <!-- Error -->
+    <div class="error-state" id="errorState" style="display:none;">
+      ⚠️ Could not load notices. Please check your Google Sheet URL and make sure it is published as CSV.
+    </div>
+
+    <!-- Notices list -->
+    <div class="notices-list" id="noticesList"></div>
+
+    <!-- Empty -->
+    <div class="empty-state" id="emptyState" style="display:none;">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+      </svg>
+      <p>No notices found for this filter.</p>
+    </div>
+
+  </div>
+
+  <!-- POPUP MODAL -->
+  <div class="popup-overlay" id="popupOverlay">
+    <div class="popup-sheet" id="popupSheet">
+      <div class="popup-handle"></div>
+      <div class="popup-stripe"></div>
+      <div class="popup-content">
+        <div class="popup-top">
+          <div class="popup-meta" id="popupMeta"></div>
+          <button class="popup-close" onclick="closePopup()">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+          </button>
+        </div>
+        <div class="popup-title" id="popupTitle"></div>
+        <div class="popup-date" id="popupDate"></div>
+        <div class="popup-divider"></div>
+        <div class="popup-desc" id="popupDesc"></div>
+        <div id="popupDownloadWrap"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const SHEET_CSV_URL = 'YOUR_SHEET_CSV_URL';
+
+    let allNotices = [];
+
+    function parseCSV(text) {
+      const lines = text.trim().split('\n');
+      const headers = lines[0].split(',').map(h => h.trim().replace(/"/g, ''));
+      return lines.slice(1).map(line => {
+        const cols = [];
+        let cur = '', inQ = false;
+        for (let ch of line) {
+          if (ch === '"') { inQ = !inQ; }
+          else if (ch === ',' && !inQ) { cols.push(cur.trim()); cur = ''; }
+          else { cur += ch; }
+        }
+        cols.push(cur.trim());
+        const obj = {};
+        headers.forEach((h, i) => obj[h] = (cols[i] || '').replace(/"/g, '').trim());
+        return obj;
+      }).filter(r => r.Title);
+    }
+
+    function deptClass(dept) {
+      const d = (dept || '').toLowerCase();
+      if (d.includes('exam'))      return 'dept-exam';
+      if (d.includes('placement')) return 'dept-placement';
+      if (d.includes('sport'))     return 'dept-sports';
+      if (d.includes('holiday'))   return 'dept-holiday';
+      if (d.includes('general'))   return 'dept-general';
+      return 'dept-default';
+    }
+
+    // Open popup
+    function openPopup(n) {
+      const isNew = (n.IsNew || '').toLowerCase() === 'yes';
+      const sheet = document.getElementById('popupSheet');
+      sheet.className = 'popup-sheet' + (isNew ? ' is-new' : '');
+
+      document.getElementById('popupMeta').innerHTML = `
+        ${isNew ? `<span class="badge-new"><span class="dot"></span>New</span>` : ''}
+        <span class="dept-tag ${deptClass(n.Department)}">${n.Department || 'General'}</span>
+      `;
+      document.getElementById('popupTitle').textContent = n.Title;
+      document.getElementById('popupDate').innerHTML = `📅 ${n.Date || 'No date'}`;
+      document.getElementById('popupDesc').textContent = n.Description || 'No additional details.';
+      document.getElementById('popupDownloadWrap').innerHTML = n.AttachmentLink
+        ? `<a href="${n.AttachmentLink}" target="_blank" class="popup-download">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v12m0 0l-4-4m4 4l4-4M4 20h16"/>
+            </svg>
+            Download Attachment
+          </a>` : '';
+
+      document.getElementById('popupOverlay').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closePopup() {
+      document.getElementById('popupOverlay').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    // Close on overlay click
+    document.getElementById('popupOverlay').addEventListener('click', function(e) {
+      if (e.target === this) closePopup();
+    });
+
+    // Close on Escape key
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closePopup(); });
+
+    function renderNotices(notices) {
+      const list = document.getElementById('noticesList');
+      const empty = document.getElementById('emptyState');
+      list.innerHTML = '';
+
+      if (!notices.length) { empty.style.display = 'block'; return; }
+      empty.style.display = 'none';
+
+      notices.forEach((n, i) => {
+        const isNew = (n.IsNew || '').toLowerCase() === 'yes';
+        const card = document.createElement('div');
+        card.className = 'notice-card' + (isNew ? ' is-new' : '');
+        card.style.animationDelay = `${i * 0.06}s`;
+
+        card.innerHTML = `
+          <div class="notice-stripe"></div>
+          <div class="notice-body">
+            <div class="notice-meta">
+              ${isNew ? `<span class="badge-new"><span class="dot"></span>New</span>` : ''}
+              <span class="dept-tag ${deptClass(n.Department)}">${n.Department || 'General'}</span>
+              <span class="notice-date">📅 ${n.Date || ''}</span>
+            </div>
+            <div class="notice-title">${n.Title}</div>
+            ${n.Description ? `<div class="notice-desc">${n.Description.substring(0, 100)}${n.Description.length > 100 ? '...' : ''}</div>` : ''}
+            <span style="font-size:0.75rem; color:var(--orange); font-weight:600; margin-top:6px; display:inline-block;">Tap to read more →</span>
+          </div>`;
+
+        card.addEventListener('click', () => openPopup(n));
+        list.appendChild(card);
+      });
+    }
+
+    function applyFilter(filter) {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      document.querySelector(`[data-filter="${filter}"]`).classList.add('active');
+      let filtered = [...allNotices];
+      if (filter === 'new') {
+        filtered = allNotices.filter(n => (n.IsNew || '').toLowerCase() === 'yes');
+      } else if (filter !== 'all') {
+        filtered = allNotices.filter(n => (n.Department || '').toLowerCase().includes(filter.toLowerCase()));
+      }
+      renderNotices(filtered);
+    }
+
+    function updateStats(notices) {
+      const newCount = notices.filter(n => (n.IsNew || '').toLowerCase() === 'yes').length;
+      const depts = new Set(notices.map(n => n.Department).filter(Boolean));
+      document.getElementById('totalCount').textContent = notices.length;
+      document.getElementById('newCount').textContent = newCount;
+      document.getElementById('deptCount').textContent = depts.size;
+      document.getElementById('statsRow').style.display = 'flex';
+    }
+
+    async function loadNotices() {
+      const loading = document.getElementById('loadingState');
+      const error   = document.getElementById('errorState');
+
+      if (SHEET_CSV_URL === 'YOUR_SHEET_CSV_URL') {
+        loading.style.display = 'none';
+        allNotices = [
+          { Title: 'Semester Exam Schedule Released', Date: '25 Mar 2026', Description: 'The timetable for upcoming semester exams has been published. Students are advised to check their subjects, exam dates, and hall ticket details. Students must carry their hall tickets to the examination hall without fail.', Department: 'Exam', AttachmentLink: '', IsNew: 'yes' },
+          { Title: 'Wipro Campus Drive — Registrations Open', Date: '22 Mar 2026', Description: 'Final year students eligible for Wipro campus recruitment. Register before 30th March. Eligibility: 60% aggregate, no backlogs. Bring updated resume and original certificates on the day of drive.', Department: 'Placement', AttachmentLink: '', IsNew: 'yes' },
+          { Title: 'Annual Sports Day — 5th April', Date: '20 Mar 2026', Description: 'Students interested in participating in sports events should register with the Physical Education department before 28th March. Events include cricket, volleyball, kabaddi, and athletics.', Department: 'Sports', AttachmentLink: '', IsNew: 'yes' },
+          { Title: 'Holiday Notice — Ugadi', Date: '18 Mar 2026', Description: 'College will remain closed on 30th March 2026 on account of Ugadi festival. Regular classes will resume on 31st March 2026.', Department: 'Holiday', AttachmentLink: '', IsNew: '' },
+          { Title: 'Library Timings Updated', Date: '15 Mar 2026', Description: 'Library will now be open from 8 AM to 6 PM on all working days. Students are encouraged to utilise library resources for exam preparation.', Department: 'General', AttachmentLink: '', IsNew: '' },
+          { Title: 'Internal Assessment Results', Date: '10 Mar 2026', Description: 'IA results for first semester have been published. Students can collect their answer sheets from respective departments. Any discrepancies must be reported within 3 days.', Department: 'Exam', AttachmentLink: '', IsNew: '' },
+        ];
+        renderNotices(allNotices);
+        updateStats(allNotices);
+        return;
+      }
+
+      try {
+        const res = await fetch(SHEET_CSV_URL);
+        if (!res.ok) throw new Error('Failed');
+        const text = await res.text();
+        allNotices = parseCSV(text);
+        loading.style.display = 'none';
+        renderNotices(allNotices);
+        updateStats(allNotices);
+      } catch (e) {
+        loading.style.display = 'none';
+        error.style.display = 'block';
+      }
+    }
+
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => applyFilter(btn.dataset.filter));
+    });
+
+    loadNotices();
+  </script>
+
+</body>
+</html>
