@@ -362,7 +362,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   async function loadLatestNotices() {
-    if (SHEET_CSV_URL === 'YOUR_SHEET_CSV_URL') {
+    if (SHEET_CSV_URL === 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSyvjNgUcUesqV83Af3HDaVJ7bXj49TYE5CuQ4xohXgptO3sBeR7ok0kodKYncdCZNk68L8PbHnSWy1/pub?output=csv') {
       renderLatestNotices(DEMO_NOTICES);
       return;
     }
