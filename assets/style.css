@@ -1675,6 +1675,206 @@ Tablet screens (768px) */
 .rev-left  { left: 8px; }
 .rev-right { right: 8px; }
 
+  .latest-notices-section {
+    background: #fff;
+    border-top: 3px solid #ff6b35;
+    margin: 0;
+  }
+
+  .ln-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(90deg, #1a2f5c 0%, #0f1d3a 100%);
+    padding: 12px 20px;
+  }
+
+  .ln-title-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .ln-live-dot {
+    width: 10px;
+    height: 10px;
+    background: #fc8181;
+    border-radius: 50%;
+    display: inline-block;
+    animation: lnPulse 1.4s infinite;
+    flex-shrink: 0;
+  }
+
+  @keyframes lnPulse {
+    0%, 100% { transform: scale(1); opacity: 1; box-shadow: 0 0 0 0 rgba(252,129,129,0.6); }
+    50%       { transform: scale(1.4); opacity: 0.7; box-shadow: 0 0 0 6px rgba(252,129,129,0); }
+  }
+
+  .ln-heading {
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 700;
+    margin: 0;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  .ln-view-all {
+    color: #ff6b35;
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-decoration: none;
+    background: rgba(255,107,53,0.12);
+    border: 1px solid rgba(255,107,53,0.35);
+    padding: 5px 13px;
+    border-radius: 20px;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+
+  .ln-view-all:hover {
+    background: #ff6b35;
+    color: #fff;
+  }
+
+  .ln-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .ln-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 13px 20px;
+    border-bottom: 1px solid #e8ecf4;
+    cursor: pointer;
+    transition: background 0.18s;
+    text-decoration: none;
+    color: inherit;
+    animation: lnFadeIn 0.4s ease forwards;
+    opacity: 0;
+  }
+
+  @keyframes lnFadeIn {
+    from { opacity: 0; transform: translateX(-8px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+
+  .ln-item:last-child { border-bottom: none; }
+  .ln-item:hover { background: #f5f8ff; }
+
+  .ln-indicator {
+    width: 4px;
+    min-height: 44px;
+    border-radius: 4px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .ln-indicator.new    { background: #e53e3e; }
+  .ln-indicator.normal { background: #ff6b35; }
+
+  .ln-text { flex: 1; min-width: 0; }
+
+  .ln-meta {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    flex-wrap: wrap;
+    margin-bottom: 4px;
+  }
+
+  .ln-badge-new {
+    background: #e53e3e;
+    color: #fff;
+    font-size: 0.65rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    padding: 2px 7px;
+    border-radius: 10px;
+    text-transform: uppercase;
+  }
+
+  .ln-dept {
+    font-size: 0.68rem;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .ln-dept.exam       { background: #ebf8ff; color: #2b6cb0; }
+  .ln-dept.placement  { background: #f0fff4; color: #276749; }
+  .ln-dept.sports     { background: #fffbeb; color: #b7791f; }
+  .ln-dept.holiday    { background: #faf5ff; color: #6b46c1; }
+  .ln-dept.general    { background: #fff5f5; color: #c53030; }
+  .ln-dept.default    { background: #f7f8fc; color: #4a5568; }
+
+  .ln-date {
+    font-size: 0.68rem;
+    color: #718096;
+    margin-left: auto;
+    white-space: nowrap;
+  }
+
+  .ln-title {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: #1a2f5c;
+    line-height: 1.4;
+    margin-bottom: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+  }
+
+  .ln-desc {
+    font-size: 0.75rem;
+    color: #718096;
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .ln-arrow {
+    color: #ff6b35;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+    margin-top: 4px;
+    opacity: 0;
+    transition: opacity 0.18s, transform 0.18s;
+  }
+
+  .ln-item:hover .ln-arrow {
+    opacity: 1;
+    transform: translateX(3px);
+  }
+
+  .ln-skeleton {
+    height: 64px;
+    margin: 8px 20px;
+    border-radius: 8px;
+    background: linear-gradient(90deg, #e8ecf4 25%, #f5f7fc 50%, #e8ecf4 75%);
+    background-size: 200% 100%;
+    animation: lnShimmer 1.4s infinite;
+  }
+
+  @keyframes lnShimmer {
+    0%   { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
+
+  @media (max-width: 600px) {
+    .ln-item  { padding: 11px 14px; gap: 10px; }
+    .ln-header{ padding: 10px 14px; }
+    .ln-date  { display: none; }
+    .ln-title { font-size: 0.82rem; }
+  }
 
 
 
