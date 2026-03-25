@@ -1927,7 +1927,13 @@ Tablet screens (768px) */
     font-weight: 500;
     transition: color 0.15s;
   }
-
+.ql-link{
+    animation: qlBlink 1.5s ease-in-out infinite;
+}
+@keyframes qlBlink{
+    0%, 100% {opacity:1;}
+    50% {opacity:0.15;}
+}
   .ql-link:hover { color: #d32f2f; text-decoration: underline; }
 
   .ql-dim {
