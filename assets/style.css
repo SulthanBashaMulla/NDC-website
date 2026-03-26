@@ -1,13 +1,21 @@
+html {
+    overflow-x: hidden;
+    max-width: 100%;
+}
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
+
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
     color: #333;
     overflow-x: hidden;
+    max-width: 100%;    /* ✅ add this */
+    width: 100%;        /* ✅ add this */
 }
 .container {
     width: 100%;
