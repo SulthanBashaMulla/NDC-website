@@ -1954,3 +1954,38 @@ Tablet screens (768px) */
 
   .ql-more:hover { text-decoration: underline; }
 
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Right section layout */
+.right-section {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+/* Extra logos styling */
+.extra-logos {
+  display: flex;
+  gap: 10px;
+}
+
+.extra-logos img {
+  width: 50px;
+  height: auto;
+}
+
+/* Optional: make it responsive */
+@media (max-width: 768px) {
+  .extra-logos img {
+    width: 35px;
+  }
+
+  .student-login {
+    padding: 6px 10px;
+    font-size: 14px;
+  }
+}
