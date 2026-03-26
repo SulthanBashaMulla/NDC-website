@@ -216,7 +216,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function showSlide(index) {
         const visible = getVisibleCards();
         const cardWidth = cards[0].offsetWidth + 20;
-        track.style.transition = 'transform 0.4s ease';
+        track.style.transition = 'transform 3s ease';
         // ✅ Was: 'translateX(-${index * cardWidth}px)' — wrong quotes, now fixed
         track.style.transform = `translateX(-${index * cardWidth}px)`;
 
