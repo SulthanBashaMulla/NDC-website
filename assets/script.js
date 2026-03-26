@@ -179,9 +179,7 @@ function scrollReview(direction) {
         totalCards
     );
 
-    // ✅ Measure real card width directly from the DOM — no guessing
-    const cardWidth = cards[0].getBoundingClientRect().width;
-
+    const cardWidth = cards[0].offsetWidth + 20;
     const currentTransform = track.style.transform;
     const match = currentTransform.match(/-?([\d.]+)px/);
     const currentOffset = match ? parseFloat(match[1]) : 0;
