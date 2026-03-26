@@ -14,6 +14,8 @@ body {
     padding: 0 12px;
     margin: 0 auto;
 }
+
+
 /* ========================
    HEADER STYLES
 ======================== */
@@ -1895,8 +1897,8 @@ Tablet screens (768px) */
   }
 
   .ql-header {
-    background: #d6d6d6;
-    color: #111;
+    background: #1a2f5c;
+    color: #fff;
     font-size: 1rem;
     font-weight: 700;
     padding: 9px 14px;
@@ -1958,3 +1960,104 @@ Tablet screens (768px) */
 
   .ql-more:hover { text-decoration: underline; }
 
+
+
+
+
+
+
+
+
+
+.header {
+    background: #fff;
+    padding: 12px 16px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.header-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Left logo */
+.logo {
+    width: 80px;
+    height: 80px;
+    flex-shrink: 0;
+}
+
+.logo-img-header {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* Center text */
+.college-info {
+    flex: 1;
+    text-align: center;
+    padding: 0 10px;
+}
+
+.college-info h1 {
+    font-size: 1rem;
+    color: #ff6b35;
+    font-family: 'Roboto Slab', serif;
+    font-weight: bold;
+    line-height: 1.2;
+    margin-bottom: 6px;
+}
+
+.affiliated-text {
+    color: #1a2f5c;
+    font-family: 'Roboto Slab', serif;
+    font-weight: bold;
+    font-size: 0.5rem;
+}
+
+/* Right affiliated logos */
+.affiliated-logos {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+}
+
+.affiliated-logos img {
+    width: 60px;
+    height: 50px;
+    object-fit: contain;
+}
+
+/* Tablet and above */
+@media (min-width: 768px) {
+    .logo {
+        width: 100px;
+        height: 100px;
+    }
+
+    .college-info h1 {
+        font-size: 1.5rem;
+    }
+
+    .affiliated-text {
+        font-size: 0.8rem;
+    }
+
+    .affiliated-logos {
+        flex-direction: row;
+        gap: 12px;
+    }
+
+    .affiliated-logos img {
+        width: 80px;
+        height: 65px;
+    }
+}
