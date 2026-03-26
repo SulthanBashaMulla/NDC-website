@@ -270,16 +270,12 @@ NDC BCA B-SECTION
 <div class="course-item" onclick="toggleCourse('ba-urdu')">BA (Special Urdu)</div>
             </div>  
               
-            <div id="course-info" class="course-expand" style="display: none;">  
-                <h3>Course Information</h3>  
-                <p>Click on any course above to view detailed information about duration, eligibility, and career prospects.</p>  
-            </div>  
         </div>  
     </div>  
 </main>  
 <!-- Administrative Staff -->
 <section class="staff-section">
-  <h2 class="staff-heading">💼 Management Staff</h2>
+  <h2 class="staff-heading">💼 Management Of NDC</h2>
   <div class="staff-container">
 
        <!-- Staff 1 -->
@@ -534,8 +530,17 @@ NDC BCA B-SECTION
 
     </div>
 </footer>
+<!-- Course Popup Modal -->
+<div id="courseModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:9999; justify-content:center; align-items:center;">
+  <div style="background:#fff; border-radius:12px; padding:30px; max-width:480px; width:90%; position:relative; box-shadow:0 10px 40px rgba(0,0,0,0.3); text-align:center;">
+    <button onclick="closeCourseModal()" style="position:absolute; top:12px; right:16px; background:none; border:none; font-size:24px; cursor:pointer; color:#333;">✕</button>
+    <h3 id="modalTitle" style="margin-bottom:12px; color:#1a1a2e;"></h3>
+    <p id="modalDetails" style="color:#444; line-height:1.6;"></p>
+  </div>
+</div>
   <script src="/assets/script.js">
     </script>
+    
 </body>
 
 </html>

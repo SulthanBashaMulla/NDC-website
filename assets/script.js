@@ -73,63 +73,40 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-// Courses
-let activeCourse = null;
+// Courses — Popup Modal
+const courseDetails = {
+    'bca':        { title: 'Bachelor of Computer Applications',           details: 'Duration: 3 years | Eligibility: 10+2 any stream | Career: Software Developer, Web Developer, Cybersecurity Analyst, Data Analyst, Mobile App Developer, IT Support' },
+    'bsc-cs':     { title: 'Bachelor of Science (Computer Science)',       details: 'Duration: 3 years | Eligibility: 10+2 with Mathematics | Career: Software Developer, Data Analyst, Web Developer, Systems Analyst, Cybersecurity Analyst' },
+    'bsc-qt':     { title: 'Bachelor of Science (Quantum Technology)',     details: 'Duration: 3 years | Eligibility: 10+2 with PCM | Career: Quantum Computing Researcher, Research Assistant, Lab Technologist, Data Scientist, Higher Studies in Physics/Quantum Science' },
+    'bsc-iot':    { title: 'Bachelor of Science (Internet of Things)',     details: 'Duration: 3 years | Eligibility: 10+2 with Mathematics | Career: IoT Developer, Embedded Systems Engineer, Automation Engineer, Smart Systems Developer' },
+    'bsc-it':     { title: 'Bachelor of Science (Information Technology)', details: 'Duration: 3 years | Eligibility: 10+2 any stream (Maths preferred) | Career: IT Support Specialist, Network Administrator, System Administrator, Web Developer' },
+    'bsc-botany': { title: 'Bachelor of Science (Botany)',                 details: 'Duration: 3 years | Eligibility: 10+2 with Biology | Career: Botanist, Plant Researcher, Agricultural Officer, Environmental Consultant, Lab Technician, Higher Studies in Life Sciences' },
+    'bcom-ca':    { title: 'Bachelor of Commerce (Computer Applications)', details: 'Duration: 3 years | Eligibility: 10+2 any stream | Career: Accountant, Financial Analyst, Tax Consultant, Banking Professional, ERP Executive' },
+    'bba':        { title: 'Bachelor of Business Administration',          details: 'Duration: 3 years | Eligibility: 10+2 any stream | Career: Business Executive, Marketing Manager, HR Executive, Entrepreneur, MBA Aspirant' },
+    'ba-urdu':    { title: 'Bachelor of Arts (Special Urdu)',              details: 'Duration: 3 years | Eligibility: 10+2 any stream | Career: Urdu Lecturer, Translator, Journalist, Civil Services Preparation, Content Writer' }
+};
 
 function toggleCourse(courseType) {
-    const courseInfo = document.getElementById('course-info');
-    const courseDetails = {
-        'bca': {
-            title: 'Bachelor of Computer Applications',
-            details: 'Duration: 3 years | Eligibility: 10+2 any stream | Career: Software Developer, Web Developer, Cybersecurity Analyst, Data Analyst, Mobile App Developer, IT Support'
-        },
-        'bsc-cs': {
-            title: 'Bachelor of Science (Computer Science)',
-            details: 'Duration: 3 years | Eligibility: 10+2 with Mathematics | Career: Software Developer, Data Analyst, Web Developer, Systems Analyst, Cybersecurity Analyst'
-        },
-        'bsc-qt': {
-            title: 'Bachelor of Science (Quantum Technology)',
-            details: 'Duration: 3 years | Eligibility: 10+2 with PCM | Career: Quantum Computing Researcher, Research Assistant, Lab Technologist, Data Scientist, Higher Studies in Physics/Quantum Science'
-        },
-        'bsc-iot': {
-            title: 'Bachelor of Science (Internet of Things)',
-            details: 'Duration: 3 years | Eligibility: 10+2 with Mathematics | Career: IoT Developer, Embedded Systems Engineer, Automation Engineer, Smart Systems Developer'
-        },
-        'bsc-it': {
-            title: 'Bachelor of Science (Information Technology)',
-            details: 'Duration: 3 years | Eligibility: 10+2 any stream (Maths preferred) | Career: IT Support Specialist, Network Administrator, System Administrator, Web Developer'
-        },
-        'bcom-ca': {
-            title: 'Bachelor of Commerce (Computer Applications)',
-            details: 'Duration: 3 years | Eligibility: 10+2 any stream | Career: Accountant, Financial Analyst, Tax Consultant, Banking Professional, ERP Executive'
-        },
-        'bba': {
-            title: 'Bachelor of Business Administration',
-            details: 'Duration: 3 years | Eligibility: 10+2 any stream | Career: Business Executive, Marketing Manager, HR Executive, Entrepreneur, MBA Aspirant'
-        },
-        'ba-urdu': {
-            title: 'Bachelor of Arts (Special Urdu)',
-            details: 'Duration: 3 years | Eligibility: 10+2 any stream | Career: Urdu Lecturer, Translator, Journalist, Civil Services Preparation, Content Writer'
-        },
-        'bsc-botany': {
-            title: 'Bachelor of Science (Botany)',
-            details: 'Duration: 3 years | Eligibility: 10+2 with Biology | Career: Botanist, Plant Researcher, Agricultural Officer, Environmental Consultant, Lab Technician, Higher Studies in Life Sciences'
-        }
-    };
-
-    if (activeCourse === courseType) {
-        courseInfo.style.display = 'none';
-        courseInfo.innerHTML = '';
-        activeCourse = null;
-    } else {
-        courseInfo.style.display = 'block';
-        courseInfo.innerHTML = `
-            <h3>${courseDetails[courseType].title}</h3>
-            <p>${courseDetails[courseType].details}</p>
-        `;
-        activeCourse = courseType;
-    }
+    const modal = document.getElementById('courseModal');
+    const info = courseDetails[courseType];
+    if (!info) return;
+    document.getElementById('modalTitle').textContent = info.title;
+    document.getElementById('modalDetails').innerHTML =
+    info.details
+    .replace(/Duration:/g, "<strong>Duration:</strong>")
+    .replace(/Eligibility:/g, "<strong>Eligibility:</strong>")
+    .replace(/Career:/g, "<strong>Career:</strong>");
+    modal.style.display = 'flex';
 }
+
+function closeCourseModal() {
+    document.getElementById('courseModal').style.display = 'none';
+}
+
+// Close modal when clicking outside the box
+document.getElementById('courseModal').addEventListener('click', function(e) {
+    if (e.target === this) closeCourseModal();
+});
 
 
 // Company logo carousel

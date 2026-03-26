@@ -2069,3 +2069,28 @@ Tablet screens (768px) */
         height: 65px;
     }
 }
+
+
+
+
+/* Course Popup Modal Heading */
+#modalTitle {
+    color: #ff6b35;/* main heading color */
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+/* Course Popup Details (small headings/text) */
+#modalDetails {
+    color: #1a2f5c;/* sub text color */
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+#modalDetails {
+    color: #333;
+}
+
+#modalDetails strong {
+    color: #ff6b35;
+}
