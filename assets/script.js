@@ -15,7 +15,6 @@ dropdownButtons.forEach(button => {
             e.stopPropagation();
             const dropdown = this.closest('.dropdown');
 
-            // Close other dropdowns
             document.querySelectorAll('.dropdown').forEach(dd => {
                 if (dd !== dropdown) {
                     dd.classList.remove('active');
@@ -41,7 +40,6 @@ document.addEventListener('click', function(event) {
     }
 });
 
-// Clean up on window resize
 window.addEventListener('resize', function() {
     if (window.innerWidth >= 768) {
         document.querySelectorAll('.dropdown').forEach(dropdown => {
@@ -51,7 +49,7 @@ window.addEventListener('resize', function() {
 });
 
 
-// ✅ FIX 1: College image auto slide — fixed backtick template literal
+// College image auto slide
 document.addEventListener('DOMContentLoaded', () => {
     const slides = document.querySelectorAll('.slide');
     const wrapper = document.querySelector('.slides-wrapper');
@@ -62,7 +60,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function showSlide(index) {
         currentSlide = index;
-        // ✅ Was: 'translateX(-${currentSlide * 100}%)' — wrong quotes, now fixed
         wrapper.style.transform = `translateX(-${currentSlide * 100}%)`;
     }
 
@@ -135,9 +132,7 @@ function toggleCourse(courseType) {
 }
 
 
-// ✅ FIX 3: Company logo carousel — changed `const speed` to `let speed`
-// Was: const speed = 0.5 — caused TypeError crash that broke ALL other JS below it
-
+// Company logo carousel
 const carousel = document.querySelector('.logo-carousel');
 const logos = Array.from(carousel.children);
 
@@ -147,7 +142,7 @@ logos.forEach(logo => {
 });
 
 let scrollPos = 0;
-let speed = 0.5; // ✅ Was `const` — changed to `let` so hover pause works
+let speed = 0.5;
 
 function autoScroll() {
     scrollPos += speed;
@@ -160,11 +155,9 @@ function autoScroll() {
 
 requestAnimationFrame(autoScroll);
 
-// ✅ These now work correctly because speed is `let`
 carousel.addEventListener('mouseenter', () => speed = 0);
 carousel.addEventListener('mouseleave', () => speed = 0.5);
 
-// Touch/Swipe support
 let startX;
 carousel.addEventListener('touchstart', e => startX = e.touches[0].pageX);
 carousel.addEventListener('touchmove', e => {
@@ -174,84 +167,46 @@ carousel.addEventListener('touchmove', e => {
     startX = touchX;
 });
 
-// Reviews — arrow scroll
+
+// Reviews — manual arrow click only
 function scrollReview(direction) {
-  const track = document.querySelector(".reviews-track");
-  const cards = track.querySelectorAll(".review-card");
-  const totalCards = cards.length;
-  const visible = window.innerWidth >= 1024 ? 3 : window.innerWidth >= 768 ? 2 : 1;
-  const cardWidth = cards[0].offsetWidth + 20;
+    const track = document.querySelector(".reviews-track");
+    const cards = track.querySelectorAll(".review-card");
+    const totalCards = cards.length;
+    const visible = window.innerWidth >= 1024 ? 3 : window.innerWidth >= 768 ? 2 : 1;
+    const cardWidth = cards[0].offsetWidth + 20;
 
-  // Read current index from transform
-  const currentTransform = track.style.transform;
-  const match = currentTransform.match(/-?([\d.]+)px/);
-  const currentOffset = match ? parseFloat(match[1]) : 0;
-  let currentIndex = Math.round(currentOffset / cardWidth);
+    const currentTransform = track.style.transform;
+    const match = currentTransform.match(/-?([\d.]+)px/);
+    const currentOffset = match ? parseFloat(match[1]) : 0;
+    let currentIndex = Math.round(currentOffset / cardWidth);
 
-  currentIndex = Math.min(
-    Math.max(currentIndex + direction, 0),
-    totalCards - visible
-  );
+    currentIndex = Math.min(
+        Math.max(currentIndex + direction, 0),
+        totalCards - visible
+    );
 
-  track.style.transition = 'transform 0.4s ease';
-  track.style.transform = `translateX(-${currentIndex * cardWidth}px)`;
+    track.style.transition = 'transform 0.4s ease';
+    track.style.transform = `translateX(-${currentIndex * cardWidth}px)`;
 }
 
-// ✅ FIX 2: Reviews auto-scroll — fixed backtick template literal
+// Initialize reviews position on load
 document.addEventListener("DOMContentLoaded", () => {
     const track = document.querySelector(".reviews-track");
     const cards = document.querySelectorAll(".review-card");
-    const totalCards = cards.length;
-    let currentIndex = 0;
-    const interval = 2000;
-    let autoScrollTimer;
 
-    function getVisibleCards() {
-        if (window.innerWidth >= 1024) return 3;
-        if (window.innerWidth >= 768) return 2;
-        return 1;
-    }
+    if (!track || cards.length === 0) return;
 
-    function showSlide(index) {
-        const visible = getVisibleCards();
-        const cardWidth = cards[0].offsetWidth + 20;
-        track.style.transition = 'transform 0.8s ease';
-        // ✅ Was: 'translateX(-${index * cardWidth}px)' — wrong quotes, now fixed
-        track.style.transform = `translateX(-${index * cardWidth}px)`;
-
-        cards.forEach((card, i) => {
-            card.classList.toggle("active", i >= index && i < index + visible);
-        });
-    }
-
-    function nextSlide() {
-        const visible = getVisibleCards();
-        currentIndex = (currentIndex + 1) % (totalCards - visible + 1);
-        showSlide(currentIndex);
-    }
-
-    function startAutoScroll() {
-        autoScrollTimer = setInterval(nextSlide, interval);
-    }
-
-    function stopAutoScroll() {
-        clearInterval(autoScrollTimer);
-    }
-
-    showSlide(currentIndex);
-    startAutoScroll();
-
-    track.addEventListener("mouseenter", stopAutoScroll);
-    track.addEventListener("mouseleave", startAutoScroll);
+    track.style.transition = 'transform 0.4s ease';
+    track.style.transform = 'translateX(0px)';
 
     window.addEventListener("resize", () => {
-        showSlide(currentIndex);
+        track.style.transform = 'translateX(0px)';
     });
+}); // ✅ This closing brace was MISSING in your file — caused everything below to break
 
-// ✅ FIX 4: Loader IIFE
-// For best results, also copy this IIFE into a separate <script> tag in <head>
-// of index.html so it runs before any content loads.
 
+// Loader
 (function() {
     const startTime = Date.now();
 
@@ -298,10 +253,7 @@ document.addEventListener("DOMContentLoaded", () => {
 })();
 
 
-// ✅ FIX 5 & 6: Latest Notices
-// FIX 5 — Removed always-true if-check that blocked real CSV fetching
-// FIX 6 — Fixed animationDelay missing backticks + unquoted strings in innerHTML
-
+// Latest Notices
 (function () {
     const SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSyvjNgUcUesqV83Af3HDaVJ7bXj49TYE5CuQ4xohXgptO3sBeR7ok0kodKYncdCZNk68L8PbHnSWy1/pub?output=csv';
 
@@ -347,9 +299,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const item  = document.createElement('a');
             item.href      = '/pages/Notifications.html';
             item.className = 'ln-item';
-            // ✅ Was: ${i * 0.1}s without backticks — now fixed
             item.style.animationDelay = `${i * 0.1}s`;
-            // ✅ Was: unquoted <span> strings in ternary — now wrapped in single quotes
             item.innerHTML = `
                 <div class="ln-indicator ${isNew ? 'new' : 'normal'}"></div>
                 <div class="ln-text">
@@ -366,8 +316,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // ✅ FIX 5: Removed the always-true if-check. Now fetches real data directly.
-    // Falls back to DEMO_NOTICES only if the fetch actually fails.
     async function loadLatestNotices() {
         try {
             const res = await fetch(SHEET_CSV_URL);
@@ -380,3 +328,4 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.addEventListener('DOMContentLoaded', loadLatestNotices);
 })();
+                                         
