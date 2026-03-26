@@ -1348,11 +1348,11 @@ Tablet screens (768px) */
 
     .reviews-track {
     display: flex;
-    overflow: hidden;  
+    overflow: visible;  
     scroll-behavior: smooth;
 }
 
-    review-card {
+    .review-card {
     font-family: 'Faculty Glyphic', sans-serif;
     flex: 0 0 100%;
     max-width: 100%;
