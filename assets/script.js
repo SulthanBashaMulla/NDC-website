@@ -173,8 +173,14 @@ function scrollReview(direction) {
     const track = document.querySelector(".reviews-track");
     const cards = track.querySelectorAll(".review-card");
     const totalCards = cards.length;
-    const visible = window.innerWidth >= 1024 ? 3 : window.innerWidth >= 768 ? 2 : 1;
-    const cardWidth = cards[0].offsetWidth + 20;
+
+    const visible = Math.min(
+        window.innerWidth >= 1024 ? 3 : window.innerWidth >= 768 ? 2 : 1,
+        totalCards
+    );
+
+    // ✅ Measure real card width directly from the DOM — no guessing
+    const cardWidth = cards[0].getBoundingClientRect().width;
 
     const currentTransform = track.style.transform;
     const match = currentTransform.match(/-?([\d.]+)px/);
