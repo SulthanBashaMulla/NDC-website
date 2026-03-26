@@ -1975,12 +1975,5 @@ Tablet screens (768px) */
 
 .extra-logos img {
   width: 100px;
-  height: auto;
-}
-
-/* Optional: make it responsive */
-@media (max-width: 768px) {
-  .extra-logos img {
-    width: 35px;
-  }
+  height:100px ;
 }
