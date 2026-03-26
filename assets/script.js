@@ -177,9 +177,25 @@ carousel.addEventListener('touchmove', e => {
 
 // Reviews — arrow scroll
 function scrollReview(direction) {
-    const track = document.getElementById('reviewsTrack');
-    const cardWidth = track.querySelector('.review-card').offsetWidth;
-    track.scrollBy({ left: direction * cardWidth, behavior: 'smooth' });
+  const track = document.querySelector(".reviews-track");
+  const cards = track.querySelectorAll(".review-card");
+  const totalCards = cards.length;
+  const visible = window.innerWidth >= 1024 ? 3 : window.innerWidth >= 768 ? 2 : 1;
+  const cardWidth = cards[0].offsetWidth + 20;
+
+  // Read current index from transform
+  const currentTransform = track.style.transform;
+  const match = currentTransform.match(/-?([\d.]+)px/);
+  const currentOffset = match ? parseFloat(match[1]) : 0;
+  let currentIndex = Math.round(currentOffset / cardWidth);
+
+  currentIndex = Math.min(
+    Math.max(currentIndex + direction, 0),
+    totalCards - visible
+  );
+
+  track.style.transition = 'transform 0.4s ease';
+  track.style.transform = `translateX(-${currentIndex * cardWidth}px)`;
 }
 
 // ✅ FIX 2: Reviews auto-scroll — fixed backtick template literal
@@ -200,6 +216,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function showSlide(index) {
         const visible = getVisibleCards();
         const cardWidth = cards[0].offsetWidth + 20;
+        track.style.transition = 'transform 0.4s ease';
         // ✅ Was: 'translateX(-${index * cardWidth}px)' — wrong quotes, now fixed
         track.style.transform = `translateX(-${index * cardWidth}px)`;
 
