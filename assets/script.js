@@ -174,7 +174,7 @@ carousel.addEventListener('touchmove', e => {
     startX = touchX;
 });
 
-// Reviews — manual arrow scroll only
+// Reviews — arrow scroll
 function scrollReview(direction) {
   const track = document.querySelector(".reviews-track");
   const cards = track.querySelectorAll(".review-card");
@@ -182,6 +182,7 @@ function scrollReview(direction) {
   const visible = window.innerWidth >= 1024 ? 3 : window.innerWidth >= 768 ? 2 : 1;
   const cardWidth = cards[0].offsetWidth + 20;
 
+  // Read current index from transform
   const currentTransform = track.style.transform;
   const match = currentTransform.match(/-?([\d.]+)px/);
   const currentOffset = match ? parseFloat(match[1]) : 0;
@@ -196,23 +197,56 @@ function scrollReview(direction) {
   track.style.transform = `translateX(-${currentIndex * cardWidth}px)`;
 }
 
-// Initialize first slide position on load
+// ✅ FIX 2: Reviews auto-scroll — fixed backtick template literal
 document.addEventListener("DOMContentLoaded", () => {
-  const track = document.querySelector(".reviews-track");
-  const cards = document.querySelectorAll(".review-card");
+    const track = document.querySelector(".reviews-track");
+    const cards = document.querySelectorAll(".review-card");
+    const totalCards = cards.length;
+    let currentIndex = 0;
+    const interval = 2000;
+    let autoScrollTimer;
 
-  if (!track || cards.length === 0) return;
+    function getVisibleCards() {
+        if (window.innerWidth >= 1024) return 3;
+        if (window.innerWidth >= 768) return 2;
+        return 1;
+    }
 
-  track.style.transition = 'transform 0.4s ease';
-  track.style.transform = 'translateX(0px)';
+    function showSlide(index) {
+        const visible = getVisibleCards();
+        const cardWidth = cards[0].offsetWidth + 20;
+        track.style.transition = 'transform 0.8s ease';
+        // ✅ Was: 'translateX(-${index * cardWidth}px)' — wrong quotes, now fixed
+        track.style.transform = `translateX(-${index * cardWidth}px)`;
 
-  window.addEventListener("resize", () => {
-    track.style.transform = 'translateX(0px)';
-  });
-});
+        cards.forEach((card, i) => {
+            card.classList.toggle("active", i >= index && i < index + visible);
+        });
+    }
 
-});
+    function nextSlide() {
+        const visible = getVisibleCards();
+        currentIndex = (currentIndex + 1) % (totalCards - visible + 1);
+        showSlide(currentIndex);
+    }
 
+    function startAutoScroll() {
+        autoScrollTimer = setInterval(nextSlide, interval);
+    }
+
+    function stopAutoScroll() {
+        clearInterval(autoScrollTimer);
+    }
+
+    showSlide(currentIndex);
+    startAutoScroll();
+
+    track.addEventListener("mouseenter", stopAutoScroll);
+    track.addEventListener("mouseleave", startAutoScroll);
+
+    window.addEventListener("resize", () => {
+        showSlide(currentIndex);
+    });
 
 // ✅ FIX 4: Loader IIFE
 // For best results, also copy this IIFE into a separate <script> tag in <head>
