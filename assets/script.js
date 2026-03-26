@@ -174,8 +174,7 @@ carousel.addEventListener('touchmove', e => {
     startX = touchX;
 });
 
-
-// Reviews — arrow scroll
+// Reviews — manual arrow scroll only
 function scrollReview(direction) {
   const track = document.querySelector(".reviews-track");
   const cards = track.querySelectorAll(".review-card");
@@ -183,7 +182,6 @@ function scrollReview(direction) {
   const visible = window.innerWidth >= 1024 ? 3 : window.innerWidth >= 768 ? 2 : 1;
   const cardWidth = cards[0].offsetWidth + 20;
 
-  // Read current index from transform
   const currentTransform = track.style.transform;
   const match = currentTransform.match(/-?([\d.]+)px/);
   const currentOffset = match ? parseFloat(match[1]) : 0;
@@ -198,56 +196,21 @@ function scrollReview(direction) {
   track.style.transform = `translateX(-${currentIndex * cardWidth}px)`;
 }
 
-// ✅ FIX 2: Reviews auto-scroll — fixed backtick template literal
+// Initialize first slide position on load
 document.addEventListener("DOMContentLoaded", () => {
-    const track = document.querySelector(".reviews-track");
-    const cards = document.querySelectorAll(".review-card");
-    const totalCards = cards.length;
-    let currentIndex = 0;
-    const interval = 2000;
-    let autoScrollTimer;
+  const track = document.querySelector(".reviews-track");
+  const cards = document.querySelectorAll(".review-card");
 
-    function getVisibleCards() {
-        if (window.innerWidth >= 1024) return 3;
-        if (window.innerWidth >= 768) return 2;
-        return 1;
-    }
+  if (!track || cards.length === 0) return;
 
-    function showSlide(index) {
-        const visible = getVisibleCards();
-        const cardWidth = cards[0].offsetWidth + 20;
-        track.style.transition = 'transform 3s ease';
-        // ✅ Was: 'translateX(-${index * cardWidth}px)' — wrong quotes, now fixed
-        track.style.transform = `translateX(-${index * cardWidth}px)`;
+  track.style.transition = 'transform 0.4s ease';
+  track.style.transform = 'translateX(0px)';
 
-        cards.forEach((card, i) => {
-            card.classList.toggle("active", i >= index && i < index + visible);
-        });
-    }
+  window.addEventListener("resize", () => {
+    track.style.transform = 'translateX(0px)';
+  });
+});
 
-    function nextSlide() {
-        const visible = getVisibleCards();
-        currentIndex = (currentIndex + 1) % (totalCards - visible + 1);
-        showSlide(currentIndex);
-    }
-
-    function startAutoScroll() {
-        autoScrollTimer = setInterval(nextSlide, interval);
-    }
-
-    function stopAutoScroll() {
-        clearInterval(autoScrollTimer);
-    }
-
-    showSlide(currentIndex);
-    startAutoScroll();
-
-    track.addEventListener("mouseenter", stopAutoScroll);
-    track.addEventListener("mouseleave", startAutoScroll);
-
-    window.addEventListener("resize", () => {
-        showSlide(currentIndex);
-    });
 });
 
 
