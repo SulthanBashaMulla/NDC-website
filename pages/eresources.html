@@ -114,14 +114,14 @@ body::before {
 }
 
 .login-emblem {
-  width: 56px; height: 56px;
-  background: var(--accent);
-  border-radius: 16px;
-  display: flex; align-items:center; justify-content:center;
-  font-size: 1.6rem;
-  margin-bottom: 1.25rem;
-  position: relative; z-index:1;
-  box-shadow: 0 4px 16px rgba(232,64,28,.4);
+  width: 64px;
+  height: 64px;
+  background-color: #fff;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 10px 10px;
+  margin-bottom: 15px;
 }
 
 .login-band h1 {
@@ -150,7 +150,7 @@ body::before {
   font-weight: 500;
   letter-spacing: .06em;
   text-transform: uppercase;
-  color: var(--ink-muted);
+  color: #1a2f5c;
   margin-bottom: .5rem;
 }
 
@@ -745,7 +745,9 @@ body::before {
 <div id="loginScreen">
   <div class="login-card">
     <div class="login-band">
-      <div class="login-emblem">🎓</div>
+<div class="login-emblem">
+  <img src="https://i.postimg.cc/VknRXB1B/1000340942-removebg-preview.png" alt="College Logo" width="64" height="64">
+</div>
       <h1>NDC Portal</h1>
       <p>National Degree College · Nandyal</p>
     </div>
