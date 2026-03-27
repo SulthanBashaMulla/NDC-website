@@ -151,12 +151,14 @@ function scrollReview(direction) {
     const cards = track.querySelectorAll(".review-card");
     const totalCards = cards.length;
 
-    const visible = Math.min(
-        window.innerWidth >= 1024 ? 3 : window.innerWidth >= 768 ? 2 : 1,
-        totalCards
-    );
+    // ✅ Always show 1 card at a time regardless of screen size
+    // This ensures totalCards - visible is always > 0 so arrows always work
+    const visible = 1;
 
-    const cardWidth = cards[0].offsetWidth + 20;
+    // ✅ Use getBoundingClientRect for accurate width at any screen size
+    const cardRect = cards[0].getBoundingClientRect();
+    const cardWidth = cardRect.width + 20; // +20 matches margin-right
+
     const currentTransform = track.style.transform;
     const match = currentTransform.match(/-?([\d.]+)px/);
     const currentOffset = match ? parseFloat(match[1]) : 0;
@@ -164,27 +166,12 @@ function scrollReview(direction) {
 
     currentIndex = Math.min(
         Math.max(currentIndex + direction, 0),
-        totalCards - visible
+        totalCards - visible  // ✅ always 3 - 1 = 2, arrows always work
     );
 
     track.style.transition = 'transform 0.4s ease';
     track.style.transform = `translateX(-${currentIndex * cardWidth}px)`;
 }
-
-// Initialize reviews position on load
-document.addEventListener("DOMContentLoaded", () => {
-    const track = document.querySelector(".reviews-track");
-    const cards = document.querySelectorAll(".review-card");
-
-    if (!track || cards.length === 0) return;
-
-    track.style.transition = 'transform 0.4s ease';
-    track.style.transform = 'translateX(0px)';
-
-    window.addEventListener("resize", () => {
-        track.style.transform = 'translateX(0px)';
-    });
-}); // ✅ This closing brace was MISSING in your file — caused everything below to break
 
 
 // Loader

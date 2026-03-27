@@ -1353,7 +1353,9 @@ Tablet screens (768px) */
     .carousel-container {
       width: 100%;
       overflow: hidden;
-      padding: 20px 0;
+      padding: 20px 20px;
+      max-width: 900px;       /* ✅ cap width so cards stay readable on big screens */
+    margin: 0 auto;  
     }
 
     .reviews-track {
@@ -1362,24 +1364,22 @@ Tablet screens (768px) */
     scroll-behavior: smooth;
 }
 
-    .review-card {
+.review-card {
     font-family: 'Faculty Glyphic', sans-serif;
-    flex: 0 0 100%;
-    max-width: 100%;
+    flex: 0 0 calc(100% - 20px);
+    max-width: calc(100% - 20px);
     background: white;
     border-radius: 15px;
     padding: 25px;
-    margin-right: 20px;      /* ← add this gap between cards */
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    scroll-snap-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin-right: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    transition: box-shadow 0.3s ease; /* ✅ removed transform from transition */
     position: relative;
-    }
+}
 
-    .review-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 15px 40px rgba(0,0,0,0.3);
-    }
+.review-card:hover {
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+}
 
     .review-card::before {
       content: '"';
@@ -1682,8 +1682,8 @@ Tablet screens (768px) */
 .rev-arrow:hover {
   background: #ff6b35;
 }
-.rev-left  { left: 8px; }
-.rev-right { right: 8px; }
+.rev-left  { left: 0px; }
+.rev-right { right: 0px; }
 
   .latest-notices-section {
     background: #fff;
