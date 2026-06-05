@@ -49,7 +49,7 @@ body {
 .logo-section {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 20px;
 }
 
 .logo {
@@ -99,16 +99,16 @@ body {
 @media (min-width: 768px) {
     .header-content {
         flex-direction: row;       
-        justify-content: space-between;
+        justify-content: center;
         align-items: center;
-        gap: 20px;
+        gap: 50px;
         width: 100%;
         max-width: 1200px;        
         margin: 0 auto;          
     }
     .logo {
-        width: 70px;
-        height: 70px;
+        width: 100px;
+        height: 100px;
     }
     .logo-section {
         gap: 15px;
@@ -120,9 +120,102 @@ body {
         font-size: 0.8rem;
     }
     .college-info p {
-        font-size: 1rem;
+        font-size: 0.9rem;
     }
 }
+.header {
+    background: #fff;
+    padding: 12px 16px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.header-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Left logo */
+.logo {
+    width: 80px;
+    height: 80px;
+    flex-shrink: 0;
+}
+
+.logo-img-header {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* Center text */
+.college-info {
+    flex: 1;
+    text-align: center;
+    padding: 0 10px;
+}
+
+.college-info h1 {
+    font-size: 1rem;
+    color: #ff6b35;
+    font-family: 'Roboto Slab', serif;
+    font-weight: bold;
+    line-height: 1.2;
+    margin-bottom: 6px;
+}
+
+.affiliated-text {
+    color: #1a2f5c;
+    font-family: 'Roboto Slab', serif;
+    font-weight: bold;
+    font-size: 0.5rem;
+}
+
+/* Right affiliated logos */
+.affiliated-logos {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+}
+
+.affiliated-logos img {
+    width: 60px;
+    height: 50px;
+    object-fit: contain;
+}
+
+/* Tablet and above */
+@media (min-width: 768px) {
+    .logo {
+        width: 100px;
+        height: 100px;
+    }
+
+    .college-info h1 {
+        font-size: 1.5rem;
+    }
+
+    .affiliated-text {
+        font-size: 0.8rem;
+    }
+
+    .affiliated-logos {
+        flex-direction: row;
+        gap: 12px;
+    }
+
+    .affiliated-logos img {
+        width: 80px;
+        height: 65px;
+    }
+}
+
 
 /* ========================
    NAVIGATION (Mobile First)
@@ -797,22 +890,33 @@ nav {
     </style>
 <!-- ========================      SEO META TAGS ======================== --> <meta name="description" content="National Degree College (NDC), Nandyal - Affiliated to Rayalaseema University. Offering quality education in Arts, Science and Commerce. Admissions open 2025."> <meta name="keywords" content="National Degree College,NDC,ndc, national college, national,college, Rayalseema affiliated, colleges,NDC Nandyal, degree college Nandyal, arts science commerce college, Rayalaseema University, NDC admissions 2025, college in Nandyal, Andhra Pradesh college"> <meta name="author" content="National Degree College, Nandyal"> <meta name="robots" content="index, follow">  <!-- ========================      OPEN GRAPH (WhatsApp, Facebook preview) ======================== --> <meta property="og:title" content="National Degree College — Nandyal"> <meta property="og:description" content="Quality education in Arts, Science and Commerce. Affiliated to Rayalaseema University. Admissions open 2025."> <meta property="og:image" content="https://i.postimg.cc/KYWWQ2JT/1772269664814.png"> <meta property="og:url" content="https://ndcndl.org"> <meta property="og:type" content="website">  <!-- ========================      TWITTER CARD ======================== --> <meta name="twitter:card" content="summary"> <meta name="twitter:title" content="National Degree College — Nandyal"> <meta name="twitter:description" content="Quality education in Arts, Science and Commerce. Nandyal, Andhra Pradesh."> <meta name="twitter:image" content="https://i.postimg.cc/KYWWQ2JT/1772269664814.png">  <!-- ========================      CANONICAL URL ======================== --> <link rel="canonical" href="https://ndcndl.org"> </head>
 <body>
-          <!-- Header -->  
-    <header class="header">  
-        <div class="container">  
-            <div class="header-content">  
-                <div class="logo-section">  
-                    <div class="logo"><img class="logo-img-header" src="https://i.postimg.cc/VknRXB1B/1000340942-removebg-preview.png" loading="lazy" alt="college logo"> </div>  
-                    <div class="college-info">  
-                        <h1>NATIONAL DEGREE COLLEGE</h1>
-                        <p><span class="affiliated-text">(Affiliated to RAYALASEEMA UNIVERSITY, Kurnool;APPROVED BY AICTE)</span></p>   
-  </div>  
-                </div>  
-                                       <!--
-                    <a href="/loginform2.html" class="student-login">Student Login</a> -->
-            </div>  
-        </div>  
-    </header>  
+      <!-- Header -->  
+<header class="header">
+    <div class="container">
+        <div class="header-content">
+
+            <!-- Left: College Logo -->
+            <div class="logo">
+                <img class="logo-img-header"
+                     src="https://i.postimg.cc/VknRXB1B/1000340942-removebg-preview.png"
+                     loading="lazy" alt="college logo">
+            </div>
+
+            <!-- Center: College Name -->
+            <div class="college-info">
+                <h1>NATIONAL DEGREE COLLEGE</h1>
+                <p><span class="affiliated-text">(Affiliated to RAYALASEEMA UNIVERSITY, Kurnool &nbsp;|&nbsp; APPROVED BY AICTE)</span></p>
+            </div>
+
+            <!-- Right: Affiliated Logos -->
+            <div class="affiliated-logos">
+                <img src="https://i.postimg.cc/26R1Ts6d/ruk-logo.png" alt="Rayalaseema University">
+                <img src="https://i.postimg.cc/Gp9FZnd6/AICTE-Logo-250x250-1.png" alt="AICTE">
+            </div>
+
+        </div>
+    </div>
+</header>  
   
 
     <!-- Navigation -->  

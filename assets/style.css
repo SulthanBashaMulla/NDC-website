@@ -14,8 +14,8 @@ body {
     line-height: 1.6;
     color: #333;
     overflow-x: hidden;
-    max-width: 100%;    /* ✅ add this */
-    width: 100%;        /* ✅ add this */
+    max-width: 100%;    
+    width: 100%;  
 }
 .container {
     width: 100%;
