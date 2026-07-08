@@ -296,4 +296,36 @@ function scrollReview(direction) {
 
     document.addEventListener('DOMContentLoaded', loadLatestNotices);
 })();
-                                         
+                  
+                  // ===== Total Placements Counter (live-fetched from placements.html) =====
+async function loadTotalPlacedCount() {
+  const countEl = document.getElementById('totalPlacedCount');
+  if (!countEl) return;
+
+  try {
+    const res = await fetch('/pages/placements.html'); // ⚠ update to the real path/filename of placements.html
+    const html = await res.text();
+    const doc = new DOMParser().parseFromString(html, 'text/html');
+
+    // Counts every student row inside every .year-section — all years combined
+    const total = doc.querySelectorAll('.year-section tbody tr').length;
+
+    animateCounter(countEl, total);
+  } catch (err) {
+    console.error('Could not load placement count:', err);
+    countEl.textContent = '—';
+  }
+}
+
+function animateCounter(el, target, duration = 1500) {
+  const startTime = performance.now();
+  function tick(now) {
+    const progress = Math.min((now - startTime) / duration, 1);
+    el.textContent = Math.floor(progress * target);
+    if (progress < 1) requestAnimationFrame(tick);
+    else el.textContent = target;
+  }
+  requestAnimationFrame(tick);
+}
+
+document.addEventListener('DOMContentLoaded', loadTotalPlacedCount);                       
