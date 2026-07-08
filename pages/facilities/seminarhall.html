@@ -245,14 +245,43 @@ nav {
 /* Mobile Toggle Button */
 .menu-toggle {
     background: #ff6b35;
-    color: white;
     border: none;
-    padding: 10px 20px;
-    border-radius: 25px;
+    border-radius: 10px;
     cursor: pointer;
-    font-weight: 600;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    width: 42px;
+    height: 42px;
+    padding: 0;
+}
+
+.menu-toggle .bar {
     display: block;
-    font-size: 1rem;
+    width: 18px;
+    height: 2px;
+    background: white;
+    border-radius: 1px;
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+        opacity 0.25s ease,
+        width 0.25s ease;
+}
+
+.menu-toggle.active .bar:nth-child(1) {
+    transform: translateY(6px) rotate(45deg);
+    width: 16px;
+}
+
+.menu-toggle.active .bar:nth-child(2) {
+    opacity: 0;
+    width: 0;
+}
+
+.menu-toggle.active .bar:nth-child(3) {
+    transform: translateY(-6px) rotate(-45deg);
+    width: 16px;
 }
 
 /* Navigation Links Container */
@@ -826,7 +855,11 @@ font-family:'Faculty Glyphic',sans-serif ;
    <div class="nav-section">
     <div class="container nav-content">
    <!-- Mobile Toggle Button -->
-   <button class="menu-toggle">☰ </button>
+     <button class="menu-toggle" aria-label="Toggle menu">
+       <span class="bar"></span>
+       <span class="bar"></span>
+       <span class="bar"></span>
+   </button>
 
   <!-- Navigation Links -->
    <div class="nav-links">
@@ -888,7 +921,8 @@ font-family:'Faculty Glyphic',sans-serif ;
      <a href="/pages/facilities/parking.html">Parking</a>
                         </div>
                     </div>
-                          <!-- Placements Dropdown -->    <div class="dropdown">    <button class="drop-btn">                             Placements                              <svg class="nav-arrow" xmlns="http://www.w3.org/2000/svg" fill="none"                                  viewBox="0 0 24 24" stroke="currentColor">                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"                                       d="M19 9l-7 7-7-7" />                             </svg>                         </button>   <div class="dropdown-content">   <a href="/pages/placements/placementinformation.html">Information & Training</a>     <a href="/pages/placements/placementgallary.html">Placement Gallary</a>                            </div>                     </div>
+                          <!-- Placements Dropdown -->    <div class="dropdown">    <button class="drop-btn">                             Placements                              <svg class="nav-arrow" xmlns="http://www.w3.org/2000/svg" fill="none"                                  viewBox="0 0 24 24" stroke="currentColor">                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"                                       d="M19 9l-7 7-7-7" />                             </svg>                         </button>   <div class="dropdown-content">  <a href="/pages/placements/placements.html">Student Placements</a>
+                          <a href="/pages/placements/placementinformation.html">Information & Training</a>     <a href="/pages/placements/placementgallary.html">Placement Gallary</a>                            </div>                     </div>
   <a href="/pages/circular.html">Circulars</a>
        <a href="/pages/Notifications.html">Notifications</a>
                 </div>
@@ -985,8 +1019,9 @@ font-family:'Faculty Glyphic',sans-serif ;
         const navLinks = document.querySelector('.nav-links');
 
         menuToggle.addEventListener('click', function() {
-            navLinks.classList.toggle('active');
-        });
+    navLinks.classList.toggle('active');
+    menuToggle.classList.toggle('active');
+});
 
         // Dropdown Toggle for Mobile Only
         const dropdownButtons = document.querySelectorAll('.drop-btn');
@@ -1020,9 +1055,10 @@ font-family:'Faculty Glyphic',sans-serif ;
                         dropdown.classList.remove('active');
                     });
                     // Close mobile menu if clicking outside
-                    if (navLinks.classList.contains('active')) {
-                        navLinks.classList.remove('active');
-                    }
+                                if (navLinks.classList.contains('active')) {
+                navLinks.classList.remove('active');
+                menuToggle.classList.remove('active');
+            }
                 }
             }
         });
