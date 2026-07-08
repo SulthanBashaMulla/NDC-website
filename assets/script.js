@@ -303,7 +303,7 @@ async function loadTotalPlacedCount() {
   if (!countEl) return;
 
   try {
-    const res = await fetch('/pages/placements.html'); // ⚠ update to the real path/filename of placements.html
+    const res = await fetch('/pages/placements/placements.html'); // ⚠ update to the real path/filename of placements.html
     const html = await res.text();
     const doc = new DOMParser().parseFromString(html, 'text/html');
 
