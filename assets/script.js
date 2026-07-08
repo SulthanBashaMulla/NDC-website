@@ -4,6 +4,7 @@ const navLinks = document.querySelector('.nav-links');
 
 menuToggle.addEventListener('click', function() {
     navLinks.classList.toggle('active');
+    menuToggle.classList.toggle('active');
 });
 
 // Dropdown Toggle for Mobile Only
@@ -34,8 +35,9 @@ document.addEventListener('click', function(event) {
                 dropdown.classList.remove('active');
             });
             if (navLinks.classList.contains('active')) {
-                navLinks.classList.remove('active');
-            }
+    navLinks.classList.remove('active');
+    menuToggle.classList.remove('active');
+}
         }
     }
 });
