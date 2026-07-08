@@ -301,7 +301,7 @@ function scrollReview(direction) {
 async function loadTotalPlacedCount() {
   const countEl = document.getElementById('totalPlacedCount');
   if (!countEl) return;
-
+  
   try {
     const res = await fetch('/pages/placements/placements.html'); // ⚠ update to the real path/filename of placements.html
     const html = await res.text();
@@ -329,3 +329,4 @@ function animateCounter(el, target, duration = 1500) {
 }
 
 document.addEventListener('DOMContentLoaded', loadTotalPlacedCount);                       
+
