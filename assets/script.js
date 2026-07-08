@@ -297,36 +297,53 @@ function scrollReview(direction) {
     document.addEventListener('DOMContentLoaded', loadLatestNotices);
 })();
                   
-                  // ===== Total Placements Counter (live-fetched from placements.html) =====
-async function loadTotalPlacedCount() {
-  const countEl = document.getElementById('totalPlacedCount');
-  if (!countEl) return;
-  
+// ===== Total Placements Counter (live-fetched, animates on scroll into view) =====
+let placementTotal = null;
+
+async function fetchTotalPlacedCount() {
   try {
-    const res = await fetch('/pages/placements/placements.html'); // ⚠ update to the real path/filename of placements.html
+    const res = await fetch('/pages/placements/placements.html');
     const html = await res.text();
     const doc = new DOMParser().parseFromString(html, 'text/html');
-
-    // Counts every student row inside every .year-section — all years combined
-    const total = doc.querySelectorAll('.year-section tbody tr').length;
-
-    animateCounter(countEl, total);
+    placementTotal = doc.querySelectorAll('.year-section tbody tr').length;
   } catch (err) {
     console.error('Could not load placement count:', err);
-    countEl.textContent = '—';
+    placementTotal = 0;
   }
 }
 
-function animateCounter(el, target, duration = 1500) {
+function animateCounter(el, target, duration = 2000) {
   const startTime = performance.now();
+  // easeOutExpo — fast start, slow satisfying finish (like YouTube's counter)
+  const ease = t => (t === 1 ? 1 : 1 - Math.pow(2, -10 * t));
+
   function tick(now) {
     const progress = Math.min((now - startTime) / duration, 1);
-    el.textContent = Math.floor(progress * target);
+    const value = Math.floor(ease(progress) * target);
+    el.textContent = value.toLocaleString(); // adds commas for big numbers
     if (progress < 1) requestAnimationFrame(tick);
-    else el.textContent = target;
+    else el.textContent = target.toLocaleString();
   }
   requestAnimationFrame(tick);
 }
 
-document.addEventListener('DOMContentLoaded', loadTotalPlacedCount);                       
+document.addEventListener('DOMContentLoaded', () => {
+  const countEl = document.getElementById('totalPlacedCount');
+  const section = document.getElementById('placementCounter');
+  if (!countEl || !section) return;
 
+  fetchTotalPlacedCount(); // fetch early so it's ready by the time it's in view
+
+  let hasAnimated = false;
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !hasAnimated && placementTotal !== null) {
+        hasAnimated = true;
+        animateCounter(countEl, placementTotal);
+        observer.disconnect();
+      }
+    });
+  }, { threshold: 0.4 });
+
+  observer.observe(section);
+});

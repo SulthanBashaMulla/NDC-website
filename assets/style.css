@@ -790,7 +790,7 @@ nav {
 .counter-section {
   padding: 40px 15px;
   text-align: center;
-  background: linear-gradient(135deg, #1a2f5c, #24406b);
+  background: #fff;
   border-radius: 15px;
   margin-bottom: 30px;
   box-shadow: 0 5px 15px rgba(0,0,0,0.1);
@@ -805,7 +805,7 @@ nav {
 
 .counter-number {
   font-family: 'Faculty Glyphic', serif;
-  font-size: clamp(2.5rem, 8vw, 4.5rem);
+  font-size: clamp(3rem, 8.5vw, 5rem);
   color: #ff6b35;
   font-weight: 700;
   line-height: 1;
@@ -814,9 +814,32 @@ nav {
 .counter-label {
   font-family: 'Faculty Glyphic', sans-serif;
   font-size: clamp(1rem, 3vw, 1.3rem);
-  color: #fff;
+  color: #1a2f5c;
   letter-spacing: 0.5px;
 }
+
+.counter-btn {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 12px 20px;
+  background: #ff6b35;
+  color: #fff;
+  text-decoration: none;
+  font-family: 'Faculty Glyphic', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border-radius: 30px;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.counter-btn:hover {
+  background: #1a2f5c;
+  transform: translateY(-2px);
+  color: #fff;
+  cursor: pointer;
+}
+
+
   /* Footer */
 .footer {
   background: #1a2f5c; 
