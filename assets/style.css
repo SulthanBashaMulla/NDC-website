@@ -775,6 +775,7 @@ nav {
     color: #666;
 }
 .mini-stats-row {
+  font-family: 'Faculty Glyphic';
       display: flex;
       flex-wrap: wrap;
       gap: 14px;
