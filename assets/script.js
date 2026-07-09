@@ -352,4 +352,5 @@ document.addEventListener('DOMContentLoaded', () => {
   }, { threshold: 0.4 });
 
   observer.observe(section);
+  
 });
