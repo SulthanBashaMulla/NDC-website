@@ -6,6 +6,7 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/public/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/public/favicon-16x16.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/public/apple-touch-icon.png">
+<link href="https://fonts.googleapis.com/css2?family=Faculty+Glyphic&display=swap" rel="stylesheet">
 <link rel="manifest" href="/public/site.webmanifest">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Placements — NDC</title>
@@ -21,7 +22,7 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Faculty Glyphic', Tahoma, Geneva, Verdana, sans-serif;
             background: #f0f3f8;
             color: #333;
             min-height: 100vh;
@@ -74,6 +75,38 @@
             color: #66707f;
             font-size: 0.85rem;
             margin-top: 6px;
+        }
+
+        /* ===========================
+           SUMMARY BAR
+        =========================== */
+        .summary-bar {
+            width: 100%;
+            max-width: 1100px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .summary-card {
+            flex: 1 1 140px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 3px 14px rgba(0,0,0,0.08);
+            padding: 14px 16px;
+            text-align: center;
+        }
+        .summary-card .num {
+            color: #ff6b35;
+            font-size: 1.3rem;
+            font-weight: 800;
+        }
+        .summary-card .label {
+            color: #66707f;
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            margin-top: 4px;
         }
 
         /* ===========================
@@ -137,6 +170,14 @@
             max-height: 4000px;
         }
 
+        .stipend-note {
+            padding: 10px 20px 16px 20px;
+            font-size: 0.8rem;
+            color: #4a7a5c;
+            background: #eafaf0;
+            border-top: 1px solid #d3ddf5;
+        }
+
         /* ===========================
            TABLE — CARD LAYOUT MOBILE
         =========================== */
@@ -160,7 +201,7 @@
 
         tbody td {
             display: flex;
-            align-items: flex-start;
+            align-items: center;
             gap: 10px;
             padding: 6px 0;
             font-size: 0.88rem;
@@ -171,7 +212,7 @@
             content: attr(data-label);
             font-weight: bold;
             color: #1a2f5c;
-            min-width: 110px;
+            min-width: 150px;
             flex-shrink: 0;
             font-size: 0.8rem;
             text-transform: uppercase;
@@ -179,40 +220,20 @@
             padding-top: 2px;
         }
 
-        /* Student name emphasis */
+        /* Company name emphasis */
         .student-name { font-weight: 600; color: #1a2f5c; }
 
-        /* Role badge */
+        /* Count badge */
         .role-badge {
             display: inline-block;
             padding: 3px 10px;
             border-radius: 20px;
             font-size: 0.78rem;
-            font-weight: 600;
+            font-weight: 700;
             background: #eef2ff;
-            color: #1a2f5c;
+            color: #ff6b35;
             border: 1px solid #d3ddf5;
         }
-
-        /* Check Now button */
-        .check-now-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: #ff6b35;
-            color: #fff;
-            border: none;
-            padding: 7px 14px;
-            border-radius: 20px;
-            font-size: 0.78rem;
-            font-weight: 700;
-            letter-spacing: 0.3px;
-            cursor: pointer;
-            box-shadow: 0 2px 6px rgba(255,107,53,0.35);
-            transition: background 0.2s, transform 0.15s;
-        }
-        .check-now-btn:hover { background: #1a2f5c; transform: translateY(-1px); }
-        .check-now-btn svg { width: 13px; height: 13px; }
 
         /* ===========================
            TABLET — 480px+
@@ -221,7 +242,7 @@
             body { padding: 24px 20px; }
             .page-header h1 { font-size: 1.4rem; }
             tbody td { font-size: 0.92rem; }
-            tbody td::before { min-width: 130px; font-size: 0.82rem; }
+            tbody td::before { min-width: 170px; font-size: 0.82rem; }
         }
 
         /* ===========================
@@ -269,118 +290,6 @@
             thead th { font-size: 0.95rem; padding: 14px 20px; }
             tbody td { font-size: 0.95rem; padding: 14px 20px; }
         }
-
-        /* ===========================
-           MODAL — CALL LETTER
-        =========================== */
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(15, 23, 42, 0.65);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-
-        .modal-overlay.active { display: flex; }
-
-        .modal-box {
-            background: #fff;
-            border-radius: 14px;
-            width: 100%;
-            max-width: 480px;
-            max-height: 90vh;
-            overflow-y: auto;
-            position: relative;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.35);
-            animation: modalPop 0.25s ease;
-        }
-
-        @keyframes modalPop {
-            from { opacity: 0; transform: scale(0.94) translateY(10px); }
-            to { opacity: 1; transform: scale(1) translateY(0); }
-        }
-
-        .modal-close {
-            position: absolute;
-            top: 12px;
-            right: 12px;
-            width: 34px;
-            height: 34px;
-            border-radius: 50%;
-            background: #fff;
-            border: 1px solid #e2e6ee;
-            color: #1a2f5c;
-            font-size: 1.1rem;
-            line-height: 1;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-            z-index: 2;
-            transition: background 0.2s, transform 0.15s;
-        }
-        .modal-close:hover { background: #ff6b35; color: #fff; transform: rotate(90deg); }
-
-        .modal-header {
-            background: #1a2f5c;
-            color: #fff;
-            padding: 18px 50px 16px 20px;
-        }
-        .modal-header h3 { font-size: 1.05rem; }
-        .modal-header span {
-            display: block;
-            font-size: 0.78rem;
-            opacity: 0.8;
-            margin-top: 3px;
-        }
-
-        .modal-img-wrap {
-            padding: 18px;
-            display: flex;
-            justify-content: center;
-        }
-        .modal-img-wrap img {
-            width: 100%;
-            border-radius: 8px;
-            border: 1px solid #e5e9f0;
-            display: block;
-        }
-
-        .verified-badge {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin: 0 18px 18px 18px;
-            background: #eafaf0;
-            border: 1px solid #b8e6c9;
-            border-radius: 10px;
-            padding: 10px 14px;
-        }
-        .verified-badge .badge-icon {
-            width: 30px;
-            height: 30px;
-            flex-shrink: 0;
-            border-radius: 50%;
-            background: #1fa855;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .verified-badge .badge-icon svg { width: 16px; height: 16px; stroke: #fff; }
-        .verified-badge .badge-text { line-height: 1.25; }
-        .verified-badge .badge-text strong {
-            display: block;
-            font-size: 0.85rem;
-            color: #15803d;
-        }
-        .verified-badge .badge-text span {
-            font-size: 0.72rem;
-            color: #4a7a5c;
-        }
     </style>
 <!-- ========================      SEO META TAGS ======================== --> <meta name="description" content="National Degree College (NDC), Nandyal - Placement records of students placed in top companies. Affiliated to Rayalaseema University."> <meta name="keywords" content="NDC placements, National Degree College Nandyal placements, students placed, placement drive, campus recruitment Nandyal"> <meta name="author" content="National Degree College, Nandyal"> <meta name="robots" content="index, follow"> <link rel="canonical" href="https://ndcndl.org"> </head>
 <body>
@@ -394,15 +303,21 @@
 
     <div class="page-header">
         <h1>Student Placements</h1>
-        <p>Celebrating our students who stepped confidently into their careers</p>
+        <p>Celebrating our students who stepped confidently into their careers, 1998–2026</p>
+    </div>
+
+    <div class="summary-bar">
+        <div class="summary-card"><div class="num">27</div><div class="label">Placement Years</div></div>
+        <div class="summary-card"><div class="num">2,511</div><div class="label">Students Selected</div></div>
+        <div class="summary-card"><div class="num">260</div><div class="label">Stipend Interns (2025-26)</div></div>
     </div>
 
     <div class="year-wrap">
 
-        <!-- ===================== YEAR 2025 (open by default) ===================== -->
-        <div class="year-section open" data-year="2025">
+        <!-- ===================== YEAR 2025-2026 ===================== -->
+        <div class="year-section open" data-year="2025-2026" data-total="241">
             <button class="year-toggle" onclick="toggleYear(this)">
-                <span>Year 2025 <span class="count-tag" data-count></span></span>
+                <span>2025-2026 <span class="count-tag">(241 students selected)</span></span>
                 <svg class="chev" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
                 </svg>
@@ -411,104 +326,73 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>Student Name</th>
-                            <th>Placed By</th>
-                            <th>Role</th>
-                            <th>Course</th>
-                            <th>Department</th>
-                            <th>Call Letter</th>
+                            <th>Company Name</th>
+                            <th>Selected Candidates</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td data-label="Student Name"><span class="student-name">K. Prasanna Kumar</span></td>
-                            <td data-label="Placed By">TCS</td>
-                            <td data-label="Role"><span class="role-badge">Software Trainee</span></td>
-                            <td data-label="Course">BCA</td>
-                            <td data-label="Department">Computer Science</td>
-                            <td data-label="Call Letter">
-                                <button class="check-now-btn" onclick="openCallLetter('K. Prasanna Kumar', 'TCS', 'Software Trainee', '2025')">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                                    </svg>
-                                    Check Now
-                                </button>
-                            </td>
-                        </tr>
-                          <tr>
-                            <td data-label="Student Name"><span class="student-name">K. Prasanna Kumar</span></td>
-                            <td data-label="Placed By">TCS</td>
-                            <td data-label="Role"><span class="role-badge">Software Trainee</span></td>
-                            <td data-label="Course">BCA</td>
-                            <td data-label="Department">Computer Science</td>
-                            <td data-label="Call Letter">
-                                <button class="check-now-btn" onclick="openCallLetter('K. Prasanna Kumar', 'TCS', 'Software Trainee', '2025')">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                                    </svg>
-                                    Check Now
-                                </button>
-                            </td>
+                            <td data-label="Company Name"><span class="student-name">SUTHERLAND</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">56</span></td>
                         </tr>
                         <tr>
-                            <td data-label="Student Name"><span class="student-name">S. Afreen Banu</span></td>
-                            <td data-label="Placed By">Infosys</td>
-                            <td data-label="Role"><span class="role-badge">System Engineer</span></td>
-                            <td data-label="Course">B.Sc Computer Science</td>
-                            <td data-label="Department">Computer Science</td>
-                            <td data-label="Call Letter">
-                                <button class="check-now-btn" onclick="openCallLetter('S. Afreen Banu', 'Infosys', 'System Engineer', '2025')">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                                    </svg>
-                                    Check Now
-                                </button>
-                            </td>
+                            <td data-label="Company Name"><span class="student-name">INFOSYS</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">10</span></td>
                         </tr>
                         <tr>
-                            <td data-label="Student Name"><span class="student-name">M. Ravi Teja</span></td>
-                            <td data-label="Placed By">Wipro</td>
-                            <td data-label="Role"><span class="role-badge">Associate Engineer</span></td>
-                            <td data-label="Course">BCA</td>
-                            <td data-label="Department">Computer Science</td>
-                            <td data-label="Call Letter">
-                                <button class="check-now-btn" onclick="openCallLetter('M. Ravi Teja', 'Wipro', 'Associate Engineer', '2025')">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                                    </svg>
-                                    Check Now
-                                </button>
-                            </td>
+                            <td data-label="Company Name"><span class="student-name">TCS BFS</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">15</span></td>
                         </tr>
                         <tr>
-                            <td data-label="Student Name"><span class="student-name">P. Divya Sri</span></td>
-                            <td data-label="Placed By">HCL Technologies</td>
-                            <td data-label="Role"><span class="role-badge">Trainee Developer</span></td>
-                            <td data-label="Course">B.Sc Computer Science</td>
-                            <td data-label="Department">Computer Science</td>
-                            <td data-label="Call Letter">
-                                <button class="check-now-btn" onclick="openCallLetter('P. Divya Sri', 'HCL Technologies', 'Trainee Developer', '2025')">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                                    </svg>
-                                    Check Now
-                                </button>
-                            </td>
+                            <td data-label="Company Name"><span class="student-name">TCS SMART</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">20</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">COGNIZANT</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">25</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">PURVIEW</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">01</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">EXL</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">01</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">WIPRO</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">25</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">ACCENTURE</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">05</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">DELOITTE</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">03</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">ALL SET BUSINESSES SOLUTION</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">20</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">TATA ELECTRONICS</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">55</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">JUSTDIAL</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">05</span></td>
                         </tr>
                     </tbody>
                 </table>
+                <div class="stipend-note">+ 260 students placed under Stipend Internships (separate from the selected-candidates total above)</div>
             </div>
         </div>
 
-        <!-- ===================== YEAR 2024 ===================== -->
-        <div class="year-section" data-year="2024">
+        <!-- ===================== YEAR 2024-2025 ===================== -->
+        <div class="year-section" data-year="2024-2025" data-total="100">
             <button class="year-toggle" onclick="toggleYear(this)">
-                <span>Year 2024 <span class="count-tag" data-count></span></span>
+                <span>2024-2025 <span class="count-tag">(100 students selected)</span></span>
                 <svg class="chev" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
                 </svg>
@@ -517,56 +401,64 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>Student Name</th>
-                            <th>Placed By</th>
-                            <th>Role</th>
-                            <th>Course</th>
-                            <th>Department</th>
-                            <th>Call Letter</th>
+                            <th>Company Name</th>
+                            <th>Selected Candidates</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td data-label="Student Name"><span class="student-name">B. Nagendra</span></td>
-                            <td data-label="Placed By">Tech Mahindra</td>
-                            <td data-label="Role"><span class="role-badge">Process Associate</span></td>
-                            <td data-label="Course">BCA</td>
-                            <td data-label="Department">Computer Science</td>
-                            <td data-label="Call Letter">
-                                <button class="check-now-btn" onclick="openCallLetter('B. Nagendra', 'Tech Mahindra', 'Process Associate', '2024')">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                                    </svg>
-                                    Check Now
-                                </button>
-                            </td>
+                            <td data-label="Company Name"><span class="student-name">TCS SMART</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">20</span></td>
                         </tr>
                         <tr>
-                            <td data-label="Student Name"><span class="student-name">Y. Lakshmi Priya</span></td>
-                            <td data-label="Placed By">Cognizant</td>
-                            <td data-label="Role"><span class="role-badge">GenC Trainee</span></td>
-                            <td data-label="Course">B.Sc Computer Science</td>
-                            <td data-label="Department">Computer Science</td>
-                            <td data-label="Call Letter">
-                                <button class="check-now-btn" onclick="openCallLetter('Y. Lakshmi Priya', 'Cognizant', 'GenC Trainee', '2024')">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                                    </svg>
-                                    Check Now
-                                </button>
-                            </td>
+                            <td data-label="Company Name"><span class="student-name">TCS BFS</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">21</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">WIPRO</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">38</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">FOXCONN</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">10</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">AMAZON</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">05</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">ALL SET BUSINESSES SOLUTION</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">25</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">DELOITTE</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">03</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">HIVE SPACE</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">05</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">TRUE PROJECTS</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">04</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">INFOSYS</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">03</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">CALIC TECHNOLOGY</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">04</span></td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
 
-        <!-- ===================== YEAR 2023 ===================== -->
-        <div class="year-section" data-year="2023">
+        <!-- ===================== YEAR 2023-2024 ===================== -->
+        <div class="year-section" data-year="2023-2024" data-total="64">
             <button class="year-toggle" onclick="toggleYear(this)">
-                <span>Year 2023 <span class="count-tag" data-count></span></span>
+                <span>2023-2024 <span class="count-tag">(64 students selected)</span></span>
                 <svg class="chev" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
                 </svg>
@@ -575,59 +467,1001 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>Student Name</th>
-                            <th>Placed By</th>
-                            <th>Role</th>
-                            <th>Course</th>
-                            <th>Department</th>
-                            <th>Call Letter</th>
+                            <th>Company Name</th>
+                            <th>Selected Candidates</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td data-label="Student Name"><span class="student-name">D. Sai Kiran</span></td>
-                            <td data-label="Placed By">Amazon</td>
-                            <td data-label="Role"><span class="role-badge">Process Associate</span></td>
-                            <td data-label="Course">BCA</td>
-                            <td data-label="Department">Computer Science</td>
-                            <td data-label="Call Letter">
-                                <button class="check-now-btn" onclick="openCallLetter('D. Sai Kiran', 'Amazon', 'Process Associate', '2023')">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                                    </svg>
-                                    Check Now
-                                </button>
-                            </td>
+                            <td data-label="Company Name"><span class="student-name">WIPRO</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">25</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">INFOSYS</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">15</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">TCS</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">10</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">ACCENTURE</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">5</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">DELOITTE</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">3</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">TCS(BFS)</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">6</span></td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
 
-    </div>
+        <!-- ===================== YEAR 2022-2023 ===================== -->
+        <div class="year-section" data-year="2022-2023" data-total="311">
+            <button class="year-toggle" onclick="toggleYear(this)">
+                <span>2022-2023 <span class="count-tag">(311 students selected)</span></span>
+                <svg class="chev" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                </svg>
+            </button>
+            <div class="year-body">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Company Name</th>
+                            <th>Selected Candidates</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">WIPRO</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">194</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">INFOSYS</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">50</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">TCS</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">20</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">CAPGEMINI</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">5</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">ACCENTURE</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">11</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">DELOITTE</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">8</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">TCS(BFS)</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">23</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
-    <!-- ===================== CALL LETTER MODAL ===================== -->
-    <div class="modal-overlay" id="callLetterModal">
-        <div class="modal-box">
-            <button class="modal-close" onclick="closeCallLetter()">&times;</button>
-            <div class="modal-header">
-                <h3 id="modalStudentName">Student Name</h3>
-                <span id="modalStudentMeta">Company · Role · Year</span>
+        <!-- ===================== YEAR 2021-2022 ===================== -->
+        <div class="year-section" data-year="2021-2022" data-total="303">
+            <button class="year-toggle" onclick="toggleYear(this)">
+                <span>2021-2022 <span class="count-tag">(303 students selected)</span></span>
+                <svg class="chev" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                </svg>
+            </button>
+            <div class="year-body">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Company Name</th>
+                            <th>Selected Candidates</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">WIPRO</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">120</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">INFOSYS</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">60</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">TCS</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">45</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">CAPGEMINI</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">10</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">ACCENTURE</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">15</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">DELOITTE</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">18</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">TCS(BFS)</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">30</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">MINDTREE</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">05</span></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-            <div class="modal-img-wrap">
-                <img id="modalCallLetterImg" src="" alt="Call Letter">
+        </div>
+
+        <!-- ===================== YEAR 2020-2021 ===================== -->
+        <div class="year-section" data-year="2020-2021" data-total="180">
+            <button class="year-toggle" onclick="toggleYear(this)">
+                <span>2020-2021 <span class="count-tag">(180 students selected)</span></span>
+                <svg class="chev" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                </svg>
+            </button>
+            <div class="year-body">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Company Name</th>
+                            <th>Selected Candidates</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">WIPRO</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">80</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">INFOSYS</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">35</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">TCS</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">30</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">CTS</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">27</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">Tech-Mahindra & others</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">08</span></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-            <div class="verified-badge">
-                <span class="badge-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
-                    </svg>
-                </span>
-                <span class="badge-text">
-                    <strong>Verified by NDC</strong>
-                    <span>This call letter has been verified by National Degree College</span>
-                </span>
+        </div>
+
+        <!-- ===================== YEAR 2019-2020 ===================== -->
+        <div class="year-section" data-year="2019-2020" data-total="121">
+            <button class="year-toggle" onclick="toggleYear(this)">
+                <span>2019-2020 <span class="count-tag">(121 students selected)</span></span>
+                <svg class="chev" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                </svg>
+            </button>
+            <div class="year-body">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Company Name</th>
+                            <th>Selected Candidates</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">TCS</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">28</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">CTS</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">23</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">WIPRO</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">40</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">INFOSYS</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">20</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">GENPACT</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">10</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ===================== YEAR 2018-2019 ===================== -->
+        <div class="year-section" data-year="2018-2019" data-total="126">
+            <button class="year-toggle" onclick="toggleYear(this)">
+                <span>2018-2019 <span class="count-tag">(126 students selected)</span></span>
+                <svg class="chev" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                </svg>
+            </button>
+            <div class="year-body">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Company Name</th>
+                            <th>Selected Candidates</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">WIPRO</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">36</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">TCS</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">20</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">CTS</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">13</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">INFOSYS</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">23</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">HCL</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">12</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">SYNTEL</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">11</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">GLOBAL INFOTECH</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">01</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ===================== YEAR 2017-2018 ===================== -->
+        <div class="year-section" data-year="2017-2018" data-total="178">
+            <button class="year-toggle" onclick="toggleYear(this)">
+                <span>2017-2018 <span class="count-tag">(178 students selected)</span></span>
+                <svg class="chev" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                </svg>
+            </button>
+            <div class="year-body">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Company Name</th>
+                            <th>Selected Candidates</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">COGNIZANT DRIVE</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">05</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">TECH MAHENDRA</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">02</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">WIPRO</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">65</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">TCS IGNITE</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">10</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">TCS INFRA</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">05</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">INFOSYS</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">06</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">ICICI BANK</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">85</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ===================== YEAR 2016-2017 ===================== -->
+        <div class="year-section" data-year="2016-2017" data-total="70">
+            <button class="year-toggle" onclick="toggleYear(this)">
+                <span>2016-2017 <span class="count-tag">(70 students selected)</span></span>
+                <svg class="chev" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                </svg>
+            </button>
+            <div class="year-body">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Company Name</th>
+                            <th>Selected Candidates</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">TCS – IT</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">35</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">CAPGEMINI</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">06</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">INFOSYS -BPO</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">11</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">INFOSYS – IT</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">08</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">TCS – IGNITE</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">10</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ===================== YEAR 2015-2016 ===================== -->
+        <div class="year-section" data-year="2015-2016" data-total="214">
+            <button class="year-toggle" onclick="toggleYear(this)">
+                <span>2015-2016 <span class="count-tag">(214 students selected)</span></span>
+                <svg class="chev" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                </svg>
+            </button>
+            <div class="year-body">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Company Name</th>
+                            <th>Selected Candidates</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">TCS – IT</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">62</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">TCS – IGNITE</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">20</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">AEGIES</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">05</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">NEXWARE - ACCENTURE</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">06</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">INFOSYS</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">11</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">ICICI</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">108</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">Tech Mahendra</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">02</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ===================== YEAR 2014-2015 ===================== -->
+        <div class="year-section" data-year="2014-2015" data-total="101">
+            <button class="year-toggle" onclick="toggleYear(this)">
+                <span>2014-2015 <span class="count-tag">(101 students selected)</span></span>
+                <svg class="chev" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                </svg>
+            </button>
+            <div class="year-body">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Company Name</th>
+                            <th>Selected Candidates</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">WIPRO (WASE, WiSTA & GIS)</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">40</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">TCS</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">25</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">Tech Mahendra</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">09</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">Infosys</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">05</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">Accenture</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">04</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">Agana tech</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">07</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">People Tech</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">12</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">Reddy's Lab</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">35</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">Google</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">04</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ===================== YEAR 2013-2014 ===================== -->
+        <div class="year-section" data-year="2013-2014" data-total="137">
+            <button class="year-toggle" onclick="toggleYear(this)">
+                <span>2013-2014 <span class="count-tag">(137 students selected)</span></span>
+                <svg class="chev" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                </svg>
+            </button>
+            <div class="year-body">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Company Name</th>
+                            <th>Selected Candidates</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">Wipro</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">18</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">TCS</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">48</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">Infosys</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">15</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">Accenture</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">12</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">Reddy's Lab</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">40</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">Google</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">04</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ===================== YEAR 2012-2013 ===================== -->
+        <div class="year-section" data-year="2012-2013" data-total="58">
+            <button class="year-toggle" onclick="toggleYear(this)">
+                <span>2012-2013 <span class="count-tag">(58 students selected)</span></span>
+                <svg class="chev" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                </svg>
+            </button>
+            <div class="year-body">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Company Name</th>
+                            <th>Selected Candidates</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">Wipro</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">15</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">TCS</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">12</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">Reddy's Lab</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">21</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">Infosys</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">10</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ===================== YEAR 2011-2012 ===================== -->
+        <div class="year-section" data-year="2011-2012" data-total="49">
+            <button class="year-toggle" onclick="toggleYear(this)">
+                <span>2011-2012 <span class="count-tag">(49 students selected)</span></span>
+                <svg class="chev" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                </svg>
+            </button>
+            <div class="year-body">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Company Name</th>
+                            <th>Selected Candidates</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">Wipro</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">25</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">TCS</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">07</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">Accenture</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">06</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">Cognizant Technology Solutions</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">05</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">Deloitte</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">06</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ===================== YEAR 2010-2011 ===================== -->
+        <div class="year-section" data-year="2010-2011" data-total="47">
+            <button class="year-toggle" onclick="toggleYear(this)">
+                <span>2010-2011 <span class="count-tag">(47 students selected)</span></span>
+                <svg class="chev" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                </svg>
+            </button>
+            <div class="year-body">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Company Name</th>
+                            <th>Selected Candidates</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">Wipro</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">10</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">TCS</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">12</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">Infosys – BPO's</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">10</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">ICICI</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">15</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ===================== YEAR 2009-2010 ===================== -->
+        <div class="year-section" data-year="2009-2010" data-total="40">
+            <button class="year-toggle" onclick="toggleYear(this)">
+                <span>2009-2010 <span class="count-tag">(40 students selected)</span></span>
+                <svg class="chev" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                </svg>
+            </button>
+            <div class="year-body">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Company Name</th>
+                            <th>Selected Candidates</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">Wipro</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">21</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">TCS</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">05</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">Infosys – BPO's</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">05</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">Reddy's Lab</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">09</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ===================== YEAR 2008-2009 ===================== -->
+        <div class="year-section" data-year="2008-2009" data-total="15">
+            <button class="year-toggle" onclick="toggleYear(this)">
+                <span>2008-2009 <span class="count-tag">(15 students selected)</span></span>
+                <svg class="chev" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                </svg>
+            </button>
+            <div class="year-body">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Company Name</th>
+                            <th>Selected Candidates</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">Wipro</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">06</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">TCS</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">04</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">Infosys</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">05</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ===================== YEAR 2007-2008 ===================== -->
+        <div class="year-section" data-year="2007-2008" data-total="29">
+            <button class="year-toggle" onclick="toggleYear(this)">
+                <span>2007-2008 <span class="count-tag">(29 students selected)</span></span>
+                <svg class="chev" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                </svg>
+            </button>
+            <div class="year-body">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Company Name</th>
+                            <th>Selected Candidates</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">Cognizant Technology Solutions</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">04</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">Wipro</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">05</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">Reddy's Lab</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">20</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ===================== YEAR 2006-2007 ===================== -->
+        <div class="year-section" data-year="2006-2007" data-total="45">
+            <button class="year-toggle" onclick="toggleYear(this)">
+                <span>2006-2007 <span class="count-tag">(45 students selected)</span></span>
+                <svg class="chev" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                </svg>
+            </button>
+            <div class="year-body">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Company Name</th>
+                            <th>Selected Candidates</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">Wipro</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">16</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">TCS</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">03</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">Infosys</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">05</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">ICICI</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">21</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ===================== YEAR 2005-2006 ===================== -->
+        <div class="year-section" data-year="2005-2006" data-total="26">
+            <button class="year-toggle" onclick="toggleYear(this)">
+                <span>2005-2006 <span class="count-tag">(26 students selected)</span></span>
+                <svg class="chev" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                </svg>
+            </button>
+            <div class="year-body">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Company Name</th>
+                            <th>Selected Candidates</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">Wipro</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">15</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">Infosys</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">07</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">CMC</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">04</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ===================== YEAR 2004-2005 ===================== -->
+        <div class="year-section" data-year="2004-2005" data-total="13">
+            <button class="year-toggle" onclick="toggleYear(this)">
+                <span>2004-2005 <span class="count-tag">(13 students selected)</span></span>
+                <svg class="chev" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                </svg>
+            </button>
+            <div class="year-body">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Company Name</th>
+                            <th>Selected Candidates</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">Wipro</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">07</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">Infosys – BPO's</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">06</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ===================== YEAR 2003-2004 ===================== -->
+        <div class="year-section" data-year="2003-2004" data-total="09">
+            <button class="year-toggle" onclick="toggleYear(this)">
+                <span>2003-2004 <span class="count-tag">(09 students selected)</span></span>
+                <svg class="chev" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                </svg>
+            </button>
+            <div class="year-body">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Company Name</th>
+                            <th>Selected Candidates</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">Wipro</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">02</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">Infosys</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">04</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">Cognizant Technology Solutions</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">03</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ===================== YEAR 2002-2003 ===================== -->
+        <div class="year-section" data-year="2002-2003" data-total="06">
+            <button class="year-toggle" onclick="toggleYear(this)">
+                <span>2002-2003 <span class="count-tag">(06 students selected)</span></span>
+                <svg class="chev" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                </svg>
+            </button>
+            <div class="year-body">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Company Name</th>
+                            <th>Selected Candidates</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">Infosys</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">04</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">IBM</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">02</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ===================== YEAR 2001-2002 ===================== -->
+        <div class="year-section" data-year="2001-2002" data-total="15">
+            <button class="year-toggle" onclick="toggleYear(this)">
+                <span>2001-2002 <span class="count-tag">(15 students selected)</span></span>
+                <svg class="chev" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                </svg>
+            </button>
+            <div class="year-body">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Company Name</th>
+                            <th>Selected Candidates</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">Satyam Computers</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">06</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">Infosys</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">04</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">Cognizant Technology Solutions</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">05</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ===================== YEAR 1999-2000 ===================== -->
+        <div class="year-section" data-year="1999-2000" data-total="05">
+            <button class="year-toggle" onclick="toggleYear(this)">
+                <span>1999-2000 <span class="count-tag">(05 students selected)</span></span>
+                <svg class="chev" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                </svg>
+            </button>
+            <div class="year-body">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Company Name</th>
+                            <th>Selected Candidates</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">Infosys</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">05</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ===================== YEAR 1998-1999 ===================== -->
+        <div class="year-section" data-year="1998-1999" data-total="08">
+            <button class="year-toggle" onclick="toggleYear(this)">
+                <span>1998-1999 <span class="count-tag">(08 students selected)</span></span>
+                <svg class="chev" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                </svg>
+            </button>
+            <div class="year-body">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Company Name</th>
+                            <th>Selected Candidates</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">IBM</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">04</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Company Name"><span class="student-name">Satyam Computers</span></td>
+                            <td data-label="Selected Candidates"><span class="role-badge">04</span></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
@@ -638,57 +1472,6 @@
             const section = btn.closest('.year-section');
             section.classList.toggle('open');
         }
-
-        // Auto-count students placed per year — counts <tr> rows inside
-        // each .year-section's <tbody>, so the number always stays in
-        // sync with however many rows you add or remove in the HTML.
-        function updatePlacementCounts() {
-            document.querySelectorAll('.year-section').forEach(section => {
-                const rows = section.querySelectorAll('tbody tr').length;
-                const countEl = section.querySelector('.count-tag');
-                if (countEl) {
-                    countEl.textContent = `(${rows} student${rows === 1 ? '' : 's'} placed)`;
-                }
-            });
-        }
-
-        document.addEventListener('DOMContentLoaded', updatePlacementCounts);
-
-        // Map of student -> call letter image.
-        // Replace these placeholder paths with the actual scanned call letter image for each student.
-        const callLetterImages = {
-            'K. Prasanna Kumar': '/assets/images/placements/2025/prasanna-kumar.jpg',
-            'S. Afreen Banu': '/assets/images/placements/2025/afreen-banu.jpg',
-            'M. Ravi Teja': '/assets/images/placements/2025/ravi-teja.jpg',
-            'P. Divya Sri': '/assets/images/placements/2025/divya-sri.jpg',
-            'B. Nagendra': '/assets/images/placements/2024/nagendra.jpg',
-            'Y. Lakshmi Priya': '/assets/images/placements/2024/lakshmi-priya.jpg',
-            'D. Sai Kiran': '/assets/images/placements/2023/sai-kiran.jpg'
-        };
-
-        function openCallLetter(name, company, role, year) {
-            const modal = document.getElementById('callLetterModal');
-            document.getElementById('modalStudentName').textContent = name;
-            document.getElementById('modalStudentMeta').textContent = `${company} · ${role} · ${year}`;
-            document.getElementById('modalCallLetterImg').src = callLetterImages[name] || '';
-            modal.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeCallLetter() {
-            document.getElementById('callLetterModal').classList.remove('active');
-            document.body.style.overflow = '';
-        }
-
-        // Close modal when clicking outside the box
-        document.getElementById('callLetterModal').addEventListener('click', function (e) {
-            if (e.target === this) closeCallLetter();
-        });
-
-        // Close modal with Escape key
-        document.addEventListener('keydown', function (e) {
-            if (e.key === 'Escape') closeCallLetter();
-        });
     </script>
 </body>
 </html>
