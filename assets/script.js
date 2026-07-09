@@ -400,13 +400,29 @@ function renderMiniStats() {
 }
 
 function animateCounter(el, target, duration = 2000) {
-  const startTime = performance.now();
-  // easeOutExpo — fast start, slow satisfying finish (like YouTube's counter)
-  const ease = t => (t === 1 ? 1 : 1 - Math.pow(2, -10 * t));
+  // Anchored on the first real animation frame (not on call time) — if the
+  // main thread is busy right after page load (parsing, images, carousel
+  // setup, etc.), the first requestAnimationFrame callback can be delayed.
+  // Capturing startTime here instead of before the delay means the full
+  // animation window is always preserved, so short/small counters (like
+  // "Placement Years") don't get their whole duration eaten by that delay
+  // and snap straight to the final number instead of visibly counting up.
+  let startTime = null;
+
+  // Lock digit widths so the number doesn't visually shift sideways
+  // as it gains digits or commas — this is a big part of "smoothness".
+  el.style.fontVariantNumeric = 'tabular-nums';
+
+  // easeOutQuad — gentle, even deceleration throughout (calmer than cubic/expo,
+  // no sudden burst at the start).
+  const ease = t => 1 - Math.pow(1 - t, 2);
 
   function tick(now) {
+    if (startTime === null) startTime = now;
     const progress = Math.min((now - startTime) / duration, 1);
-    const value = Math.floor(ease(progress) * target);
+    // Math.round (not floor) tracks the eased curve more faithfully,
+    // avoiding the slight "lag" a floor produces.
+    const value = Math.round(ease(progress) * target);
     el.textContent = value.toLocaleString(); // adds commas for big numbers
     if (progress < 1) requestAnimationFrame(tick);
     else el.textContent = target.toLocaleString();
@@ -421,28 +437,45 @@ document.addEventListener('DOMContentLoaded', () => {
   const section = document.getElementById('placementCounter');
   if (!countEl || !section) return;
 
-  fetchTotalPlacedCount().then(renderMiniStats); // fetch early so it's ready by the time it's in view
-
   let hasAnimated = false;
+  let isSectionVisible = false;
+
+  // Runs the count-up the *first* time both conditions are true:
+  // the section is on screen AND the data has finished loading.
+  // Called from two places (the observer and the fetch callback) because
+  // we don't know which one will become true last — e.g. on a hard refresh
+  // while already scrolled to this section, the section is visible
+  // immediately but the fetch is still pending, so the observer alone
+  // would never fire again once the fetch does resolve.
+  function tryAnimate() {
+    if (hasAnimated || !isSectionVisible || placementTotal === null) return;
+    hasAnimated = true;
+
+    // Main total — slower, headline number
+    animateCounter(countEl, placementTotal, 3200);
+
+    // "Placement Years" is a small number (~27), so it only has ~27 discrete
+    // steps to show — give it the longest duration of the three so each step
+    // stays on screen long enough to actually read as counting, not snapping.
+    if (yearsEl && placementYears !== null) {
+      animateCounter(yearsEl, placementYears, 4200);
+    }
+    if (lastYearEl && latestYearTotal !== null) {
+      animateCounter(lastYearEl, latestYearTotal, 2800);
+    }
+
+    observer.disconnect();
+  }
+
+  fetchTotalPlacedCount().then(() => {
+    renderMiniStats();
+    tryAnimate(); // in case the section was already visible while we were fetching
+  });
+
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
-      if (entry.isIntersecting && !hasAnimated && placementTotal !== null) {
-        hasAnimated = true;
-
-        // Main total — slower, headline number
-        animateCounter(countEl, placementTotal, 2000);
-
-        // Mini stats — snappier since they're smaller numbers,
-        // but only animate once data has actually loaded (else they'd count up to 0)
-        if (yearsEl && placementYears !== null) {
-          animateCounter(yearsEl, placementYears, 1200);
-        }
-        if (lastYearEl && latestYearTotal !== null) {
-          animateCounter(lastYearEl, latestYearTotal, 1500);
-        }
-
-        observer.disconnect();
-      }
+      isSectionVisible = entry.isIntersecting;
+      if (isSectionVisible) tryAnimate();
     });
   }, { threshold: 0.4 });
 
