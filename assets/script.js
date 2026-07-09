@@ -307,7 +307,11 @@ async function fetchTotalPlacedCount() {
     const res = await fetch('/pages/placements/placements.html');
     const html = await res.text();
     const doc = new DOMParser().parseFromString(html, 'text/html');
-    placementTotal = doc.querySelectorAll('.year-section tbody tr').length;
+    const badges = doc.querySelectorAll('.year-section tbody tr .role-badge');
+    placementTotal = Array.from(badges).reduce((sum, el) => {
+      const n = parseInt(el.textContent.trim(), 10);
+      return sum + (isNaN(n) ? 0 : n);
+    }, 0);
   } catch (err) {
     console.error('Could not load placement count:', err);
     placementTotal = 0;
