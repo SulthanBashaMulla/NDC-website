@@ -301,20 +301,104 @@ function scrollReview(direction) {
                   
 // ===== Total Placements Counter (live-fetched, animates on scroll into view) =====
 let placementTotal = null;
+let placementYears = null;
+let latestYearLabel = null;
+let latestYearTotal = null;
+let topRecruiters = [];
+
+// Company names are written inconsistently across years (e.g. "TCS SMART",
+// "TCS BFS", "TCS - IT" should all count as one recruiter: TCS). Group by
+// these canonical keywords first; anything unmatched falls back to its own name.
+const RECRUITER_KEYWORDS = [
+  'WIPRO', 'TCS', 'INFOSYS', 'COGNIZANT', 'ACCENTURE', 'DELOITTE',
+  'CAPGEMINI', 'TECH MAHENDRA', 'TECH MAHINDRA', 'REDDY', 'ICICI',
+  'HCL', 'SYNTEL', 'GOOGLE', 'AMAZON', 'GENPACT'
+];
+
+function canonicalRecruiterName(rawName) {
+  const upper = rawName.toUpperCase();
+  for (const key of RECRUITER_KEYWORDS) {
+    if (upper.includes(key)) {
+      return key === 'TECH MAHINDRA' ? 'TECH MAHENDRA' : key; // merge spelling variants
+    }
+  }
+  return upper.split(/[-–(]/)[0].trim(); // fallback: first clean chunk of the name
+}
 
 async function fetchTotalPlacedCount() {
   try {
     const res = await fetch('/pages/placements/placements.html');
     const html = await res.text();
     const doc = new DOMParser().parseFromString(html, 'text/html');
-    const badges = doc.querySelectorAll('.year-section tbody tr .role-badge');
-    placementTotal = Array.from(badges).reduce((sum, el) => {
-      const n = parseInt(el.textContent.trim(), 10);
-      return sum + (isNaN(n) ? 0 : n);
-    }, 0);
+
+    const yearSections = doc.querySelectorAll('.year-section');
+    placementYears = yearSections.length;
+
+    let grandTotal = 0;
+    const recruiterTotals = {};
+    let latestStartYear = -1;
+
+    yearSections.forEach(section => {
+      const yearAttr = section.getAttribute('data-year') || '';
+      const startYear = parseInt(yearAttr.split('-')[0], 10);
+
+      const rows = section.querySelectorAll('tbody tr');
+      let yearSum = 0;
+
+      rows.forEach(row => {
+        const nameEl = row.querySelector('.student-name');
+        const badgeEl = row.querySelector('.role-badge');
+        if (!nameEl || !badgeEl) return;
+
+        const count = parseInt(badgeEl.textContent.trim(), 10);
+        if (isNaN(count)) return;
+
+        yearSum += count;
+        grandTotal += count;
+
+        const key = canonicalRecruiterName(nameEl.textContent.trim());
+        recruiterTotals[key] = (recruiterTotals[key] || 0) + count;
+      });
+
+      if (!isNaN(startYear) && startYear > latestStartYear) {
+        latestStartYear = startYear;
+        latestYearLabel = yearAttr;
+        latestYearTotal = yearSum;
+      }
+    });
+
+    placementTotal = grandTotal;
+    topRecruiters = Object.entries(recruiterTotals)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 4)
+      .map(([name]) => name);
   } catch (err) {
-    console.error('Could not load placement count:', err);
+    console.error('Could not load placement stats:', err);
     placementTotal = 0;
+    placementYears = 0;
+    topRecruiters = [];
+  }
+}
+
+function renderMiniStats() {
+  const yearsEl = document.getElementById('statYears');
+  const lastYearEl = document.getElementById('statLastYear');
+  const lastYearLabelEl = document.getElementById('statLastYearLabel');
+  const recruitersEl = document.getElementById('statTopRecruiters');
+
+  if (yearsEl && placementYears !== null) {
+    yearsEl.textContent = placementYears;
+  }
+  if (lastYearEl && latestYearTotal !== null) {
+    lastYearEl.textContent = latestYearTotal;
+  }
+  if (lastYearLabelEl && latestYearLabel) {
+    lastYearLabelEl.textContent = `Placed in ${latestYearLabel}`;
+  }
+  if (recruitersEl && topRecruiters.length) {
+    recruitersEl.innerHTML = topRecruiters
+      .map(name => `<span class="mini-stat-chip">${name}</span>`)
+      .join('');
   }
 }
 
@@ -338,7 +422,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const section = document.getElementById('placementCounter');
   if (!countEl || !section) return;
 
-  fetchTotalPlacedCount(); // fetch early so it's ready by the time it's in view
+  fetchTotalPlacedCount().then(renderMiniStats); // fetch early so it's ready by the time it's in view
 
   let hasAnimated = false;
   const observer = new IntersectionObserver((entries) => {
@@ -352,5 +436,4 @@ document.addEventListener('DOMContentLoaded', () => {
   }, { threshold: 0.4 });
 
   observer.observe(section);
-  
 });
