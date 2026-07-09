@@ -386,12 +386,9 @@ function renderMiniStats() {
   const lastYearLabelEl = document.getElementById('statLastYearLabel');
   const recruitersEl = document.getElementById('statTopRecruiters');
 
-  if (yearsEl && placementYears !== null) {
-    yearsEl.textContent = placementYears;
-  }
-  if (lastYearEl && latestYearTotal !== null) {
-    lastYearEl.textContent = latestYearTotal;
-  }
+  // Note: yearsEl / lastYearEl numeric values are now set by animateCounter()
+  // once the section scrolls into view (see the IntersectionObserver below),
+  // so we intentionally skip setting their textContent here.
   if (lastYearLabelEl && latestYearLabel) {
     lastYearLabelEl.textContent = `Placed in ${latestYearLabel}`;
   }
@@ -419,6 +416,8 @@ function animateCounter(el, target, duration = 2000) {
 
 document.addEventListener('DOMContentLoaded', () => {
   const countEl = document.getElementById('totalPlacedCount');
+  const yearsEl = document.getElementById('statYears');
+  const lastYearEl = document.getElementById('statLastYear');
   const section = document.getElementById('placementCounter');
   if (!countEl || !section) return;
 
@@ -429,7 +428,19 @@ document.addEventListener('DOMContentLoaded', () => {
     entries.forEach(entry => {
       if (entry.isIntersecting && !hasAnimated && placementTotal !== null) {
         hasAnimated = true;
-        animateCounter(countEl, placementTotal);
+
+        // Main total — slower, headline number
+        animateCounter(countEl, placementTotal, 2000);
+
+        // Mini stats — snappier since they're smaller numbers,
+        // but only animate once data has actually loaded (else they'd count up to 0)
+        if (yearsEl && placementYears !== null) {
+          animateCounter(yearsEl, placementYears, 1200);
+        }
+        if (lastYearEl && latestYearTotal !== null) {
+          animateCounter(lastYearEl, latestYearTotal, 1500);
+        }
+
         observer.disconnect();
       }
     });
