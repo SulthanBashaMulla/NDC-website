@@ -306,6 +306,13 @@ let latestYearLabel = null;
 let latestYearTotal = null;
 let topRecruiters = [];
 
+// The scraped placements.html only tracks headcount per company, not LPA
+// figures, so the two highest packages are recorded here directly.
+const HIGHEST_PACKAGES = [
+  { lpa: 14, company: 'EXL' },
+  { lpa: 13.5, company: 'Purview' }
+];
+
 // Company names are written inconsistently across years (e.g. "TCS SMART",
 // "TCS BFS", "TCS - IT" should all count as one recruiter: TCS). Group by
 // these canonical keywords first; anything unmatched falls back to its own name.
@@ -399,7 +406,7 @@ function renderMiniStats() {
   }
 }
 
-function animateCounter(el, target, duration = 2000) {
+function animateCounter(el, target, duration = 2000, decimals = 0) {
   // Anchored on the first real animation frame (not on call time) — if the
   // main thread is busy right after page load (parsing, images, carousel
   // setup, etc.), the first requestAnimationFrame callback can be delayed.
@@ -416,16 +423,20 @@ function animateCounter(el, target, duration = 2000) {
   // easeOutQuad — gentle, even deceleration throughout (calmer than cubic/expo,
   // no sudden burst at the start).
   const ease = t => 1 - Math.pow(1 - t, 2);
+  const factor = Math.pow(10, decimals);
 
   function tick(now) {
     if (startTime === null) startTime = now;
     const progress = Math.min((now - startTime) / duration, 1);
+    const raw = ease(progress) * target;
     // Math.round (not floor) tracks the eased curve more faithfully,
-    // avoiding the slight "lag" a floor produces.
-    const value = Math.round(ease(progress) * target);
-    el.textContent = value.toLocaleString(); // adds commas for big numbers
+    // avoiding the slight "lag" a floor produces. For decimal targets
+    // (e.g. 13.5 LPA), round to the requested decimal place instead
+    // of a whole number.
+    const value = Math.round(raw * factor) / factor;
+    el.textContent = decimals > 0 ? value.toFixed(decimals) : value.toLocaleString();
     if (progress < 1) requestAnimationFrame(tick);
-    else el.textContent = target.toLocaleString();
+    else el.textContent = decimals > 0 ? target.toFixed(decimals) : target.toLocaleString();
   }
   requestAnimationFrame(tick);
 }
@@ -434,6 +445,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const countEl = document.getElementById('totalPlacedCount');
   const yearsEl = document.getElementById('statYears');
   const lastYearEl = document.getElementById('statLastYear');
+  const highestLpa1El = document.getElementById('statHighestLpa1');
+  const highestLpa2El = document.getElementById('statHighestLpa2');
   const section = document.getElementById('placementCounter');
   if (!countEl || !section) return;
 
@@ -462,6 +475,18 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     if (lastYearEl && latestYearTotal !== null) {
       animateCounter(lastYearEl, latestYearTotal, 2800);
+    }
+
+    // Highest Package numbers — small values like the years counter, so
+    // they get a similarly generous duration. Purview's 13.5 needs one
+    // decimal place preserved throughout the count-up, not just at the end.
+    if (highestLpa1El) {
+      const pkg1 = HIGHEST_PACKAGES[0];
+      animateCounter(highestLpa1El, pkg1.lpa, 3600, Number.isInteger(pkg1.lpa) ? 0 : 1);
+    }
+    if (highestLpa2El) {
+      const pkg2 = HIGHEST_PACKAGES[1];
+      animateCounter(highestLpa2El, pkg2.lpa, 3600, Number.isInteger(pkg2.lpa) ? 0 : 1);
     }
 
     observer.disconnect();
