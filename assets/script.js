@@ -212,6 +212,25 @@ function scrollReview(direction) {
     });
 })();
 
+// Wipro video — play only while its section is in view, pause otherwise
+document.addEventListener('DOMContentLoaded', () => {
+  const videoIframe = document.getElementById('wiproVideo');
+  if (!videoIframe || typeof Vimeo === 'undefined') return;
+
+  const player = new Vimeo.Player(videoIframe);
+
+  const videoObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        player.play();
+      } else {
+        player.pause();
+      }
+    });
+  }, { threshold: 0.5 });
+
+  videoObserver.observe(videoIframe.closest('.video-section'));
+});
 
 // Latest Notices
 (function () {

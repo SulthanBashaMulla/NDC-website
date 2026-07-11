@@ -688,8 +688,11 @@ nav {
 
 .staff-image {
   width: 100%;
-  height: 300px;
-  object-fit:contain;
+  aspect-ratio: 4 / 5;
+  height: auto;
+  object-fit: cover;
+  display: block;
+}
 }
 
 .staff-info {
@@ -1328,14 +1331,27 @@ Tablet screens (768px) */
   .staff-container {
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   }
-  .staff-image {
-    height: 250px;
+.staff-image {
+  aspect-ratio: 4 / 5;
+}
   }
   .staff-info h3 {
     font-size: 1.2rem;
   }
   .staff-info p {
     font-size: 1rem;
+  }
+}
+@media (min-width: 1200px) {
+  .staff-container {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+  }
+  .staff-heading {
+    font-size: 1.8rem;
+  }
+  .staff-image {
+    aspect-ratio: 4 / 5;
   }
 }
 
@@ -1766,11 +1782,16 @@ Tablet screens (768px) */
   50% { transform: translateX(-100%) scale(0.8); }
   100% { transform: translateX(0%) scale(1); }
 }
-
+@keyframes ani2 {
+  0% { transform: translateX(0%) scale(1); }
+  50% { transform: translateX(40%) scale(1.15); }
+  100% { transform: translateX(0%) scale(1); }
+}
 @keyframes shine {
   0% { top: 100%; left: -100%; }
   50%, 100% { top: 0%; left: 70%; }
 }
+
 
 /* =========================
    TABLET STYLES
