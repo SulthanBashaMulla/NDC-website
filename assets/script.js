@@ -134,17 +134,7 @@ function autoScroll() {
 
 requestAnimationFrame(autoScroll);
 
-carousel.addEventListener('mouseenter', () => speed = 0);
-carousel.addEventListener('mouseleave', () => speed = 0.5);
 
-let startX;
-carousel.addEventListener('touchstart', e => startX = e.touches[0].pageX);
-carousel.addEventListener('touchmove', e => {
-    const touchX = e.touches[0].pageX;
-    const diff = startX - touchX;
-    carousel.scrollLeft += diff;
-    startX = touchX;
-});
 
 
 // Reviews — manual arrow click only
