@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NDC - Send Reply</title>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #eef1f5;
+    padding: 24px 16px;
+  }
+  .card {
+    max-width: 520px;
+    margin: 0 auto;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    overflow: hidden;
+  }
+  .header {
+    background: linear-gradient(90deg,#1a2f5c,#c0392b);
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+  }
+  .header h1 {
+    font-size: 18px;
+    margin: 0;
+    letter-spacing: 0.5px;
+  }
+  .header p {
+    margin: 4px 0 0;
+    font-size: 12px;
+    color: #e0e0e0;
+  }
+  form {
+    padding: 24px;
+  }
+  label {
+    display: block;
+    font-size: 13px;
+    font-weight: bold;
+    color: #1a2f5c;
+    margin-bottom: 6px;
+    margin-top: 16px;
+  }
+  label:first-of-type { margin-top: 0; }
+  input, textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #d5dbe3;
+    border-radius: 6px;
+    font-size: 14px;
+    font-family: inherit;
+  }
+  textarea {
+    min-height: 140px;
+    resize: vertical;
+  }
+  button {
+    margin-top: 20px;
+    width: 100%;
+    padding: 12px;
+    background: #ff7a3d;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  button:disabled {
+    background: #f0a479;
+    cursor: not-allowed;
+  }
+  #status {
+    margin-top: 14px;
+    font-size: 14px;
+    text-align: center;
+  }
+  .success { color: #1a7f37; }
+  .error { color: #c0392b; }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <div class="header">
+    <h1>National Degree College</h1>
+    <p>Send a reply to an enquiry</p>
+  </div>
+
+  <form id="replyForm">
+    <label for="to_name">Recipient Name</label>
+    <input type="text" id="to_name" required placeholder="e.g. recipient name">
+
+    <label for="to_email">Recipient Email</label>
+    <input type="email" id="to_email" required placeholder="e.g. gmail.com">
+
+    <label for="subject">Subject</label>
+    <input type="text" id="subject" required placeholder="e.g. subject">
+
+    <label for="message">Message</label>
+    <textarea id="message" required placeholder="Type your reply here..."></textarea>
+
+    <label for="from_name">Your Name (sign-off)</label>
+    <input type="text" id="from_name" required placeholder="your name">
+
+    <button type="submit" id="sendBtn">Send Reply</button>
+    <div id="status"></div>
+  </form>
+</div>
+
+<script>
+  (function() {
+    emailjs.init({ publicKey: "BzQKHq7m79pEOJfQB" });
+  })();
+
+  const SERVICE_ID = "service_r4btso9";
+  const TEMPLATE_ID = "template_8ge2bje";
+
+  const form = document.getElementById("replyForm");
+  const sendBtn = document.getElementById("sendBtn");
+  const statusEl = document.getElementById("status");
+
+  form.addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const params = {
+      to_name: document.getElementById("to_name").value.trim(),
+      to_email: document.getElementById("to_email").value.trim(),
+      subject: document.getElementById("subject").value.trim(),
+      message: document.getElementById("message").value.trim(),
+      from_name: document.getElementById("from_name").value.trim()
+    };
+
+    sendBtn.disabled = true;
+    sendBtn.textContent = "Sending...";
+    statusEl.textContent = "";
+    statusEl.className = "";
+
+    emailjs.send(SERVICE_ID, TEMPLATE_ID, params)
+      .then(function() {
+        statusEl.textContent = "✅ Reply sent successfully!";
+        statusEl.className = "success";
+        form.reset();
+      })
+      .catch(function(err) {
+        statusEl.textContent = "❌ Failed to send: " + (err && err.text ? err.text : "please check your EmailJS setup.");
+        statusEl.className = "error";
+      })
+      .finally(function() {
+        sendBtn.disabled = false;
+        sendBtn.textContent = "Send Reply";
+      });
+  });
+</script>
+
+</body>
+</html>
